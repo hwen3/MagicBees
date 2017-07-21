@@ -127,14 +127,16 @@ public enum HiveType
 		ArrayList<ItemStack> hiveDrops = new ArrayList<ItemStack>();
 		int dart;
 		
+		Collections.shuffle(this.drops);
+
 		// Get a princess.
 		int throttle = 0;
 		while (hiveDrops.size() <= 0 && throttle < 10)
 		{
 			++throttle;
-			dart = world.rand.nextInt(100);
 			for (IHiveDrop drop : drops)
 			{
+				dart = world.rand.nextInt(100);
 				if (dart <= drop.getChance(world, x, y, z))
 				{
 					hiveDrops.add(drop.getPrincess(world, x, y, z, fortune));
@@ -144,9 +146,9 @@ public enum HiveType
 		}
 		
 		// Get a drone, maybe.
-		dart = world.rand.nextInt(100);
 		for (IHiveDrop drop : drops)
 		{
+			dart = world.rand.nextInt(100);
 			if (dart <= drop.getChance(world, x, y, z))
 			{
 				hiveDrops.addAll(drop.getDrones(world, x, y, z, fortune));
@@ -155,9 +157,9 @@ public enum HiveType
 		}
 		
 		// Get additional drops.
-		dart = world.rand.nextInt(100);
 		for (IHiveDrop drop : drops)
 		{
+			dart = world.rand.nextInt(100);
 			if (dart <= drop.getChance(world, x, y, z))
 			{
 				hiveDrops.addAll(drop.getAdditional(world, x, y, z, fortune));
