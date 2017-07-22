@@ -230,7 +230,7 @@ public enum EnumBeeHives implements IHiveEnum {
     }
 
     private static final ItemStack comb = ItemRegister.combItem.getStackFromType(EnumCombType.MUNDANE);
-    private static final IHiveDrop valiantDrop = new HiveDrop(addRainResist(EnumBeeSpecies.getForestrySpeciesTemplate("Valiant")), 5, comb);
+    private static final IHiveDrop valiantDrop = new HiveDrop(addRainResist(EnumBeeSpecies.getForestrySpeciesTemplate("Valiant")), 0.05, comb);
 
     private static IBeeGenome addRainResist(IAllele[] alleles){
         IAllele[] ret = alleles.clone();
