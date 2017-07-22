@@ -30,7 +30,7 @@ public class SubTileBeegonia extends SubTileGenerating {
 
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, Utils.getAABB(supertile.getPos(), RANGE, true));
 			for (EntityItem item : items) {
-				if (item.getAge() >= ITEM_STACK_AGE_THRESHOLD && !item.isDead) {
+				if (item.age >= ITEM_STACK_AGE_THRESHOLD && !item.isDead) {
 					ItemStack stack = item.getEntityItem();
 					if (BeeManager.beeRoot.isDrone(stack)) {
 						IBee bee = BeeManager.beeRoot.getMember(stack);

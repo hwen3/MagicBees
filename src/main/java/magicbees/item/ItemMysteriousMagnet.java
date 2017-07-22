@@ -84,7 +84,7 @@ public class ItemMysteriousMagnet extends AbstractTexturedItem {
                 List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, bounds);
 
                 for (EntityItem e : list) {
-                    if (e.getAge() >= 10) {
+                    if (e.age >= 10) {
                         double x = player.posX - e.posX;
                         double y = player.posY - e.posY;
                         double z = player.posZ - e.posZ;
