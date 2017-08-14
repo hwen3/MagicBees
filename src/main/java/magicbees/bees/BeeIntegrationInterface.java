@@ -1,15 +1,15 @@
 package magicbees.bees;
 
-import elec332.core.compat.forestry.ForestryAlleles;
-import elec332.core.compat.forestry.allele.AlleleEffectThrottled;
-import elec332.core.compat.forestry.allele.AlleleFlowerProvider;
-import elec332.core.compat.forestry.bee.BeeGenomeTemplate;
 import forestry.api.apiculture.IAlleleBeeEffect;
 import forestry.api.apiculture.IAlleleBeeSpeciesBuilder;
 import forestry.api.apiculture.IBeeGenome;
 import forestry.api.apiculture.IBeeHousing;
 import forestry.api.genetics.IAlleleEffect;
 import forestry.api.genetics.IEffectData;
+import magicbees.elec332.corerepack.compat.forestry.ForestryAlleles;
+import magicbees.elec332.corerepack.compat.forestry.allele.AlleleEffectThrottled;
+import magicbees.elec332.corerepack.compat.forestry.allele.AlleleFlowerProvider;
+import magicbees.elec332.corerepack.compat.forestry.bee.BeeGenomeTemplate;
 import magicbees.util.MagicBeesResourceLocation;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -19,7 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import static elec332.core.compat.forestry.ForestryAlleles.*;
+import static magicbees.elec332.corerepack.compat.forestry.ForestryAlleles.*;
 
 /**
  * Created by Elec332 on 15-5-2017.

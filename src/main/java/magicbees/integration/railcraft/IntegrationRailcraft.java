@@ -1,11 +1,11 @@
 package magicbees.integration.railcraft;
 
-import elec332.core.api.module.ElecModule;
-import elec332.core.world.WorldHelper;
 import magicbees.MagicBees;
 import magicbees.api.ITransmutationHandler;
+import magicbees.api.module.IMagicBeesInitialisationEvent;
+import magicbees.api.module.IMagicBeesModule;
+import magicbees.api.module.MagicBeesModule;
 import magicbees.util.ModNames;
-import magicbees.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.IBlockState;
@@ -16,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 import javax.annotation.Nullable;
 
@@ -24,15 +23,15 @@ import javax.annotation.Nullable;
  * Created by Elec332 on 15-5-2017.
  */
 @SuppressWarnings("deprecation")
-@ElecModule(owner = MagicBees.modid, name = "Railcraft Integration", modDependencies = ModNames.RAILCRAFT)
-public class IntegrationRailcraft {
+@MagicBeesModule(owner = MagicBees.modid, name = "Railcraft Integration", modDependencies = ModNames.RAILCRAFT)
+public class IntegrationRailcraft implements IMagicBeesModule {
 
 	private Block quarried, abyssal;
 
-	@ElecModule.EventHandler
-	public void init(FMLInitializationEvent event){
-		quarried = Utils.getBlock(ModNames.RAILCRAFT, "brick_quarried");
-		abyssal = Utils.getBlock(ModNames.RAILCRAFT, "brick_abyssal");
+	@Override
+	public void init(IMagicBeesInitialisationEvent event){
+		quarried = event.getBlock("brick_quarried");
+		abyssal = event.getBlock( "brick_abyssal");
 		MagicBees.transmutationController.addTransmutationHandler(new ITransmutationHandler() {
 
 			@Override
@@ -50,7 +49,7 @@ public class IntegrationRailcraft {
 				if (hT){
 					IBlockState state = trySpawnRC(biome, type);
 					if (state != null){
-						WorldHelper.setBlockState(world, pos, state, 3);
+						world.setBlockState(pos, state, 3);
 						return true;
 					}
 				}

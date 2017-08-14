@@ -1,23 +1,23 @@
 package magicbees.integration.redstonearsenal;
 
-import elec332.core.api.module.ElecModule;
 import magicbees.MagicBees;
+import magicbees.api.module.IMagicBeesInitialisationEvent;
+import magicbees.api.module.IMagicBeesModule;
+import magicbees.api.module.MagicBeesModule;
 import magicbees.bees.BeeIntegrationInterface;
 import magicbees.util.ModNames;
-import magicbees.util.Utils;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
  * Created by Elec332 on 19-5-2017.
  */
-@ElecModule(owner = MagicBees.modid, name = "RedstoneArsenal Integration", modDependencies = ModNames.RSA)
-public class IntegrationRSA {
+@MagicBeesModule(owner = MagicBees.modid, name = "RedstoneArsenal Integration", modDependencies = ModNames.RSA)
+public class IntegrationRSA implements IMagicBeesModule {
 
-	@ElecModule.EventHandler
-	public void init(FMLInitializationEvent event){
-		BeeIntegrationInterface.itemRSAFluxedElectrumNugget = new ItemStack(Utils.getItem(ModNames.RSA, "material"), 1, 64);
-		BeeIntegrationInterface.blockRSAFluxedElectrum = Utils.getBlock(ModNames.RSA, "storage").getDefaultState();
+	@Override
+	public void init(IMagicBeesInitialisationEvent event){
+		BeeIntegrationInterface.itemRSAFluxedElectrumNugget = new ItemStack(event.getItem("material"), 1, 64);
+		BeeIntegrationInterface.blockRSAFluxedElectrum = event.getBlock("storage").getDefaultState();
 	}
 
 }

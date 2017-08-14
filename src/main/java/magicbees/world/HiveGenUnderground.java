@@ -1,7 +1,6 @@
 package magicbees.world;
 
 import com.google.common.base.Predicate;
-import elec332.core.world.WorldHelper;
 import forestry.api.apiculture.hives.IHiveGen;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -44,7 +43,7 @@ public class HiveGenUnderground implements IHiveGen {
     public boolean isValidLocation(@Nonnull World world, @Nonnull BlockPos blockPos) {
         int i = surroundCount;
         for (EnumFacing f : EnumFacing.VALUES){
-            if (isReplaceableOreGen(WorldHelper.getBlockState(world, blockPos.offset(f)), world, blockPos, replace)){
+            if (isReplaceableOreGen(world.getBlockState(blockPos.offset(f)), world, blockPos, replace)){
                 i--;
             }
             if (i <= 0){

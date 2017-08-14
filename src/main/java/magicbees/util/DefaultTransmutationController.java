@@ -2,11 +2,9 @@ package magicbees.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
-import elec332.core.util.ItemStackHelper;
-import elec332.core.world.WorldHelper;
-import elec332.core.world.location.BlockStateWrapper;
 import magicbees.api.ITransmutationController;
 import magicbees.api.ITransmutationHandler;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,12 +36,12 @@ public class DefaultTransmutationController implements ITransmutationController 
     @Override
     public boolean transmute(World world, BlockPos pos) {
         if(!world.isAirBlock(pos)) {
-            BlockStateWrapper bsw = new BlockStateWrapper(WorldHelper.getBlockState(world, pos));
-            ItemStack source = bsw.toItemStack();
-            if (!ItemStackHelper.isStackValid(source)){
+            IBlockState state = world.getBlockState(pos);
+            ItemStack source = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+            if (source.isEmpty()){
                 return false;
             }
-            Biome biome = WorldHelper.getBiome(world, pos);
+            Biome biome = world.getBiome(pos);
 
             for (ITransmutationHandler transmutationHandler : transmutationHandlers){
                 if (transmutationHandler.transmute(world, pos, source, biome)){

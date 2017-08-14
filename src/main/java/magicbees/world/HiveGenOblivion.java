@@ -1,6 +1,5 @@
 package magicbees.world;
 
-import elec332.core.world.WorldHelper;
 import forestry.api.apiculture.hives.IHiveGen;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -45,7 +44,7 @@ public class HiveGenOblivion implements IHiveGen {
     public boolean isValidLocation(@Nonnull World world, @Nonnull BlockPos pos) {
 
         for (EnumFacing f : EnumFacing.VALUES){
-            if (!HiveGenUnderground.isReplaceableOreGen(WorldHelper.getBlockState(world, pos.offset(f)), world, pos,Blocks.END_STONE)){
+            if (!HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos.offset(f)), world, pos,Blocks.END_STONE)){
                 return false;
             }
         }

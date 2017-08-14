@@ -1,23 +1,22 @@
 package magicbees.item;
 
-import elec332.core.api.client.IColoredItem;
-import elec332.core.compat.forestry.bee.IDefaultHiveFrame;
-import elec332.core.item.AbstractTexturedItem;
 import forestry.api.apiculture.IBeeModifier;
 import magicbees.MagicBees;
 import magicbees.bees.EnumBeeModifiers;
+import magicbees.elec332.corerepack.compat.forestry.bee.IDefaultHiveFrame;
 import magicbees.util.MagicBeesResourceLocation;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
 /**
  * Created by Elec332 on 22-8-2016.
  */
-public class ItemMagicBeesFrame extends AbstractTexturedItem implements IDefaultHiveFrame, IColoredItem {
+public class ItemMagicBeesFrame extends Item implements IDefaultHiveFrame {
 
     public ItemMagicBeesFrame(EnumBeeModifiers modifier) {
-        super(new MagicBeesResourceLocation("frames."+modifier.name().toLowerCase()));
+        super();
+        setRegistryName(new MagicBeesResourceLocation("frames."+modifier.name().toLowerCase()));
         setMaxDamage(modifier.getMaxDamage());
         setCreativeTab(MagicBees.creativeTab);
         this.modifier = modifier;
@@ -31,8 +30,4 @@ public class ItemMagicBeesFrame extends AbstractTexturedItem implements IDefault
         return modifier;
     }
 
-    @Override
-    protected ResourceLocation getTextureLocation() {
-        return new ResourceLocation(super.getTextureLocation().toString().replace(".", "/"));
-    }
 }

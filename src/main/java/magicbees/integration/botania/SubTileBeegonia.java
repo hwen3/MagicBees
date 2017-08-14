@@ -31,22 +31,22 @@ public class SubTileBeegonia extends SubTileGenerating {
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, Utils.getAABB(supertile.getPos(), RANGE, true));
 			for (EntityItem item : items) {
 				if (item.age >= ITEM_STACK_AGE_THRESHOLD && !item.isDead) {
-					ItemStack stack = item.getEntityItem();
+					ItemStack stack = item.getItem();
 					if (BeeManager.beeRoot.isDrone(stack)) {
 						IBee bee = BeeManager.beeRoot.getMember(stack);
 						if (bee == null){
 							return;
 						}
 
-						if (stack.stackSize > 0) {
-							stack.stackSize--;
+						if (stack.getCount() > 0) {
+							stack.shrink(1);
 							burnTimeLeft = (int)(DRONE_BURN_TIME_BASE * getSpeciesScaledComplexity(bee.getGenome().getPrimary()) * BotaniaIntegrationConfig.beegoniaManaMultiplier);
 							needsSync = true;
 
 							//todo? supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:endoflame", 0.2F, 1F);
 						}
 
-						if (stack.stackSize <= 0) {
+						if (stack.getCount() <= 0) {
 							item.setDead();
 						}
 					}

@@ -1,6 +1,5 @@
 package magicbees.item;
 
-import elec332.core.item.AbstractTexturedItem;
 import forestry.api.arboriculture.IToolGrafter;
 import forestry.core.utils.Translator;
 import magicbees.MagicBees;
@@ -11,9 +10,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -30,12 +31,13 @@ import java.util.List;
 @Optional.InterfaceList({
 		@Optional.Interface(iface = "vazkii.botania.api.mana.IManaUsingItem", modid = ModNames.BOTANIA, striprefs = true)
 })
-public class ItemManaSteelGrafter extends AbstractTexturedItem implements IToolGrafter, IManaUsingItem {
+public class ItemManaSteelGrafter extends Item implements IToolGrafter, IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 90;
 
 	public ItemManaSteelGrafter() {
-		super(new MagicBeesResourceLocation("manasteelgrafter"));
+		super();
+		setRegistryName(new MagicBeesResourceLocation("manasteelgrafter"));
 		setCreativeTab(MagicBees.creativeTab);
 		setMaxDamage(15);
 		setMaxStackSize(1);
@@ -66,7 +68,7 @@ public class ItemManaSteelGrafter extends AbstractTexturedItem implements IToolG
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced) {
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		if (!stack.isItemDamaged()) {
 			tooltip.add(Translator.translateToLocalFormatted("item.for.uses", stack.getMaxDamage() + 1));

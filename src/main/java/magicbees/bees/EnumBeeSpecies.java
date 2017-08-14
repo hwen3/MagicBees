@@ -1,19 +1,22 @@
 package magicbees.bees;
 
 import com.google.common.base.Preconditions;
-import elec332.core.compat.forestry.ForestryAlleles;
-import elec332.core.compat.forestry.IIndividualBranch;
-import elec332.core.compat.forestry.IIndividualDefinition;
-import elec332.core.compat.forestry.bee.BeeGenomeTemplate;
-import elec332.core.compat.forestry.bee.IBeeTemplate;
-import elec332.core.util.ItemStackHelper;
-import elec332.core.util.MoonPhase;
-import elec332.core.util.OredictHelper;
+import forestry.api.apiculture.*;
+import forestry.api.core.EnumHumidity;
+import forestry.api.core.EnumTemperature;
+import forestry.api.genetics.AlleleManager;
+import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IAlleleEffect;
 import forestry.apiculture.items.EnumHoneyComb;
 import magicbees.MagicBees;
 import magicbees.bees.mutation.MoonPhaseMutationBonus;
 import magicbees.bees.mutation.MoonPhaseMutationRestriction;
+import magicbees.elec332.corerepack.compat.forestry.ForestryAlleles;
+import magicbees.elec332.corerepack.compat.forestry.IIndividualBranch;
+import magicbees.elec332.corerepack.compat.forestry.IIndividualDefinition;
+import magicbees.elec332.corerepack.compat.forestry.bee.BeeGenomeTemplate;
+import magicbees.elec332.corerepack.compat.forestry.bee.IBeeTemplate;
+import magicbees.elec332.corerepack.util.MoonPhase;
 import magicbees.init.AlleleRegister;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumCombType;
@@ -22,12 +25,6 @@ import magicbees.item.types.EnumPollenType;
 import magicbees.item.types.EnumResourceType;
 import magicbees.util.EnumOreResourceType;
 import magicbees.util.IMagicBeesBranch;
-import forestry.api.apiculture.*;
-import forestry.api.apiculture.BeeManager;
-import forestry.api.core.EnumHumidity;
-import forestry.api.core.EnumTemperature;
-import forestry.api.genetics.AlleleManager;
-import forestry.api.genetics.IAllele;
 import magicbees.util.ModNames;
 import magicbees.util.Utils;
 import net.minecraft.block.state.IBlockState;
@@ -36,14 +33,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.text.WordUtils;
 
 import javax.annotation.Nonnull;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import java.util.Locale;
 
-import static elec332.core.compat.forestry.ForestryAlleles.*;
+import static magicbees.elec332.corerepack.compat.forestry.ForestryAlleles.*;
 
 /**
  * Created by Elec332 on 15-8-2016.
@@ -1846,7 +1844,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         @Override
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.addProduct(EnumBeeSpecies.getForestryComb(EnumHoneyComb.HONEY), 0.10f);
-            speciesBuilder.addSpecialty(ItemStackHelper.copyItemStack(BeeIntegrationInterface.itemRSAFluxedElectrumNugget), 0.09f);
+            speciesBuilder.addSpecialty(BeeIntegrationInterface.itemRSAFluxedElectrumNugget.copy(), 0.09f);
         }
 
         @Override
@@ -2174,9 +2172,9 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     }
 
     protected final void addRequiredOreDictSpeciality(String resource, IAlleleBeeSpeciesBuilder speciesBuilder, float speciality){
-        List<ItemStack> l = OredictHelper.getOres(resource);
+        List<ItemStack> l = OreDictionary.getOres(resource);
         for (ItemStack stack : l){
-            if (ItemStackHelper.isStackValid(stack)){
+            if (!stack.isEmpty()){
                 speciesBuilder.addSpecialty(stack, speciality);
                 return;
             }

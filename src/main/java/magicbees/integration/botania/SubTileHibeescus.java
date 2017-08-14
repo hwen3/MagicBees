@@ -1,7 +1,5 @@
 package magicbees.integration.botania;
 
-import elec332.core.util.ItemStackHelper;
-import elec332.core.world.WorldHelper;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.EnumBeeType;
 import forestry.api.apiculture.IBee;
@@ -26,7 +24,7 @@ public class SubTileHibeescus extends SubTileFunctional {
 	private final int OPERATION_TICKS_TIME = 20 * 60 * 15;
 	private final double RANGE = 0.75;
 
-	private ItemStack beeSlot = ItemStackHelper.NULL_STACK;
+	private ItemStack beeSlot = ItemStack.EMPTY;
 	private long operationTicksRemaining;
 	private float manaCostRollover;
 
@@ -42,7 +40,7 @@ public class SubTileHibeescus extends SubTileFunctional {
 			return;
 		}
 
-		if (ItemStackHelper.isStackValid(beeSlot)) {
+		if (!beeSlot.isEmpty()) {
 			progressOperation();
 		} else if (isTimeToPickUpItem() && redstoneSignal == 0) {
 			findBeeItemToHold();
@@ -75,8 +73,8 @@ public class SubTileHibeescus extends SubTileFunctional {
 			ItemStack outputStack = BeeManager.beeRoot.getMemberStack(bee, beeType);
 			EntityItem entity = dropItemStackInRange(outputStack);
 
-			WorldHelper.spawnEntityInWorld(supertile.getWorld(), entity);
-			beeSlot = ItemStackHelper.NULL_STACK;
+			supertile.getWorld().spawnEntity(entity);
+			beeSlot = ItemStack.EMPTY;
 		}
 	}
 
@@ -94,16 +92,16 @@ public class SubTileHibeescus extends SubTileFunctional {
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, getSearchBoundingBox());
 
 		for (EntityItem itemEntity : items) {
-			ItemStack item = itemEntity.getEntityItem();
+			ItemStack item = itemEntity.getItem();
 			if (!itemEntity.isDead && isItemPrincessOrQueen(item)) {
-				beeSlot = itemEntity.getEntityItem().copy();
-				beeSlot.stackSize = 1;
+				beeSlot = itemEntity.getItem().copy();
+				beeSlot.setCount(1);
 				operationTicksRemaining = (long)(OPERATION_TICKS_TIME * BotaniaIntegrationConfig.hibeescusTicksMultiplier) + supertile.getWorld().rand.nextInt(200);
 				manaCostRollover = 0f;
 
 				// Princesses and Queens don't stack, but YOU NEVER KNOW.
-				item.stackSize -= 1;
-				if (item.stackSize <= 0) {
+				item.shrink(1);
+				if (item.getCount() <= 0) {
 					itemEntity.setDead();
 				}
 
@@ -136,7 +134,7 @@ public class SubTileHibeescus extends SubTileFunctional {
 		super.readFromPacketNBT(cmp);
 		if (cmp.hasKey("slot")) {
 			NBTTagCompound itemTag = (NBTTagCompound)cmp.getTag("slot");
-			beeSlot = ItemStackHelper.loadItemStackFromNBT(itemTag);
+			beeSlot = new ItemStack(itemTag);
 		}
 		operationTicksRemaining = cmp.getLong("operationTicks");
 		manaCostRollover = cmp.getFloat("manaRollover");
@@ -145,7 +143,7 @@ public class SubTileHibeescus extends SubTileFunctional {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		if (ItemStackHelper.isStackValid(beeSlot)) {
+		if (!beeSlot.isEmpty()) {
 			NBTTagCompound itemTag = new NBTTagCompound();
 			beeSlot.writeToNBT(itemTag);
 			cmp.setTag("slot", itemTag);
@@ -156,7 +154,7 @@ public class SubTileHibeescus extends SubTileFunctional {
 
 	@Override
 	public List<ItemStack> getDrops(List<ItemStack> list) {
-		if (ItemStackHelper.isStackValid(beeSlot)) {
+		if (!beeSlot.isEmpty()) {
 			list.add(beeSlot);
 		}
 		return super.getDrops(list);

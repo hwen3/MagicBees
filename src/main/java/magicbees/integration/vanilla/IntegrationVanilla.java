@@ -1,8 +1,10 @@
 package magicbees.integration.vanilla;
 
-import elec332.core.api.module.ElecModule;
 import magicbees.MagicBees;
 import magicbees.api.ITransmutationHandler;
+import magicbees.api.module.IMagicBeesInitialisationEvent;
+import magicbees.api.module.IMagicBeesModule;
+import magicbees.api.module.MagicBeesModule;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,16 +12,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
  * Created by Elec332 on 15-5-2017.
  */
-@ElecModule(owner = MagicBees.modid, name = "Vanilla Module")
-public class IntegrationVanilla {
+@MagicBeesModule(owner = MagicBees.modid, name = "Vanilla Module")
+public class IntegrationVanilla implements IMagicBeesModule{
 
-	@ElecModule.EventHandler
-	public void init(FMLInitializationEvent event){
+	@Override
+	public void init(IMagicBeesInitialisationEvent event){
 		MagicBees.transmutationController.addTransmutationHandler(new ITransmutationHandler() {
 
 			@Override

@@ -1,7 +1,7 @@
 package magicbees.util;
 
-import elec332.core.compat.forestry.IIndividualBranch;
-import elec332.core.compat.forestry.bee.BeeGenomeTemplate;
+import magicbees.elec332.corerepack.compat.forestry.IIndividualBranch;
+import magicbees.elec332.corerepack.compat.forestry.bee.BeeGenomeTemplate;
 
 import java.awt.*;
 

@@ -1,9 +1,5 @@
 package magicbees.init;
 
-import elec332.core.compat.forestry.allele.AlleleEffectPotion;
-import elec332.core.compat.forestry.allele.AlleleEffectSpawnMob;
-import elec332.core.compat.forestry.allele.AlleleFlowerProvider;
-import elec332.core.compat.forestry.bee.FlowerProvider;
 import forestry.api.apiculture.EnumBeeChromosome;
 import forestry.api.apiculture.IAlleleBeeEffect;
 import forestry.api.genetics.AlleleManager;
@@ -12,6 +8,10 @@ import forestry.core.genetics.alleles.AlleleFloat;
 import magicbees.MagicBees;
 import magicbees.bees.allele.AlleleEffectCrumbling;
 import magicbees.bees.allele.AlleleEffectTransmuting;
+import magicbees.elec332.corerepack.compat.forestry.allele.AlleleEffectPotion;
+import magicbees.elec332.corerepack.compat.forestry.allele.AlleleEffectSpawnMob;
+import magicbees.elec332.corerepack.compat.forestry.allele.AlleleFlowerProvider;
+import magicbees.elec332.corerepack.compat.forestry.bee.FlowerProvider;
 import magicbees.util.MagicBeesResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;

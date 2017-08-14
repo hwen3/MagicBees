@@ -1,20 +1,17 @@
 package magicbees.init;
 
-import elec332.core.item.AbstractTexturedItem;
-import elec332.core.item.ItemEnumBased;
-import elec332.core.util.RegistryHelper;
-import elec332.core.util.recipes.RecipeHelper;
+import com.google.common.base.Preconditions;
 import magicbees.bees.EnumBeeModifiers;
+import magicbees.elec332.corerepack.item.ItemEnumBased;
 import magicbees.item.*;
 import magicbees.item.types.*;
 import magicbees.util.MagicBeesResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.GameData;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
  * Created by Elec332 on 4-3-2017.
@@ -34,27 +31,27 @@ public final class ItemRegister {
     public static Item manasteelgrafter, manasteelScoop;
 
     public static void init(){
-        combItem = GameRegistry.register(new ItemEnumBased<>(new MagicBeesResourceLocation("beeComb"), EnumCombType.class));
-        dropItem = GameRegistry.register(new ItemEnumBased<>(new MagicBeesResourceLocation("drop"), EnumDropType.class));
-        pollenItem = GameRegistry.register(new ItemEnumBased<>(new MagicBeesResourceLocation("pollen"), EnumPollenType.class));
-        propolisItem = GameRegistry.register(new ItemEnumBased<>(new MagicBeesResourceLocation("propolis"), EnumPropolisType.class));
-        waxItem = GameRegistry.register(new ItemEnumBased<>(new MagicBeesResourceLocation("wax"), EnumWaxType.class));
-        resourceItem = GameRegistry.register(new ItemEnumBased<>(new MagicBeesResourceLocation("resource"), EnumResourceType.class));
-        orePartItem = GameRegistry.register(new ItemEnumBased<>(new MagicBeesResourceLocation("orepart"), EnumNuggetType.class));
+        combItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("beeComb"), EnumCombType.class));
+        dropItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("drop"), EnumDropType.class));
+        pollenItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("pollen"), EnumPollenType.class));
+        propolisItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("propolis"), EnumPropolisType.class));
+        waxItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("wax"), EnumWaxType.class));
+        resourceItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("resource"), EnumResourceType.class));
+        orePartItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("orepart"), EnumNuggetType.class));
 
-        magicFrame = GameRegistry.register(new ItemMagicBeesFrame(EnumBeeModifiers.MAGIC));
-        resilientFrame = GameRegistry.register(new ItemMagicBeesFrame(EnumBeeModifiers.RESILIENT));
-        gentleFrame = GameRegistry.register(new ItemMagicBeesFrame(EnumBeeModifiers.GENTLE));
-        metabolicFrame = GameRegistry.register(new ItemMagicBeesFrame(EnumBeeModifiers.METABOLIC));
-        necroticFrame = GameRegistry.register(new ItemMagicBeesFrame(EnumBeeModifiers.NECROTIC));
-        temporalFrame = GameRegistry.register(new ItemMagicBeesFrame(EnumBeeModifiers.TEMPORAL));
-        oblivionFrame = GameRegistry.register(new ItemMagicBeesFrame(EnumBeeModifiers.OBLIVION));
+        magicFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.MAGIC));
+        resilientFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.RESILIENT));
+        gentleFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.GENTLE));
+        metabolicFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.METABOLIC));
+        necroticFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.NECROTIC));
+        temporalFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.TEMPORAL));
+        oblivionFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.OBLIVION));
 
-        mysteriousMagnet = GameRegistry.register(new ItemMysteriousMagnet());
-        moonDial = GameRegistry.register(new ItemMoonDial());
+        mysteriousMagnet = register(new ItemMysteriousMagnet());
+        moonDial = register(new ItemMoonDial());
 
-        manasteelgrafter = GameRegistry.register(new ItemManaSteelGrafter());
-        manasteelScoop = GameRegistry.register(new ItemManaSteelScoop());
+        manasteelgrafter = register(new ItemManaSteelGrafter());
+        manasteelScoop = register(new ItemManaSteelScoop());
 
         fixIronNuggetStuff();
 
@@ -64,15 +61,13 @@ public final class ItemRegister {
 
     }
 
+    @SuppressWarnings("all")
+    public static <K extends IForgeRegistryEntry<?>> K register(K object) {
+        return (K) GameData.register_impl((IForgeRegistryEntry)object);
+    }
+
     private static void fixIronNuggetStuff(){
-        if (RegistryHelper.getItemRegistry().containsKey(new ResourceLocation("iron_nugget"))){
-            ironNugget = RegistryHelper.getItemRegistry().getObject(new ResourceLocation("iron_nugget"));
-        }
-        if (ironNugget == null){
-            ironNugget = GameRegistry.register(new AbstractTexturedItem(new MagicBeesResourceLocation("iron_nugget")){}.setCreativeTab(CreativeTabs.MATERIALS));
-            OreDictionary.registerOre("nuggetIron", ironNugget);
-            RecipeHelper.getCraftingManager().addRecipe(new ItemStack(Items.IRON_INGOT), "xxx", "xxx", "xxx", 'x', ironNugget);
-        }
+        ironNugget = Preconditions.checkNotNull(Items.IRON_NUGGET);
     }
 
 }

@@ -2,7 +2,6 @@ package magicbees.tile.logic;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.authlib.GameProfile;
-import elec332.core.util.ItemStackHelper;
 import forestry.api.apiculture.*;
 import forestry.api.core.EnumHumidity;
 import forestry.api.core.EnumTemperature;
@@ -146,7 +145,7 @@ public class EffectJarHousing implements IBeeHousing {
 
 		@Override
 		public ItemStack getDrone() {
-			return ItemStackHelper.NULL_STACK;
+			return ItemStack.EMPTY;
 		}
 
 		@Override

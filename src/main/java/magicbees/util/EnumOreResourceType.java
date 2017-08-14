@@ -1,7 +1,5 @@
 package magicbees.util;
 
-import elec332.core.util.ItemStackHelper;
-import elec332.core.util.OredictHelper;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumNuggetType;
 import net.minecraft.init.Items;
@@ -10,6 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -71,12 +70,12 @@ public enum EnumOreResourceType {
 	}
 
 	@SuppressWarnings("all")
-	EnumOreResourceType(ItemStack stack, String... oreDictA){
+	EnumOreResourceType(@Nullable ItemStack stack, String... oreDictA){
 		if (oreDictA == null){
 			oreDictA = new String[0];
 		}
 		if (oreDictA.length > 0) {
-			if (ItemStackHelper.isStackValid(stack)) {
+			if (stack != null && !stack.isEmpty()) {
 				if (!(stack.getItem() == ItemRegister.ironNugget && ItemRegister.ironNugget.getRegistryName().getResourceDomain().equals("minecraft"))) {
 					for (String s : oreDictA) {
 						if (s.startsWith("nugget")) {
@@ -84,9 +83,9 @@ public enum EnumOreResourceType {
 						}
 					}
 					if (oreDictA[0].startsWith("nugget")) {
-						List<ItemStack> scks = OredictHelper.getOres(oreDictA[0].replace("nugget", getType()));
-						if (scks.size() > 0 && ItemStackHelper.isStackValid(scks.get(0))) {
-							GameRegistry.addRecipe(new ShapedOreRecipe(scks.get(0), "XXX", "XXX", "XXX", 'X', oreDictA[0]));
+						List<ItemStack> scks = OreDictionary.getOres(oreDictA[0].replace("nugget", getType()));
+						if (scks.size() > 0 && !scks.get(0).isEmpty()) {
+							//GameRegistry.addRecipe(new ShapedOreRecipe(scks.get(0), "XXX", "XXX", "XXX", 'X', oreDictA[0]));
 						}
 					}
 				}
@@ -104,7 +103,7 @@ public enum EnumOreResourceType {
 	}
 
 	private void setStack(ItemStack stack){
-		if (!ItemStackHelper.isStackValid(stack)){
+		if (stack == null || stack.isEmpty()){
 			stack = null;
 		}
 		this.finalStack = stack;
@@ -119,11 +118,11 @@ public enum EnumOreResourceType {
 		if (oreDictA != null){
 			primLoop:
 			for (String oreDict : oreDictA) {
-				List<ItemStack> l = OredictHelper.getOres(oreDict);
+				List<ItemStack> l = OreDictionary.getOres(oreDict);
 				if (!l.isEmpty()) {
 					for (ItemStack stack_ : l) {
-						if (ItemStackHelper.isStackValid(stack_)) {
-							setStack(ItemStackHelper.copyItemStack(stack_));
+						if (!stack_.isEmpty()) {
+							setStack(stack_.copy());
 							break primLoop;
 						}
 					}
@@ -131,7 +130,7 @@ public enum EnumOreResourceType {
 			}
 			oreDictA = null;
 		}
-		return finalStack == null ? ItemStackHelper.NULL_STACK : finalStack;
+		return finalStack == null ? ItemStack.EMPTY : finalStack;
 	}
 
 	public static void registerRecipes(){

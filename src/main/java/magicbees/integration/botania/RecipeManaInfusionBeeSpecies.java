@@ -37,7 +37,7 @@ public class RecipeManaInfusionBeeSpecies extends RecipeManaInfusion {
 			IChromosome[] chromosomes = bee.getGenome().getChromosomes();
 			chromosomes[EnumBeeChromosome.SPECIES.ordinal()] = new Chromosome(outputSpecies);
 			outputCache = BeeManager.beeRoot.getMemberStack(BeeManager.beeRoot.getBee(new BeeGenome(chromosomes)), beeType);
-			outputCache.stackSize = 1;
+			outputCache.setCount(1);
 			return true;
 		}
 

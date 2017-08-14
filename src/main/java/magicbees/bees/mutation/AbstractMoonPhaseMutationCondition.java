@@ -1,13 +1,15 @@
 package magicbees.bees.mutation;
 
-import elec332.core.util.MoonPhase;
-import elec332.core.util.StatCollector;
 import forestry.api.climate.IClimateProvider;
 import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IGenome;
 import forestry.api.genetics.IMutationCondition;
+import magicbees.elec332.corerepack.util.MoonPhase;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by Elec332 on 23-8-2016.
@@ -30,12 +32,14 @@ public abstract class AbstractMoonPhaseMutationCondition implements IMutationCon
     @Override
     public abstract float getChance(World world, BlockPos blockPos, IAllele iAllele, IAllele iAllele1, IGenome iGenome, IGenome iGenome1, IClimateProvider iClimateProvider);
 
+    @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public String getDescription() {
         if (two) {
-            return String.format(StatCollector.translateToLocal("research.bonusPhase"), moonPhaseStart.getLocalizedName(), moonPhaseEnd.getLocalizedName());
+            return String.format(I18n.translateToLocal("research.bonusPhase"), moonPhaseStart.getLocalizedName(), moonPhaseEnd.getLocalizedName());
         } else {
-            return String.format(StatCollector.translateToLocal("research.bonusPhaseSingle"), moonPhaseStart.getLocalizedName());
+            return String.format(I18n.translateToLocal("research.bonusPhaseSingle"), moonPhaseStart.getLocalizedName());
         }
     }
 

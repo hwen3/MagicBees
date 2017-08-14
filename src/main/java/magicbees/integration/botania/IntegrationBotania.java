@@ -1,22 +1,21 @@
 package magicbees.integration.botania;
 
 import com.google.common.collect.Lists;
-import elec332.core.api.module.ElecModule;
-import elec332.core.compat.forestry.allele.AlleleFlowerProvider;
-import elec332.core.util.recipes.RecipeHelper;
-import elec332.core.world.WorldHelper;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.EnumBeeType;
 import magicbees.MagicBees;
 import magicbees.api.ITransmutationHandler;
+import magicbees.api.module.IMagicBeesInitialisationEvent;
+import magicbees.api.module.IMagicBeesModule;
+import magicbees.api.module.MagicBeesModule;
 import magicbees.bees.BeeIntegrationInterface;
 import magicbees.bees.EnumBeeSpecies;
 import magicbees.bees.allele.AlleleEffectTransmuting;
+import magicbees.elec332.corerepack.compat.forestry.allele.AlleleFlowerProvider;
 import magicbees.init.ItemRegister;
 import magicbees.util.DefaultTransmutationController;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.ModNames;
-import magicbees.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -24,11 +23,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -45,14 +45,14 @@ import vazkii.botania.common.lib.LibItemNames;
 /**
  * Created by Elec332 on 15-5-2017.
  */
-@ElecModule(owner = MagicBees.modid, name = "Botania Integration", modDependencies = ModNames.BOTANIA)
-public class IntegrationBotania {
+@MagicBeesModule(owner = MagicBees.modid, name = "Botania Integration", modDependencies = ModNames.BOTANIA)
+public class IntegrationBotania implements IMagicBeesModule {
 
 	private Block livingRock, dreamWood;
 	private Item itemPetal;
 
-	@ElecModule.EventHandler
-	public void preInit(FMLPreInitializationEvent event){
+	@Override
+	public void preInit(){
 
 		BotaniaAPI.registerSubTile(SubTileBeegonia.NAME, SubTileBeegonia.class);
 		BotaniaAPI.registerSubTileSignature(SubTileBeegonia.class, new BotaniaSignature(SubTileBeegonia.NAME));
@@ -76,24 +76,24 @@ public class IntegrationBotania {
 		BotaniaAPIClient.registerSubtileModel(SubTileBeegonia.class, mrl);
 	}
 
-	@ElecModule.EventHandler
-	public void init(FMLInitializationEvent event){
-		IBlockState livingWood = BeeIntegrationInterface.livingWood = Utils.getBlock(ModNames.BOTANIA, "livingwood").getDefaultState();
-		livingRock = Utils.getBlock(ModNames.BOTANIA, "livingrock");
-		dreamWood = Utils.getBlock(ModNames.BOTANIA, "dreamwood");
-		Block mysticalFlower = Utils.getBlock(ModNames.BOTANIA, "specialFlower");
+	@Override
+	public void init(IMagicBeesInitialisationEvent event){
+		IBlockState livingWood = BeeIntegrationInterface.livingWood = event.getBlock("livingwood").getDefaultState();
+		livingRock = event.getBlock("livingrock");
+		dreamWood = event.getBlock("dreamwood");
+		Block mysticalFlower = event.getBlock("specialFlower");
 		BeeIntegrationInterface.effectDreaming = new AlleleEffectTransmuting(BeeIntegrationInterface.bot_dreaming_name, new DefaultTransmutationController((ITransmutationHandler) (world, pos, block, biome) -> {
 
 			int[] oreIDs = OreDictionary.getOreIDs(block);
 			for (int oreId : oreIDs) {
 				if (oreId == OreDictionary.getOreID("logWood")) {
-					WorldHelper.setBlockState(world, pos, livingWood, 3);
+					world.setBlockState(pos, livingWood, 3);
 					return true;
 				} else if (oreId == OreDictionary.getOreID("stone")) {
-					WorldHelper.setBlockState(world, pos, livingRock.getDefaultState(), 3);
+					world.setBlockState(pos, livingRock.getDefaultState(), 3);
 					return true;
 				} else if (oreId == OreDictionary.getOreID("livingwood")) {
-					WorldHelper.setBlockState(world, pos, dreamWood.getDefaultState(), 3);
+					world.setBlockState(pos, dreamWood.getDefaultState(), 3);
 					return true;
 				}
 			}
@@ -103,23 +103,22 @@ public class IntegrationBotania {
 		BeeIntegrationInterface.flowersBotania = new AlleleFlowerProvider(BeeIntegrationInterface.bot_flowers_name, new FlowerProviderBotania("flowersBotania", mysticalFlower));
 		BeeIntegrationInterface.flowersBotania.registerAcceptableFlower(mysticalFlower);
 
-		BeeIntegrationInterface.itemPetal = itemPetal = Utils.getItem(ModNames.BOTANIA, "petal");
-		BeeIntegrationInterface.itemPastureSeed = Utils.getItem(ModNames.BOTANIA, "grassSeeds");
+		BeeIntegrationInterface.itemPetal = itemPetal = event.getItem("petal");
+		BeeIntegrationInterface.itemPastureSeed = event.getItem("grassSeeds");
 		BeeIntegrationInterface.seedTypes = 9;
-
-
 
 	}
 
-	@ElecModule.EventHandler
-	public void postInit(FMLPostInitializationEvent event){
+	@Override
+	public void postInit(){
 
-		GameRegistry.addRecipe(new ItemStack(ItemRegister.manasteelScoop), "twt", "tmt", " t ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 'w', Blocks.WOOL, 't', Items.STICK);
-		IRecipe manasteelScoopRecipe = RecipeHelper.getCraftingManager().getRecipeList().get(RecipeHelper.getCraftingManager().getRecipeList().size() - 1);
+		CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("twt", "tmt", " t ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 'w', Blocks.WOOL, 't', Items.STICK);
+		IRecipe manasteelScoopRecipe = new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelScoop)).setRegistryName(new MagicBeesResourceLocation("manasteelscoop"));
+		ForgeRegistries.RECIPES.register(manasteelScoopRecipe);
 
-		GameRegistry.addRecipe(new ItemStack(ItemRegister.manasteelgrafter), "  m", " t ", "t  ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 't', Items.STICK);
-		IRecipe manasteelGrafterRecipe = RecipeHelper.getCraftingManager().getRecipeList().get(RecipeHelper.getCraftingManager().getRecipeList().size() - 1);
-
+		primer = CraftingHelper.parseShaped("  m", " t ", "t  ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 't', Items.STICK);
+		IRecipe manasteelGrafterRecipe = new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelgrafter)).setRegistryName(new MagicBeesResourceLocation("manasteelgrafter"));
+		ForgeRegistries.RECIPES.register(manasteelScoopRecipe);
 
 		RecipeManaInfusion infusionBeeBotanical = new RecipeManaInfusionBeeSpecies(EnumBeeSpecies.BOT_BOTANIC, EnumBeeSpecies.BOT_ROOTED, 55000, EnumBeeType.DRONE);
 		BotaniaAPI.manaInfusionRecipes.add(infusionBeeBotanical);

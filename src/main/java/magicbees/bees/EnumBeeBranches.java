@@ -1,7 +1,5 @@
 package magicbees.bees;
 
-import elec332.core.compat.forestry.bee.BeeGenomeTemplate;
-import elec332.core.compat.forestry.bee.ForestryBeeEffects;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.core.EnumHumidity;
 import forestry.api.core.EnumTemperature;
@@ -9,6 +7,8 @@ import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAlleleSpeciesBuilder;
 import forestry.api.genetics.IClassification;
 import magicbees.MagicBees;
+import magicbees.elec332.corerepack.compat.forestry.bee.BeeGenomeTemplate;
+import magicbees.elec332.corerepack.compat.forestry.bee.ForestryBeeEffects;
 import magicbees.init.AlleleRegister;
 import magicbees.util.Config;
 import magicbees.util.IMagicBeesBranch;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.Loader;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-import static elec332.core.compat.forestry.ForestryAlleles.*;
+import static magicbees.elec332.corerepack.compat.forestry.ForestryAlleles.*;
 
 /**
  * Created by Elec332 on 15-8-2016.

@@ -1,10 +1,9 @@
 package magicbees.integration.botania;
 
-import elec332.core.compat.forestry.bee.FlowerProvider;
-import elec332.core.world.WorldHelper;
 import forestry.api.apiculture.FlowerManager;
 import forestry.api.genetics.IFlowerGrowthHelper;
 import forestry.api.genetics.IFlowerGrowthRule;
+import magicbees.elec332.corerepack.compat.forestry.bee.FlowerProvider;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +28,7 @@ public class FlowerProviderBotania extends FlowerProvider implements IFlowerGrow
 	@SuppressWarnings("deprecation")
 	public boolean growFlower(@Nonnull IFlowerGrowthHelper helper, @Nonnull String flowerType, @Nonnull World world, @Nonnull BlockPos pos) {
 		if (world.isAirBlock(pos) && flower.canPlaceBlockAt(world, pos)){
-			WorldHelper.setBlockState(world, pos, flower.getStateFromMeta(world.rand.nextInt(EnumDyeColor.values().length)), 2);
+			world.setBlockState( pos, flower.getStateFromMeta(world.rand.nextInt(EnumDyeColor.values().length)), 2);
 		}
 		return false;
 	}

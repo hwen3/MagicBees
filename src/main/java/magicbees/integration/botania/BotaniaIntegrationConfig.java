@@ -1,12 +1,13 @@
 package magicbees.integration.botania;
 
-import elec332.core.config.Configurable;
+import magicbees.util.ConfigHandler;
+import magicbees.util.IConfiguration;
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * Created by Elec332 on 18-5-2017.
  */
-@Configurable.Class(category = "BotaniaIntegration")
-public class BotaniaIntegrationConfig {
+public class BotaniaIntegrationConfig implements IConfiguration {
 
 	public static float hiveacynthPrincessSpawnRate = 0.09f;
 
@@ -22,4 +23,13 @@ public class BotaniaIntegrationConfig {
 
 	public static float beegoniaManaMultiplier = 1.0f;
 
+	@Override
+	public void init(ConfigHandler configHandler) {
+
+	}
+
+	@Override
+	public void reload(Configuration config) {
+
+	}
 }

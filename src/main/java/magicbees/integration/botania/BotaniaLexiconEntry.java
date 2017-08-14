@@ -1,6 +1,6 @@
 package magicbees.integration.botania;
 
-import elec332.core.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IAddonEntry;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -17,8 +17,9 @@ public class BotaniaLexiconEntry extends LexiconEntry implements IAddonEntry {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public String getSubtitle() {
-		return StatCollector.translateToLocal("magicbees.botania.lexicon.subtitle");
+		return I18n.translateToLocal("magicbees.botania.lexicon.subtitle");
 	}
 
 	@Override

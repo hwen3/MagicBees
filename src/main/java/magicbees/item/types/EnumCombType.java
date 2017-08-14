@@ -1,9 +1,8 @@
 package magicbees.item.types;
 
-import elec332.core.item.IEnumItem;
-import elec332.core.item.ItemEnumBased;
-import elec332.core.util.MCVersion;
 import magicbees.MagicBees;
+import magicbees.elec332.corerepack.item.IEnumItem;
+import magicbees.elec332.corerepack.item.ItemEnumBased;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -75,7 +74,7 @@ public enum EnumCombType implements IEnumItem {
     private static final ResourceLocation[] textures;
 
     static {
-        String comb = MCVersion.getCurrentVersion().isHigherThan(MCVersion.MC_1_10_2) ? "bee_combs" : "beeCombs";
+        String comb = "bee_combs";
         textures = new ResourceLocation[]{
             new ResourceLocation("forestry", "items/" + comb + ".0"), new ResourceLocation("forestry", "items/" + comb + ".1")
         };

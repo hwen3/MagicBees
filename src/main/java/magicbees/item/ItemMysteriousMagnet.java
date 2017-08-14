@@ -1,15 +1,9 @@
 package magicbees.item;
 
-import elec332.core.api.client.model.IElecModelBakery;
-import elec332.core.api.client.model.IElecQuadBakery;
-import elec332.core.api.client.model.IElecTemplateBakery;
-import elec332.core.item.AbstractTexturedItem;
-import elec332.core.util.StatCollector;
-import elec332.core.world.WorldHelper;
 import magicbees.MagicBees;
 import magicbees.util.Config;
 import magicbees.util.MagicBeesResourceLocation;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,38 +16,40 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * Created by Elec332 on 4-3-2017.
  */
-public class ItemMysteriousMagnet extends AbstractTexturedItem {
+public class ItemMysteriousMagnet extends Item {
 
     public ItemMysteriousMagnet() {
-        super(new MagicBeesResourceLocation("mysteriousMagnet"));
+        super();
+        setRegistryName(new MagicBeesResourceLocation("mysteriousMagnet"));
         this.setNoRepair();
         this.setHasSubtypes(true);
         this.setCreativeTab(MagicBees.creativeTab);
     }
 
-    @SideOnly(Side.CLIENT)
-    private IBakedModel[] models;
     private static final float FUDGE_FACTOR = 0.2f;
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        String s = String.format(StatCollector.translateToLocal("misc.level"), getMagnetLevel(stack));
+    @SuppressWarnings("deprecation")
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        String s = String.format(I18n.translateToLocal("misc.level"), getMagnetLevel(stack));
         if (isMagnetActive(stack)) {
-            tooltip.add(String.format(StatCollector.translateToLocal("misc.magnetActive"), s));
+            tooltip.add(String.format(I18n.translateToLocal("misc.magnetActive"), s));
         } else {
-            tooltip.add(String.format(StatCollector.translateToLocal("misc.magnetInactive"), s));
+            tooltip.add(String.format(I18n.translateToLocal("misc.magnetInactive"), s));
         }
     }
 
@@ -74,7 +70,7 @@ public class ItemMysteriousMagnet extends AbstractTexturedItem {
                         for (EntityArrow arrow : arrows) {
                             if ((arrow.pickupStatus == EntityArrow.PickupStatus.ALLOWED || world.rand.nextFloat() < 0.3f) && arrow.shootingEntity != entity) {
                                 EntityItem replacement = new EntityItem(world, arrow.posX, arrow.posY, arrow.posZ, new ItemStack(Items.ARROW));
-                                WorldHelper.spawnEntityInWorld(world, replacement);
+                                world.spawnEntity(replacement);
                             }
                             world.removeEntity(arrow);
                         }
@@ -117,31 +113,10 @@ public class ItemMysteriousMagnet extends AbstractTexturedItem {
     }
 
     @Override
-    public void getSubItemsC(@Nonnull Item item, List<ItemStack> subItems, CreativeTabs creativeTab) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (int i = 0; i <= getMaximumLevel(); i++) {
             subItems.add(new ItemStack(this, 1, i * 2));
         }
-    }
-
-    @Override
-    public IBakedModel getItemModel(ItemStack stack, World world, EntityLivingBase entity) {
-        return models[isMagnetActive(stack) ? 1 : 0];
-    }
-
-    @Override
-    public void registerModels(IElecQuadBakery quadBakery, IElecModelBakery modelBakery, IElecTemplateBakery templateBakery) {
-        models = new IBakedModel[textures.length];
-        for (int i = 0; i < models.length; i++) {
-            models[i] = modelBakery.itemModelForTextures(textures[i]);
-        }
-    }
-
-    @Override
-    protected ResourceLocation[] getTextureLocations() {
-        return new ResourceLocation[]{
-                new MagicBeesResourceLocation("items/magnetinactive"),
-                new MagicBeesResourceLocation("items/magnetactive")
-        };
     }
 
     @Override
@@ -149,9 +124,9 @@ public class ItemMysteriousMagnet extends AbstractTexturedItem {
         return isMagnetActive(stack);
     }
 
-    @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClickC(EntityPlayer player, @Nonnull EnumHand hand, World world) {
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
         if (player.isSneaking()) {
             toggleActive(stack);

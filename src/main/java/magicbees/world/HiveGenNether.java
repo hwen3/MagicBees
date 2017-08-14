@@ -1,6 +1,5 @@
 package magicbees.world;
 
-import elec332.core.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +24,7 @@ public class HiveGenNether extends HiveGenUnderground {
         if(cP != null && !this.isValidLocation(world, cP)) {
             int searchDirection = world.rand.nextBoolean()?4:-4;
 
-            while(!Block.isEqualTo(WorldHelper.getBlockAt(world, cP), this.replace)) {
+            while(!Block.isEqualTo(world.getBlockState(cP).getBlock(), this.replace)) {
                 cP = cP.up(searchDirection);
                 if(cP.getY() < this.minLevel || cP.getY() > this.minLevel + this.range) {
                     return null;

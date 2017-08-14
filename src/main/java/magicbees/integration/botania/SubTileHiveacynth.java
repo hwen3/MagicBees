@@ -1,6 +1,5 @@
 package magicbees.integration.botania;
 
-import elec332.core.world.WorldHelper;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.EnumBeeType;
 import forestry.api.apiculture.IBee;
@@ -48,7 +47,7 @@ public class SubTileHiveacynth extends SubTileFunctional {
 			entity.motionX = 0;
 			entity.motionY = 0;
 			entity.motionZ = 0;
-			WorldHelper.spawnEntityInWorld(supertile.getWorld(), entity);
+			getWorld().spawnEntity(entity);
 		}
 	}
 

@@ -1,9 +1,9 @@
 package magicbees.bees.mutation;
 
-import elec332.core.util.MoonPhase;
 import forestry.api.climate.IClimateProvider;
 import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IGenome;
+import magicbees.elec332.corerepack.util.MoonPhase;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

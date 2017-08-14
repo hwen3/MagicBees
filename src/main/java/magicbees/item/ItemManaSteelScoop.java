@@ -1,6 +1,5 @@
 package magicbees.item;
 
-import elec332.core.item.AbstractTexturedItem;
 import forestry.api.core.IToolScoop;
 import magicbees.MagicBees;
 import magicbees.bees.BeeIntegrationInterface;
@@ -10,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,12 +24,13 @@ import vazkii.botania.api.mana.ManaItemHandler;
 @Optional.InterfaceList({
 		@Optional.Interface(iface = "vazkii.botania.api.mana.IManaUsingItem", modid = ModNames.BOTANIA, striprefs = true)
 })
-public class ItemManaSteelScoop extends AbstractTexturedItem implements IManaUsingItem, IToolScoop {
+public class ItemManaSteelScoop extends Item implements IManaUsingItem, IToolScoop {
 
 	public static final int MANA_PER_DAMAGE = 30;
 
 	public ItemManaSteelScoop() {
-		super(new MagicBeesResourceLocation("manasteelscoop"));
+		super();
+		setRegistryName(new MagicBeesResourceLocation("manasteelscoop"));
 		this.maxStackSize = 1;
 		this.setMaxDamage(20);
 		this.setMaxStackSize(1);

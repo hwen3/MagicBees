@@ -2,11 +2,6 @@ package magicbees.bees;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import elec332.core.compat.forestry.ForestryAlleles;
-import elec332.core.compat.forestry.bee.HiveDrop;
-import elec332.core.compat.forestry.bee.IHiveEnum;
-import elec332.core.java.JavaHelper;
-import elec332.core.world.WorldHelper;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.EnumBeeChromosome;
 import forestry.api.apiculture.IBeeGenome;
@@ -19,6 +14,9 @@ import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.EnumTolerance;
 import forestry.api.genetics.IAllele;
 import magicbees.MagicBees;
+import magicbees.elec332.corerepack.compat.forestry.ForestryAlleles;
+import magicbees.elec332.corerepack.compat.forestry.bee.HiveDrop;
+import magicbees.elec332.corerepack.compat.forestry.bee.IHiveEnum;
 import magicbees.init.BlockRegister;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumCombType;
@@ -28,10 +26,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -192,7 +192,13 @@ public enum EnumBeeHives implements IHiveEnum {
 
         @Override
         public boolean isGoodBiome(@Nonnull Biome biome) {
-            return JavaHelper.hasAtLeastOneMatch(Lists.newArrayList(WorldHelper.getTypes(biome)), gen.biomes);
+            Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
+            for (BiomeDictionary.Type type : gen.biomes){
+                if (types.contains(type)){
+                    return true;
+                }
+            }
+            return false;
         }
 
         @Override

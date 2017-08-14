@@ -1,8 +1,8 @@
 package magicbees.item.types;
 
-import elec332.core.item.IEnumItem;
-import elec332.core.item.ItemEnumBased;
 import magicbees.MagicBees;
+import magicbees.elec332.corerepack.item.IEnumItem;
+import magicbees.elec332.corerepack.item.ItemEnumBased;
 import magicbees.init.ItemRegister;
 import magicbees.util.MagicBeesResourceLocation;
 import net.minecraft.item.ItemStack;

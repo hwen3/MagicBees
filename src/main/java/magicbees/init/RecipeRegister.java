@@ -1,17 +1,18 @@
 package magicbees.init;
 
 import com.google.common.collect.Maps;
-import elec332.core.util.ItemStackHelper;
 import forestry.api.recipes.RecipeManagers;
 import forestry.apiculture.items.EnumPropolis;
 import forestry.apiculture.items.ItemRegistryApiculture;
 import forestry.core.fluids.Fluids;
 import magicbees.item.types.*;
 import magicbees.util.Config;
+import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.Utils;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -42,136 +43,136 @@ public final class RecipeRegister {
     }
 
     private static void registerRecipes(){
-        ItemStack input;
+        Ingredient input;
         ItemStack output;
 
-        input = getResource(EnumResourceType.EXTENDED_FERTILIZER);
+        ItemStack inputStack = getResource(EnumResourceType.EXTENDED_FERTILIZER);
         output = Utils.getCoreItems().fertilizerCompound.getItemStack(6);
-        GameRegistry.addRecipe(output,
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("fertilizer1"), null, output,
                 " S ", " F ", " S ",
-                'F', input,
+                'F', inputStack,
                 'S', Blocks.SAND
         );
 
-        GameRegistry.addRecipe(output,
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("fertilizer2"), null, output,
                 "   ", "SFS", "   ",
-                'F', input,
+                'F', inputStack,
                 'S', Blocks.SAND
         );
 
-        output = ItemStackHelper.copyItemStack(output);
-        output.stackSize = 12;
-        GameRegistry.addRecipe(output,
+        output = output.copy();
+        output.setCount(12);
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("fertilizer3"), null, output,
                 "aaa", "aFa", "aaa",
-                'F', input,
+                'F', inputStack,
                 'a', Utils.getCoreItems().ash
         );
 
-        GameRegistry.addRecipe(new ItemStack(Items.EXPERIENCE_BOTTLE),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("exp"), null, new ItemStack(Items.EXPERIENCE_BOTTLE),
                 "DDD", "DBD", "DDD",
                 'D', getDrop(EnumDropType.INTELLECT),
                 'B', Items.GLASS_BOTTLE
         );
 
-        GameRegistry.addRecipe(new ItemStack(Blocks.SOUL_SAND, 4),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("soulsand1"), null, new ItemStack(Blocks.SOUL_SAND, 4),
                 "SwS", "wDw", "SwS",
                 'S', Blocks.SAND,
                 'D', Blocks.DIRT,
                 'w', getWax(EnumWaxType.SOUL)
         );
 
-        GameRegistry.addRecipe(new ItemStack(Blocks.SOUL_SAND, 4),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("soulsand2"), null, new ItemStack(Blocks.SOUL_SAND, 4),
                 "wSw", "SDS", "wSw",
                 'S', Blocks.SAND,
                 'D', Blocks.DIRT,
                 'w', getWax(EnumWaxType.SOUL)
         );
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemRegister.moonDial),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("moondial"), null, new ItemStack(ItemRegister.moonDial),
                 "DqD", "qrq", "DqD",
                 'r', Items.REDSTONE,
                 'q', Items.QUARTZ,
                 'D', "dyeGreen"
-        ));
+        );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.SKULL_FRAGMENT),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("skullfragment"), null, getResource(EnumResourceType.SKULL_FRAGMENT),
                 "xxx", "xxx", "xxx",
                 'x', getResource(EnumResourceType.SKULL_CHIP)
         );
 
-        GameRegistry.addRecipe(new ItemStack(Items.SKULL, 1, 1),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("nSk"), null, new ItemStack(Items.SKULL, 1, 1),
                 "xxx", "xxx",
                 'x', getResource(EnumResourceType.SKULL_FRAGMENT)
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.DRAGON_CHUNK),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("dragonchunk"), null, getResource(EnumResourceType.DRAGON_CHUNK),
                 "xxx", "xxx",
                 'x', getResource(EnumResourceType.DRAGON_DUST)
         );
 
-        GameRegistry.addRecipe(new ItemStack(Blocks.DRAGON_EGG, 1),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("dragonegg"), null, new ItemStack(Blocks.DRAGON_EGG, 1),
                 "ccc", "cec", "ccc",
                 'c', getResource(EnumResourceType.DRAGON_CHUNK),
                 'e', getResource(EnumResourceType.ESSENCE_FALSE_LIFE)
         );
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_eld1"), null, getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY),
                 "gwg", "wiw", "gwg",
                 'g', Blocks.GLASS,
                 'w', "waxMagical",
                 'i', Blocks.IRON_BLOCK
-        ));
+        );
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_eld2"), null, getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY),
                 "wgw", "gig", "wgw",
                 'g', Blocks.GLASS,
                 'w', "waxMagical",
                 'i', Blocks.IRON_BLOCK
-        ));
+        );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_FALSE_LIFE),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_fl1"), null, getResource(EnumResourceType.ESSENCE_FALSE_LIFE),
                 "gwg", "wfw", "gwg",
                 'g', Blocks.GLASS,
                 'w', getWax(EnumWaxType.SOUL),
                 'f', Blocks.RED_FLOWER
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_FALSE_LIFE),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_fl2"), null, getResource(EnumResourceType.ESSENCE_FALSE_LIFE),
                 "wgw", "gfg", "wgw",
                 'g', Blocks.GLASS,
                 'w', getWax(EnumWaxType.SOUL),
                 'f', Blocks.RED_FLOWER
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_cg1"), null, getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
                 "gwg", "wfw", "gwg",
                 'g', Blocks.GLASS,
                 'w', getWax(EnumWaxType.SOUL),
                 'f', Items.ROTTEN_FLESH
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_cg2"), null, getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
                 "wgw", "gfg", "wgw",
                 'g', Blocks.GLASS,
                 'w', getWax(EnumWaxType.SOUL),
                 'f', Items.ROTTEN_FLESH
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_LOST_TIME),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_lt1"), null, getResource(EnumResourceType.ESSENCE_LOST_TIME),
                 "wgw", "gcg", "wgw",
                 'g', Blocks.GLASS,
                 'w', getWax(EnumWaxType.SOUL),
                 'c', Items.CLOCK
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_LOST_TIME),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_lt2"), null, getResource(EnumResourceType.ESSENCE_LOST_TIME),
                 "gwg", "wcw", "gwg",
                 'g', Blocks.GLASS,
                 'w', getWax(EnumWaxType.SOUL),
                 'c', Items.CLOCK
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_FICKLE_PERMANENCE),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_fp1"), null, getResource(EnumResourceType.ESSENCE_FICKLE_PERMANENCE),
                 "wew", "gcg", "wew",
                 'w', getWax(EnumWaxType.SOUL),
                 'c', Items.MAGMA_CREAM,
@@ -179,7 +180,7 @@ public final class RecipeRegister {
                 'g', Blocks.GLOWSTONE
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_FICKLE_PERMANENCE),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_fp2"), null, getResource(EnumResourceType.ESSENCE_FICKLE_PERMANENCE),
                 "wgw", "ece", "wgw",
                 'w', getWax(EnumWaxType.SOUL),
                 'c', Items.MAGMA_CREAM,
@@ -187,7 +188,7 @@ public final class RecipeRegister {
                 'g', Blocks.GLOWSTONE
         );
 
-        GameRegistry.addRecipe(getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_scob"), null, getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION),
                 "gst", "sEs", "tsg",
                 'g', getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
                 't', getResource(EnumResourceType.ESSENCE_LOST_TIME),
@@ -195,58 +196,58 @@ public final class RecipeRegister {
                 'E', Blocks.DRAGON_EGG
         );
 
-        GameRegistry.addRecipe(new ItemStack(magicFrame),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("magicframe"), null, new ItemStack(magicFrame),
                 "www", "wfw", "www",
                 'w', magicWax,
                 'f', Utils.getApicultureItems().frameUntreated
         );
 
-        GameRegistry.addRecipe(new ItemStack(temporalFrame),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("temporalframe"), null, new ItemStack(temporalFrame),
                 "sPs", "PfP", "sPs",
                 's', Blocks.SAND,
                 'P', getPollen(EnumPollenType.PHASED),
                 'f', magicFrame
         );
 
-        input = new ItemStack(magicFrame);
-        GameRegistry.addShapelessRecipe(new ItemStack(resilientFrame),
-                getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY),
+        input = Ingredient.fromStacks(new ItemStack(magicFrame));
+        GameRegistry.addShapelessRecipe(new MagicBeesResourceLocation("ressilientframe"), null, new ItemStack(resilientFrame),
+                Ingredient.fromStacks(getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY)),
                 input
         );
 
-        GameRegistry.addShapelessRecipe(new ItemStack(gentleFrame),
-                getResource(EnumResourceType.ESSENCE_FALSE_LIFE),
+        GameRegistry.addShapelessRecipe(new MagicBeesResourceLocation("gentleframe"), null, new ItemStack(gentleFrame),
+                Ingredient.fromStacks(getResource(EnumResourceType.ESSENCE_FALSE_LIFE)),
                 input
         );
 
-        GameRegistry.addShapelessRecipe(new ItemStack(necroticFrame),
-                getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
+        GameRegistry.addShapelessRecipe(new MagicBeesResourceLocation("necrotictframe"), null, new ItemStack(necroticFrame),
+                Ingredient.fromStacks(getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE)),
                 input
         );
 
-        GameRegistry.addShapelessRecipe(new ItemStack(metabolicFrame),
-                getResource(EnumResourceType.ESSENCE_FICKLE_PERMANENCE),
+        GameRegistry.addShapelessRecipe(new MagicBeesResourceLocation("metabolicframe"), null, new ItemStack(metabolicFrame),
+                Ingredient.fromStacks(getResource(EnumResourceType.ESSENCE_FICKLE_PERMANENCE)),
                 input
         );
 
-        GameRegistry.addShapelessRecipe(new ItemStack(temporalFrame),
-                getResource(EnumResourceType.ESSENCE_LOST_TIME),
+        GameRegistry.addShapelessRecipe(new MagicBeesResourceLocation("temporalframe"), null, new ItemStack(temporalFrame),
+                Ingredient.fromStacks(getResource(EnumResourceType.ESSENCE_LOST_TIME)),
                 input
         );
 
-        GameRegistry.addShapelessRecipe(new ItemStack(oblivionFrame),
-                getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION),
-                Utils.getApicultureItems().frameProven.getItemStack()
+        GameRegistry.addShapelessRecipe(new MagicBeesResourceLocation("oblivionframe"), null, new ItemStack(oblivionFrame),
+                Ingredient.fromStacks(getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION)),
+                Ingredient.fromStacks(Utils.getApicultureItems().frameProven.getItemStack())
         );
 
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockRegister.effectJar),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("effectjar"), null, new ItemStack(BlockRegister.effectJar),
                 "GSG", "QPQ", "GGG",
                 'G', Blocks.GLASS,
                 'S', "slabWood",
                 'P', getPollen(EnumPollenType.UNUSUAL),
                 'Q', Items.QUARTZ
-        ));
+        );
 /* todo
         output = new ItemStack(Config.magicApiary);
         GameRegistry.addShapelessRecipe(output,
@@ -330,7 +331,7 @@ public final class RecipeRegister {
         ));
 */
         output = getResource(EnumResourceType.DIMENSIONAL_SINGULARITY);
-        GameRegistry.addRecipe(output,
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("dimensionalsingularity"), null, output,
                 " G ", "QEQ", " W ",
                 'E', Items.ENDER_EYE,
                 'Q', Blocks.QUARTZ_BLOCK,
@@ -356,7 +357,7 @@ public final class RecipeRegister {
         );
 */
         output = new ItemStack(ItemRegister.mysteriousMagnet);
-        GameRegistry.addRecipe(output,
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("mysteriousmagnet0"), null, output,
                 " i ", "cSc", " d ",
                 'i', Items.IRON_INGOT,
                 'c', Items.COMPASS,
@@ -365,13 +366,13 @@ public final class RecipeRegister {
         );
         for (int level = 1; level <= Config.magnetMaxLevel; level++) {
             output = new ItemStack(ItemRegister.mysteriousMagnet, 1, level * 2);
-            GameRegistry.addRecipe(new ShapedOreRecipe(output,
+            GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("mysteriousmagnet"+level), null, output,
                     " d ", "mSm", " B ",
                     'd', Items.DIAMOND,
                     'm', new ItemStack(ItemRegister.mysteriousMagnet, 1, (level - 1) * 2),
                     'B', Blocks.REDSTONE_BLOCK,
                     'S', getResource(EnumResourceType.DIMENSIONAL_SINGULARITY)
-            ));
+            );
         }
 
     }
@@ -493,29 +494,29 @@ public final class RecipeRegister {
         ItemStack output;
 
         output = Utils.getApicultureBlocks().candle.getUnlitCandle(24);
-        RecipeManagers.carpenterManager.addRecipe(30, new FluidStack(FluidRegistry.WATER, 600), ItemStackHelper.NULL_STACK, output,
+        RecipeManagers.carpenterManager.addRecipe(30, new FluidStack(FluidRegistry.WATER, 600), ItemStack.EMPTY, output.copy(),
                 " S ", "WWW", "WWW",
                 'W', waxItem,
                 'S', Items.STRING
         );
 
-        output.stackSize = 6;
+        output.setCount(6);
         input = Utils.getCoreItems().craftingMaterial.getSilkWisp();
-        RecipeManagers.carpenterManager.addRecipe(30, new FluidStack(FluidRegistry.WATER, 600), ItemStackHelper.NULL_STACK, output,
+        RecipeManagers.carpenterManager.addRecipe(30, new FluidStack(FluidRegistry.WATER, 600), ItemStack.EMPTY, output.copy(),
                 "WSW",
                 'W', waxItem,
                 'S', input
         );
 
         output = resourceItem.getStackFromType(EnumResourceType.AROMATIC_LUMP, 2);
-        RecipeManagers.carpenterManager.addRecipe(30, Fluids.FOR_HONEY.getFluid(1000), ItemStackHelper.NULL_STACK, output,
+        RecipeManagers.carpenterManager.addRecipe(30, Fluids.FOR_HONEY.getFluid(1000), ItemStack.EMPTY, output.copy(),
                 " P ", "JDJ", " P ",
                 'P', pollen,
                 'J', royaljelly,
                 'D', getDrop(EnumDropType.ENCHANTED)
         );
 
-        RecipeManagers.carpenterManager.addRecipe(30, Fluids.FOR_HONEY.getFluid(1000), ItemStackHelper.NULL_STACK, output,
+        RecipeManagers.carpenterManager.addRecipe(30, Fluids.FOR_HONEY.getFluid(1000), ItemStack.EMPTY, output.copy(),
                 " J ", "PDP", " J ",
                 'P', pollen,
                 'J', royaljelly,
@@ -558,7 +559,7 @@ public final class RecipeRegister {
         private final Map<ItemStack, Float> products;
 
         protected void addProduct(ItemStack stack, float chance){
-            products.put(ItemStackHelper.copyItemStack(stack), chance);
+            products.put(stack.copy(), chance);
         }
 
         protected void register(int time){

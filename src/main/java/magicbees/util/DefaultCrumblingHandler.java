@@ -2,9 +2,6 @@ package magicbees.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import elec332.core.util.ItemStackHelper;
-import elec332.core.world.WorldHelper;
-import elec332.core.world.location.BlockStateWrapper;
 import magicbees.api.ICrumblingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -31,7 +28,7 @@ public class DefaultCrumblingHandler implements ICrumblingHandler {
     @Override
     @SuppressWarnings("all")
     public void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull ItemStack after) {
-        if (!ItemStackHelper.isStackValid(after)){
+        if (after.isEmpty()){
             throw new IllegalArgumentException();
         }
         Block block = Block.getBlockFromItem(after.getItem());
@@ -43,7 +40,7 @@ public class DefaultCrumblingHandler implements ICrumblingHandler {
 
     @Override
     public void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull IBlockState after) {
-        if (!ItemStackHelper.isStackValid(before)){
+        if (before.isEmpty()){
             throw new IllegalArgumentException();
         }
         for (ItemStack stack : crumbleMap.keySet()){
@@ -57,13 +54,13 @@ public class DefaultCrumblingHandler implements ICrumblingHandler {
     @Override
     public boolean crumble(World world, BlockPos pos) {
         if(!world.isAirBlock(pos)) {
-            BlockStateWrapper bsw = new BlockStateWrapper(WorldHelper.getBlockState(world, pos));
-            ItemStack source = bsw.toItemStack();
+            IBlockState state = world.getBlockState(pos);
+            ItemStack source = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 
             for (ItemStack stack : crumbleMap.keySet()){
                 if(OreDictionary.itemMatches(source, stack, false)) {
                     IBlockState target = crumbleMap.get(stack);
-                    WorldHelper.setBlockState(world, pos, target, 2);
+                    world.setBlockState(pos, target, 2);
                     return true;
                 }
             }

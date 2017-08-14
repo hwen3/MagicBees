@@ -2,13 +2,13 @@ package magicbees.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import elec332.core.compat.forestry.ForestryAlleles;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.EnumBeeChromosome;
 import forestry.api.apiculture.IAlleleBeeSpecies;
 import forestry.api.apiculture.IBee;
 import forestry.api.genetics.IAllele;
 import magicbees.bees.EnumBeeSpecies;
+import magicbees.elec332.corerepack.compat.forestry.ForestryAlleles;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
