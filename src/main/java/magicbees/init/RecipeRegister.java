@@ -20,6 +20,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Map;
 
@@ -33,19 +34,26 @@ public final class RecipeRegister {
     private static ItemStack beesWax, honeyDrop, honeyDew, magicWax, refractoryWax, pollen, royaljelly;
 
     public static void init(){
-        ItemRegistryApiculture ai = Utils.getApicultureItems();
-        beesWax = Utils.getCoreItems().beeswax.getItemStack();
-        honeyDrop = ai.honeyDrop.getItemStack();
-        honeyDew = ai.honeydew.getItemStack();
-        refractoryWax = Utils.getCoreItems().refractoryWax.getItemStack();
-        magicWax = getWax(EnumWaxType.MAGIC);
-        pollen = ai.pollenCluster.getItemStack();
-        royaljelly = ai.royalJelly.getItemStack();
+        getItems();
         registerForestryRecipes();
+    }
+
+    private static void getItems(){
+        if (beesWax == null){
+            ItemRegistryApiculture ai = Utils.getApicultureItems();
+            beesWax = Utils.getCoreItems().beeswax.getItemStack();
+            honeyDrop = ai.honeyDrop.getItemStack();
+            honeyDew = ai.honeydew.getItemStack();
+            refractoryWax = Utils.getCoreItems().refractoryWax.getItemStack();
+            magicWax = getWax(EnumWaxType.MAGIC);
+            pollen = ai.pollenCluster.getItemStack();
+            royaljelly = ai.royalJelly.getItemStack();
+        }
     }
 
     @SubscribeEvent
     public void registerVanillaRecipes(RegistryEvent.Register<IRecipe> event){
+        getItems();
 
         Ingredient input;
         ItemStack output;
@@ -259,81 +267,19 @@ public final class RecipeRegister {
                 Config.drops.getStackForType(DropType.ENCHANTED, 2),
                 new ItemStack(ForestryHelper.apicultureBlock, 1, ForestryHelper.ApicultureBlock.APIARY.ordinal())
         );
-
-        GameRegistry.addRecipe(new ItemStack(Config.enchantedEarth),
+*/
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("enchanted_earth_1"), null, new ItemStack(BlockRegister.enchantedEarth),
                 "d d", " e ", "d d",
                 'd', new ItemStack(Blocks.DIRT, 1, OreDictionary.WILDCARD_VALUE),
-                'e', Config.miscResources.getStackForType(ResourceType.ESSENCE_FALSE_LIFE)
+                'e', getResource(EnumResourceType.ESSENCE_FALSE_LIFE)
         );
 
-        GameRegistry.addRecipe(new ItemStack(Config.enchantedEarth),
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("enchanted_earth_2"), null, new ItemStack(BlockRegister.enchantedEarth),
                 " d ", "ded", " d ",
                 'd', new ItemStack(Blocks.DIRT, 1, OreDictionary.WILDCARD_VALUE),
-                'e', Config.miscResources.getStackForType(ResourceType.ESSENCE_FALSE_LIFE)
+                'e', getResource(EnumResourceType.ESSENCE_FALSE_LIFE)
         );
-*/
 
-/* todo: ores
-        if (OreDictionary.getOres("ingotCopper").size() <= 0) {
-            NuggetType.COPPER.setInactive();
-        }
-        else {
-            GameRegistry.addRecipe(new ShapedOreRecipe(OreDictionary.getOres("ingotCopper").get(0),
-                    "xxx", "xxx", "xxx",
-                    'x', "nuggetCopper"
-            ));
-        }
-
-        if (OreDictionary.getOres("ingotTin").size() <= 0) {
-            NuggetType.TIN.setInactive();
-        }
-        else {
-            GameRegistry.addRecipe(new ShapedOreRecipe(OreDictionary.getOres("ingotTin").get(0),
-                    "xxx", "xxx", "xxx",
-                    'x', "nuggetTin"
-            ));
-        }
-
-        if (OreDictionary.getOres("ingotSilver").size() <= 0) {
-            NuggetType.SILVER.setInactive();
-        }
-        else {
-            GameRegistry.addRecipe(new ShapedOreRecipe(OreDictionary.getOres("ingotSilver").get(0),
-                    "xxx", "xxx", "xxx",
-                    'x', "nuggetSilver"
-            ));
-        }
-
-        if (OreDictionary.getOres("ingotLead").size() <= 0) {
-            NuggetType.LEAD.setInactive();
-        }
-        else {
-            GameRegistry.addRecipe(new ShapedOreRecipe(OreDictionary.getOres("ingotLead").get(0),
-                    "xxx", "xxx", "xxx",
-                    'x', "nuggetLead"
-            ));
-        }
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.IRON_INGOT),
-                "xxx", "xxx", "xxx",
-                'x', "nuggetIron"
-        ));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.DIAMOND),
-                "xxx", "xxx", "xxx",
-                'x', "nuggetDiamond"
-        ));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.EMERALD),
-                "xxx", "xxx", "xxx",
-                'x', "nuggetEmerald"
-        ));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(ItemInterface.getItemStack("apatite"),
-                "xxx", "xxx", "xxx",
-                'x', Config.nuggets.getStackForType(NuggetType.APATITE)
-        ));
-*/
         output = getResource(EnumResourceType.DIMENSIONAL_SINGULARITY);
         GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("dimensionalsingularity"), null, output,
                 " G ", "QEQ", " W ",

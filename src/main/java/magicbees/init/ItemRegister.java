@@ -63,10 +63,12 @@ public final class ItemRegister {
 
         fixIronNuggetStuff();
 
+    }
+
+    public static void registerOreDictionary(){
         for (EnumCombType comb : EnumCombType.values()){
             OreDictionary.registerOre("beeComb", combItem.getStackFromType(comb));
         }
-
     }
 
     @SubscribeEvent

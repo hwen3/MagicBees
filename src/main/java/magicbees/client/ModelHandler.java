@@ -12,6 +12,7 @@ import magicbees.init.BlockRegister;
 import magicbees.item.types.EnumNuggetType;
 import magicbees.item.types.EnumResourceType;
 import magicbees.util.MagicBeesResourceLocation;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -21,6 +22,7 @@ import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
@@ -101,23 +103,8 @@ public class ModelHandler {
 		setItemModelLocation(manasteelgrafter, createMRL("manasteel_grafter"));
 		setItemModelLocation(manasteelScoop, createMRL("manasteel_scoop"));
 
-		Item hiveItem = Item.getItemFromBlock(BlockRegister.hiveBlock);
-		ModelLoader.registerItemVariants(hiveItem, someModel);
-		IStateMapper stateMapper = new DefaultStateMapper();
-		Map<IBlockState, ModelResourceLocation> modelLocsIbs = stateMapper.putStateModelLocations(BlockRegister.hiveBlock);
-		Map<Integer, ModelResourceLocation> modelLocs = Maps.newHashMap();
-		for (IBlockState state : modelLocsIbs.keySet()){
-			modelLocs.put(state.getBlock().getMetaFromState(state), modelLocsIbs.get(state));
-		}
-		setItemModelLocation(hiveItem, stack -> {
-
-			ModelResourceLocation loc = modelLocs.get(stack.getItemDamage());
-			if (loc == null){
-				return new ModelResourceLocation(new MagicBeesResourceLocation("hiveblock"), "hivetype=curious");
-			}
-			return loc;
-
-		});
+		linkItemTextureToBlock(BlockRegister.hiveBlock);
+		linkItemTextureToBlock(BlockRegister.enchantedEarth);
 
 		OBJLoader.INSTANCE.addDomain(MagicBees.modid);
 		setItemModelLocation(Item.getItemFromBlock(BlockRegister.effectJar), effectJarModel);
@@ -223,6 +210,30 @@ public class ModelHandler {
 		for (int i = 0; i < MoonPhase.values().length; i++) {
 			map.registerSprite(new MagicBeesResourceLocation("items/moondial." + i));
 		}
+	}
+
+	@SuppressWarnings("all")
+	private static void linkItemTextureToBlock(Block block){
+		Item item = Item.getItemFromBlock(block);
+		if (item == null || item == Items.AIR){
+			return;
+		}
+		ModelLoader.registerItemVariants(item, someModel);
+		IStateMapper stateMapper = new DefaultStateMapper();
+		Map<IBlockState, ModelResourceLocation> modelLocsIbs = stateMapper.putStateModelLocations(block);
+		Map<Integer, ModelResourceLocation> modelLocs = Maps.newHashMap();
+		for (IBlockState state : modelLocsIbs.keySet()){
+			modelLocs.put(state.getBlock().getMetaFromState(state), modelLocsIbs.get(state));
+		}
+		setItemModelLocation(item, stack -> {
+
+			ModelResourceLocation loc = modelLocs.get(stack.getItemDamage());
+			if (loc == null){
+				return modelLocs.get(0);
+			}
+			return loc;
+
+		});
 	}
 
 	private static IBakedModel getOBJParts(ModelLoader modelLoader, ModelResourceLocation location, String... parts){

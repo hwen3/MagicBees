@@ -88,6 +88,7 @@ public class MagicBees {
 
         EnumBeeBranches.registerClassifications();
         AlleleRegister.init();
+        ItemRegister.registerOreDictionary();
         RecipeRegister.init();
 
         config.reload();
