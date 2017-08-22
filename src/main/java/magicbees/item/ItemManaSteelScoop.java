@@ -5,6 +5,7 @@ import magicbees.MagicBees;
 import magicbees.bees.BeeIntegrationInterface;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.ModNames;
+import magicbees.util.Utils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,6 +32,7 @@ public class ItemManaSteelScoop extends Item implements IManaUsingItem, IToolSco
 	public ItemManaSteelScoop() {
 		super();
 		setRegistryName(new MagicBeesResourceLocation("manasteelscoop"));
+		Utils.setUnlocalizedName(this);
 		this.maxStackSize = 1;
 		this.setMaxDamage(20);
 		this.setMaxStackSize(1);

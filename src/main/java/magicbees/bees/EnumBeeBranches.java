@@ -313,7 +313,7 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     EnumBeeBranches(String scientificName){
         this.classification = BeeManager.beeFactory.createBranch(MagicBees.modid + ".branch." + name().toLowerCase(), scientificName);
-        AlleleManager.alleleRegistry.getClassification("family.apidae").addMemberGroup(classification);
+
     }
 
     private final IClassification classification;
@@ -340,6 +340,13 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
     @Override
     public Color getSecondaryColor() {
         return new Color(0xFF7C26);
+    }
+
+    public static void registerClassifications(){
+        IClassification bees = AlleleManager.alleleRegistry.getClassification("family.apidae");
+        for (EnumBeeBranches classification : values()){
+            bees.addMemberGroup(classification.getClassification());
+        }
     }
 
 }

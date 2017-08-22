@@ -3,6 +3,7 @@ package magicbees.item;
 import magicbees.MagicBees;
 import magicbees.util.Config;
 import magicbees.util.MagicBeesResourceLocation;
+import magicbees.util.Utils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -34,6 +35,7 @@ public class ItemMysteriousMagnet extends Item {
     public ItemMysteriousMagnet() {
         super();
         setRegistryName(new MagicBeesResourceLocation("mysteriousMagnet"));
+        Utils.setUnlocalizedName(this);
         this.setNoRepair();
         this.setHasSubtypes(true);
         this.setCreativeTab(MagicBees.creativeTab);
@@ -114,6 +116,9 @@ public class ItemMysteriousMagnet extends Item {
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+        if (!isInCreativeTab(tab)){
+            return;
+        }
         for (int i = 0; i <= getMaximumLevel(); i++) {
             subItems.add(new ItemStack(this, 1, i * 2));
         }
@@ -138,8 +143,8 @@ public class ItemMysteriousMagnet extends Item {
         itemStack.setItemDamage(itemStack.getItemDamage() ^ 1);
     }
 
-    private boolean isMagnetActive(ItemStack itemStack) {
-        return isMagnetActive(itemStack.getItemDamage());
+    public boolean isMagnetActive(ItemStack itemStack) {
+        return itemStack.getItem() == this && isMagnetActive(itemStack.getItemDamage());
     }
 
     private boolean isMagnetActive(int damage) {

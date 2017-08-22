@@ -7,6 +7,8 @@ import forestry.api.core.EnumHumidity;
 import forestry.api.core.EnumTemperature;
 import forestry.api.core.IErrorLogic;
 import forestry.api.core.IErrorState;
+import forestry.core.errors.EnumErrorCode;
+import forestry.core.errors.ErrorLogic;
 import magicbees.tile.TileEntityEffectJar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -28,19 +30,23 @@ public class EffectJarHousing implements IBeeHousing {
 
 	public EffectJarHousing(TileEntityEffectJar entity) {
 		this.jarEntity = entity;
-		this.biome = entity.getWorld().getBiome(entity.getPos());
 		this.inventory = new JarBeeHousingInventory(entity);
 		this.beekeepingLogic = BeeManager.beeRoot.createBeekeepingLogic(this);
+		this.errorLogic = new ErrorLogic();
 	}
 
-	private static final IErrorLogic errorLogic = new JarErrorLogic();
+	private IErrorLogic errorLogic;// = new JarErrorLogic();
 	private static final Iterable<IBeeListener> beeListeners = ImmutableSet.of(new DefaultBeeListener());
 	private static final Iterable<IBeeModifier> beeModifiers = ImmutableSet.of(new JarHousingModifier());
 
 	private final IBeekeepingLogic beekeepingLogic;
 	private final TileEntityEffectJar jarEntity;
-	private final Biome biome;
+	private Biome biome;
 	private final IBeeHousingInventory inventory;
+
+	public boolean canWork(){
+		return beekeepingLogic.canWork();
+	}
 
 	@Override
 	@Nonnull
@@ -57,19 +63,22 @@ public class EffectJarHousing implements IBeeHousing {
 	@Override
 	@Nonnull
 	public Biome getBiome() {
+		if (biome == null){
+			biome = jarEntity.getWorld().getBiome(jarEntity.getPos());
+		}
 		return biome;
 	}
 
 	@Override
 	@Nonnull
 	public EnumTemperature getTemperature() {
-		return EnumTemperature.getFromBiome(biome, getWorldObj(), getCoordinates());
+		return EnumTemperature.getFromBiome(getBiome(), getWorldObj(), getCoordinates());
 	}
 
 	@Override
 	@Nonnull
 	public EnumHumidity getHumidity() {
-		return EnumHumidity.getFromValue(biome.getRainfall());
+		return EnumHumidity.getFromValue(getBiome().getRainfall());
 	}
 
 	@Override
@@ -159,7 +168,7 @@ public class EffectJarHousing implements IBeeHousing {
 
 		@Override
 		public boolean addProduct(ItemStack product, boolean all) {
-			return false;
+			return true;
 		}
 
 	}
@@ -169,6 +178,9 @@ public class EffectJarHousing implements IBeeHousing {
 
 		@Override
 		public boolean setCondition(boolean condition, IErrorState errorState) {
+			if (errorState == EnumErrorCode.NO_FLOWER){
+				System.out.println("flowers: "+!condition);
+			}
 			return condition;
 		}
 

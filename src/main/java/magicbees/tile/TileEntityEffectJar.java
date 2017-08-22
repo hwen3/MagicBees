@@ -5,22 +5,29 @@ import com.mojang.authlib.GameProfile;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.IBee;
 import forestry.api.genetics.IEffectData;
+import forestry.apiculture.PluginApiculture;
+import forestry.apiculture.network.packets.PacketActiveUpdate;
+import forestry.core.network.IStreamable;
+import forestry.core.network.PacketBufferForestry;
+import forestry.core.network.packets.PacketTileStream;
+import forestry.core.tiles.IActivatable;
+import forestry.core.utils.NetworkUtil;
 import magicbees.tile.logic.EffectJarHousing;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
 
 /**
  * Created by Elec332 on 5-4-2017.
  */
-public class TileEntityEffectJar extends TileEntity implements ITickable {
+public class TileEntityEffectJar extends TileEntity implements ITickable, IActivatable, IStreamable {
 
 	public TileEntityEffectJar() {
 		super();
@@ -29,14 +36,30 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 
 	private GameProfile ownerName;
 	private ItemStackHandler beeSlots;
-	private ItemStack queenStack = ItemStack.EMPTY;
+	private ItemStack queenStack = ItemStack.EMPTY, droneQueen = null;
+	private EffectJarHousing housingLogic = new EffectJarHousing(this);
+
 	private IEffectData[] effectData = new IEffectData[2];
 	private int throttle;
 	private int currentBeeHealth;
 	private int currentBeeColour;
 
+	private boolean active = false;
+
 	public void setOwner(EntityPlayer player) {
 		this.ownerName = player.getGameProfile();
+	}
+
+	public ItemStackHandler getInventory() {
+		return beeSlots;
+	}
+
+	public int getCurrentBeeColour() {
+		return currentBeeColour;
+	}
+
+	public int getCurrentBeeHealth() {
+		return currentBeeHealth;
 	}
 
 	@Override
@@ -46,6 +69,14 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 
 	public ItemStack getQueenStack() {
 		return queenStack;
+	}
+
+	public ItemStack getDrone() {
+		if (droneQueen == null){
+			droneQueen = new ItemStack(PluginApiculture.getItems().beeQueenGE, 1, queenStack.getItemDamage());//droneStack.copy();
+			droneQueen.setTagCompound(Preconditions.checkNotNull(queenStack.getTagCompound()).copy());
+		}
+		return droneQueen;
 	}
 
 	@Override
@@ -62,6 +93,7 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 			queenStack = ItemStack.EMPTY;
 		}
 		this.queenStack = queenStack;
+		this.droneQueen = null;
 	}
 
 	public GameProfile getOwner() {
@@ -78,8 +110,10 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 				droneStack.shrink(1);
 			}
 
-			queenStack = droneStack.copy();
+			queenStack = new ItemStack(PluginApiculture.getItems().beeQueenGE, 1, droneStack.getItemDamage());//droneStack.copy();
+			queenStack.setTagCompound(Preconditions.checkNotNull(droneStack.getTagCompound()).copy());
 			queenStack.setCount(1);
+			droneQueen = null;
 
 			int current = bee.getHealth();
 			int max = bee.getMaxHealth();
@@ -93,21 +127,50 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 		return !beeSlots.getStackInSlot(0).isEmpty();
 	}
 
+	@Override
+	@Nonnull
+	public BlockPos getCoordinates() {
+		return getPos();
+	}
+
+	@Override
+	public boolean isActive() {
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active){
+		if (this.active != active) {
+			this.active = active;
+			if (!world.isRemote) {
+				NetworkUtil.sendNetworkPacket(new PacketActiveUpdate(this), pos, world);
+			}
+		}
+	}
+
 	@SuppressWarnings("all")
 	private void tickQueen() {
+
 		IBee queen = BeeManager.beeRoot.getMember(queenStack);
 		if (queenStack == null || queen == null){
 			throw new RuntimeException();
 		}
 
-		currentBeeHealth = (queen.getHealth() * 100) / queen.getMaxHealth();
+		if (world.isRemote && active && this.getWorld().getWorldTime() % 4 == 0){
+			this.effectData = queen.doFX(this.effectData, housingLogic);
+			return;
+		}
+
+		setActive(housingLogic.canWork());
+
+		if (!active){
+			return;
+		}
+
+
 		currentBeeColour = queen.getGenome().getPrimary().getSpriteColour(0);
 
-		EffectJarHousing housingLogic = new EffectJarHousing(this);
 		this.effectData = queen.doEffect(this.effectData, housingLogic);
-		if (this.getWorld().getWorldTime() % 5 == 0) {
-			this.effectData = queen.doFX(this.effectData, housingLogic);
-		}
 
 		// run the queen
 		if (throttle > 550) {
@@ -116,6 +179,7 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 
 			if (queen.getHealth() == 0) {
 				this.queenStack = ItemStack.EMPTY;
+				this.droneQueen = null;
 				currentBeeHealth = 0;
 				currentBeeColour = 0x0ffffff;
 			} else {
@@ -124,7 +188,9 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 				}
 				queen.writeToNBT(queenStack.getTagCompound());
 			}
+			currentBeeHealth = (queen.getHealth() * 100) / queen.getMaxHealth();
 			this.markDirty();
+			NetworkUtil.sendNetworkPacket(new PacketTileStream(this), pos, world);
 		} else {
 			throttle++;
 		}
@@ -139,11 +205,10 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 		super.readFromNBT(tagRoot);
 		beeSlots.deserializeNBT(tagRoot.getCompoundTag("beeSlots"));
 		if (!tagRoot.hasKey("queenStack")){
-			queenStack = ItemStack.EMPTY;
+			queenStack = droneQueen = ItemStack.EMPTY;
 		} else {
-			NonNullList<ItemStack> l = NonNullList.create();
-			ItemStackHelper.loadAllItems(tagRoot.getCompoundTag("queenStack"), l);
-			queenStack = l.get(0);
+			queenStack = new ItemStack(tagRoot.getCompoundTag("queenStack"));
+			droneQueen = null;
 		}
 		this.currentBeeHealth = tagRoot.getInteger("currentBeeHealth");
 		this.throttle = tagRoot.getInteger("throttle");
@@ -156,7 +221,7 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 		tagRoot.setTag("beeSlots", beeSlots.serializeNBT());
 		if (!queenStack.isEmpty()){
 			NBTTagCompound tag = new NBTTagCompound();
-			ItemStackHelper.saveAllItems(tag, NonNullList.withSize(1, queenStack));
+			queenStack.writeToNBT(tag);
 			tagRoot.setTag("queenStack", tag);
 		}
 		tagRoot.setInteger("currentBeeHealth", this.currentBeeHealth);
@@ -164,34 +229,24 @@ public class TileEntityEffectJar extends TileEntity implements ITickable {
 		return tagRoot;
 	}
 
+	@Override
+	@Nonnull
+	public NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
+
 	public ItemStack getDropStack(){
 		return beeSlots.getStackInSlot(0);
 	}
-/*
+
 	@Override
-	public void modifyWindow(Window window, Object... objects) {
-		window.setBackground(new MagicBeesResourceLocation("gui/effectJarGui"));
-		window.addWidget(new WidgetSlot(beeSlots, 0, 80, 22));
-		window.addWidget(new Widget(0, 0, 0, 0, 0, 0){
+	public void writeData(@Nonnull PacketBufferForestry data) {
+		data.writeCompoundTag(writeToNBT(new NBTTagCompound()));
+	}
 
-			private static final int BAR_HEIGHT = 40;
-
-			@Override
-			@SideOnly(Side.CLIENT)
-			public void draw(Window window, int guiX, int guiY, int mouseX, int mouseY) {
-				float r = ((currentBeeColour >> 16) & 255) / 255f;
-				float g = ((currentBeeColour >> 8) & 255) / 255f;
-				float b = (currentBeeColour & 255) / 255f;
-
-				GlStateManager.color(r, g, b);
-				RenderHelper.bindTexture(window.getBackgroundImageLocation());
-
-				int value = BAR_HEIGHT - (currentBeeHealth * BAR_HEIGHT) / 100;
-				GuiDraw.drawTexturedModalRect(window.guiLeft + 117, window.guiTop + value + 10, 176, 0, 10, BAR_HEIGHT - value);
-			}
-
-		});
-		window.addPlayerInventoryToContainer();
-	}*/
+	@Override
+	public void readData(@Nonnull PacketBufferForestry data) throws IOException {
+		readFromNBT(data.readCompoundTag());
+	}
 
 }

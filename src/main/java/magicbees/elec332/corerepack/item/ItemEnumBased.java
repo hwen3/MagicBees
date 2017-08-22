@@ -2,6 +2,7 @@ package magicbees.elec332.corerepack.item;
 
 import forestry.core.items.IColoredItem;
 import forestry.core.proxy.Proxies;
+import magicbees.util.Utils;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,6 +23,7 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
     public ItemEnumBased(ResourceLocation rl, Class<E> clazz) {
         super();
         setRegistryName(rl);
+        Utils.setUnlocalizedName(this);
         this.clazz = clazz;
         this.values = clazz.getEnumConstants();
         this.setHasSubtypes(true);
@@ -53,6 +55,9 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+        if (!isInCreativeTab(tab)){
+            return;
+        }
         for (E e : values){
             if (e.shouldShow()){
                 subItems.add(getStackFromType(e));

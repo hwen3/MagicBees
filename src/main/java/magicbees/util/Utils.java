@@ -11,6 +11,7 @@ import forestry.core.items.ItemRegistryCore;
 import magicbees.elec332.corerepack.util.FMLUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -51,14 +52,19 @@ public class Utils {
 	}
 
 	public static void setSecret(IAlleleSpeciesBuilder builder){
-		if (!FMLUtil.developmentEnvironment) {
+		//if (!FMLUtil.developmentEnvironment) {
 			builder.setIsSecret();
-		}
+		//}
 	}
 
 	public static AxisAlignedBB getAABB(BlockPos pos, int range, boolean y){
 		int xCoord = pos.getX(), yCoord = pos.getY(), zCoord = pos.getZ();
 		return new AxisAlignedBB(xCoord - range, yCoord - (y ? range : 0), zCoord - range, xCoord + range + 1, yCoord + 1 + (y ? range : 0), zCoord + range + 1);
+	}
+
+	@SuppressWarnings("all")
+	public static void setUnlocalizedName(Item item){
+		item.setUnlocalizedName(item.getRegistryName().toString().replace(":", ".").toLowerCase());
 	}
 
 	private static Object getStatic(Field field) throws IllegalAccessException {

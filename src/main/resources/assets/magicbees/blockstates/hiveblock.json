@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "hivetype=curious": { "model": "magicbees:curioushive" },
+		"hivetype=deep": { "model": "magicbees:deephive" },
+		"hivetype=infernal": { "model": "magicbees:infernalhive" },
+		"hivetype=oblivion": { "model": "magicbees:oblivionhive" },
+		"hivetype=resonant": { "model": "magicbees:resonanthive" },
+		"hivetype=unusual": { "model": "magicbees:unusualhive" }
+    }
+}

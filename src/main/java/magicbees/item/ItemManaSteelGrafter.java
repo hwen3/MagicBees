@@ -6,6 +6,7 @@ import magicbees.MagicBees;
 import magicbees.bees.BeeIntegrationInterface;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.ModNames;
+import magicbees.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.material.Material;
@@ -38,6 +39,7 @@ public class ItemManaSteelGrafter extends Item implements IToolGrafter, IManaUsi
 	public ItemManaSteelGrafter() {
 		super();
 		setRegistryName(new MagicBeesResourceLocation("manasteelgrafter"));
+		Utils.setUnlocalizedName(this);
 		setCreativeTab(MagicBees.creativeTab);
 		setMaxDamage(15);
 		setMaxStackSize(1);

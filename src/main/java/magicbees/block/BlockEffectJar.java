@@ -1,20 +1,26 @@
 package magicbees.block;
 
 import magicbees.MagicBees;
+import magicbees.inventory.ContainerId;
 import magicbees.tile.TileEntityEffectJar;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import javax.annotation.Nonnull;
 /**
@@ -48,6 +54,17 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
 	}*/
 
 	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!player.isSneaking()) {
+			if (!world.isRemote && !player.isSneaking()) {
+				player.openGui(MagicBees.instance, ContainerId.EFFECT_JAR, world, pos.getX(), pos.getY(), pos.getZ());
+			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public TileEntity createNewTileEntity(@Nonnull World world, int metadata) {
 		return new TileEntityEffectJar();
 	}
@@ -59,16 +76,26 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	@Nonnull
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT;
+	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+		return layer == getBlockLayer() || layer == BlockRenderLayer.SOLID;
 	}
 
 	@Override
 	@Nonnull
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
+
+	@Override
 	@SuppressWarnings("deprecation")
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public boolean isFullBlock(IBlockState state) {
+		return false;
 	}
 
 	@Override

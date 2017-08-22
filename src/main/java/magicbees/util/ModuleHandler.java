@@ -41,7 +41,7 @@ public enum ModuleHandler {
 			Map<String, Object> data = disc.getAnnotationInfo();
 			String mod = (String) data.get("owner");
 			ModContainer owner = FMLUtil.findMod(mod);
-			if (mod == null) {
+			if (owner == null) {
 				MagicBees.logger.error("Found module without owner!");
 				continue;
 			}
@@ -55,7 +55,7 @@ public enum ModuleHandler {
 						continue;
 					}
 					if (!Loader.isModLoaded(dep)) {
-						MagicBees.logger.info("Mod " + dep + " not detected, not activating module " + name);
+						MagicBees.logger.info("Mod " + dep + " not detected, not activating module " + name);// + " (Owned by: " + owner.getModId() + ")");
 						continue moduleLoop;
 					}
 					lDeps.add(dep);
@@ -105,7 +105,7 @@ public enum ModuleHandler {
 				run.accept(moduleData);
 				modules++;
 			}
-			MagicBees.logger.info(s.replace("ing", "ed ") + modules + " modules for mod " + mc.getModId());
+			MagicBees.logger.info(s.replace("ing", "ed ") + modules + " module" + (modules > 1 ? "s" : "") + " for mod " + mc.getModId());
 		}
 	}
 
