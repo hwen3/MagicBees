@@ -84,8 +84,8 @@ public enum EnumBeeHives implements IHiveEnum {
             ItemStack[] combs = new ItemStack[]{
                     ItemRegister.combItem.getStackFromType(EnumCombType.MOLTEN), new ItemStack(Items.GLOWSTONE_DUST, 6)
             };
-            addDrop(new HiveDrop(getBeeType(), 80, combs).setIgnobleChance(0.5f));
-            addDrop(new HiveDrop(BeeManager.beeRoot.templateAsGenome(EnumBeeSpecies.getForestrySpeciesTemplate("Steadfast")), 3, combs));
+            addDrop(new HiveDrop(getBeeType(), 0.8f, combs).setIgnobleChance(0.5f));
+            addDrop(new HiveDrop(BeeManager.beeRoot.templateAsGenome(EnumBeeSpecies.getForestrySpeciesTemplate("Steadfast")), 0.03f, combs));
         }
 
         @Override
@@ -101,8 +101,8 @@ public enum EnumBeeHives implements IHiveEnum {
             ItemStack[] combs = new ItemStack[]{
                     ItemRegister.combItem.getStackFromType(EnumCombType.FORGOTTEN), new ItemStack(Items.ENDER_PEARL)
             };
-            addDrop(new HiveDrop(getBeeType(), 80, combs));
-            addDrop(new HiveDrop(BeeManager.beeRoot.templateAsGenome(EnumBeeSpecies.getForestrySpeciesTemplate("Steadfast")), 9, combs));
+            addDrop(new HiveDrop(getBeeType(), 0.8f, combs));
+            addDrop(new HiveDrop(BeeManager.beeRoot.templateAsGenome(EnumBeeSpecies.getForestrySpeciesTemplate("Steadfast")), 0.09f, combs));
         }
 
         @Override
@@ -165,8 +165,8 @@ public enum EnumBeeHives implements IHiveEnum {
     }
 
     protected void addDefaultDrops(int rr){
-        addDrop(new HiveDrop(bee, 80, comb).setIgnobleChance(0.7f));
-        addDrop(new HiveDrop(addRainResist(bee), rr, comb));
+        addDrop(new HiveDrop(bee, 0.8f, comb).setIgnobleChance(0.7f));
+        addDrop(new HiveDrop(addRainResist(bee), rr / 100f, comb));
         addDrop(getValiantDrop());
     }
 
