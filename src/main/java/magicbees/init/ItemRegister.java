@@ -9,9 +9,9 @@ import magicbees.item.types.*;
 import magicbees.util.MagicBeesResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.registries.GameData;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.Collections;
 import java.util.Map;
@@ -36,37 +36,30 @@ public final class ItemRegister {
 
     private static Map<EnumBeeModifiers, ItemMagicBeesFrame> frames;
 
-    public static void init(){
-        combItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("beeComb"), EnumCombType.class));
-        dropItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("drop"), EnumDropType.class));
-        pollenItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("pollen"), EnumPollenType.class));
-        propolisItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("propolis"), EnumPropolisType.class));
-        waxItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("wax"), EnumWaxType.class));
-        resourceItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("resource"), EnumResourceType.class));
-        orePartItem = register(new ItemEnumBased<>(new MagicBeesResourceLocation("orepart"), EnumNuggetType.class));
+    public static void preInit(){
+        combItem = new ItemEnumBased<>(new MagicBeesResourceLocation("beeComb"), EnumCombType.class);
+        dropItem = new ItemEnumBased<>(new MagicBeesResourceLocation("drop"), EnumDropType.class);
+        pollenItem = new ItemEnumBased<>(new MagicBeesResourceLocation("pollen"), EnumPollenType.class);
+        propolisItem = new ItemEnumBased<>(new MagicBeesResourceLocation("propolis"), EnumPropolisType.class);
+        waxItem = new ItemEnumBased<>(new MagicBeesResourceLocation("wax"), EnumWaxType.class);
+        resourceItem = new ItemEnumBased<>(new MagicBeesResourceLocation("resource"), EnumResourceType.class);
+        orePartItem = new ItemEnumBased<>(new MagicBeesResourceLocation("orepart"), EnumNuggetType.class);
 
         Map<EnumBeeModifiers, ItemMagicBeesFrame> framez = Maps.newHashMap();
-        magicFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.MAGIC));
-        framez.put(EnumBeeModifiers.MAGIC, magicFrame);
-        resilientFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.RESILIENT));
-        framez.put(EnumBeeModifiers.RESILIENT, resilientFrame);
-        gentleFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.GENTLE));
-        framez.put(EnumBeeModifiers.GENTLE, gentleFrame);
-        metabolicFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.METABOLIC));
-        framez.put(EnumBeeModifiers.METABOLIC, metabolicFrame);
-        necroticFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.NECROTIC));
-        framez.put(EnumBeeModifiers.NECROTIC, necroticFrame);
-        temporalFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.TEMPORAL));
-        framez.put(EnumBeeModifiers.TEMPORAL, temporalFrame);
-        oblivionFrame = register(new ItemMagicBeesFrame(EnumBeeModifiers.OBLIVION));
-        framez.put(EnumBeeModifiers.OBLIVION, oblivionFrame);
+        framez.put(EnumBeeModifiers.MAGIC, magicFrame = new ItemMagicBeesFrame(EnumBeeModifiers.MAGIC));
+        framez.put(EnumBeeModifiers.RESILIENT, resilientFrame = new ItemMagicBeesFrame(EnumBeeModifiers.RESILIENT));
+        framez.put(EnumBeeModifiers.GENTLE, gentleFrame = new ItemMagicBeesFrame(EnumBeeModifiers.GENTLE));
+        framez.put(EnumBeeModifiers.METABOLIC, metabolicFrame = new ItemMagicBeesFrame(EnumBeeModifiers.METABOLIC));
+        framez.put(EnumBeeModifiers.NECROTIC, necroticFrame = new ItemMagicBeesFrame(EnumBeeModifiers.NECROTIC));
+        framez.put(EnumBeeModifiers.TEMPORAL, temporalFrame = new ItemMagicBeesFrame(EnumBeeModifiers.TEMPORAL));
+        framez.put(EnumBeeModifiers.OBLIVION, oblivionFrame = new ItemMagicBeesFrame(EnumBeeModifiers.OBLIVION));
         frames = Collections.unmodifiableMap(framez);
 
-        mysteriousMagnet = register(new ItemMysteriousMagnet());
-        moonDial = register(new ItemMoonDial());
+        mysteriousMagnet = new ItemMysteriousMagnet();
+        moonDial = new ItemMoonDial();
 
-        manasteelgrafter = register(new ItemManaSteelGrafter());
-        manasteelScoop = register(new ItemManaSteelScoop());
+        manasteelgrafter = new ItemManaSteelGrafter();
+        manasteelScoop = new ItemManaSteelScoop();
 
         fixIronNuggetStuff();
 
@@ -76,9 +69,17 @@ public final class ItemRegister {
 
     }
 
-    @SuppressWarnings("all")
-    public static <K extends IForgeRegistryEntry<?>> K register(K object) {
-        return (K) GameData.register_impl((IForgeRegistryEntry)object);
+    @SubscribeEvent
+    public void registerItems(RegistryEvent.Register<Item> event){
+        event.getRegistry().registerAll(combItem, dropItem, pollenItem, propolisItem, waxItem, resourceItem, orePartItem);
+        event.getRegistry().registerAll(mysteriousMagnet, moonDial);
+        event.getRegistry().registerAll(manasteelgrafter, manasteelScoop);
+        for (Item item : getBeeFrames().values()){
+            event.getRegistry().register(item);
+        }
+
+
+
     }
 
     public static Map<EnumBeeModifiers, ItemMagicBeesFrame> getBeeFrames() {

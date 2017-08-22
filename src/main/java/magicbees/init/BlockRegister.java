@@ -7,7 +7,10 @@ import magicbees.tile.TileEntityEffectJar;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -20,18 +23,28 @@ public final class BlockRegister {
     public static BlockHive hiveBlock;
     public static Block effectJar;
 
-    public static void init(){
-        hiveBlock = new BlockHive().register(new MagicBeesResourceLocation("hiveBlock"));
-        hiveBlock.setCreativeTab(MagicBees.creativeTab);
+    public static void preInit(){
+        hiveBlock = (BlockHive) new BlockHive().setRegistryName(new MagicBeesResourceLocation("hiveBlock")).setCreativeTab(MagicBees.creativeTab);
         effectJar = new BlockEffectJar().setCreativeTab(MagicBees.creativeTab).setRegistryName(new MagicBeesResourceLocation("effectJar"));
-        ForgeRegistries.BLOCKS.register(effectJar);
+
         Utils.setUnlocalizedName(effectJar);
-        ForgeRegistries.ITEMS.register(new ItemBlock(effectJar).setCreativeTab(MagicBees.creativeTab).setRegistryName(effectJar.getRegistryName()));
+        Utils.setUnlocalizedName(hiveBlock);
+
         registerTiles();
     }
 
     private static void registerTiles(){
         GameRegistry.registerTileEntity(TileEntityEffectJar.class, "TileEntityMagicBeesEffectJar");
+    }
+
+    @SubscribeEvent
+    public void registerBlocks(RegistryEvent.Register<Block> event){
+        event.getRegistry().registerAll(hiveBlock, effectJar);
+    }
+
+    @SubscribeEvent
+    public void registerItems(RegistryEvent.Register<Item> event){
+        event.getRegistry().registerAll(new ItemBlock(hiveBlock), new ItemBlock(effectJar));
     }
 
 }

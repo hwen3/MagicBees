@@ -4,7 +4,12 @@ import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumNuggetType;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -72,23 +77,6 @@ public enum EnumOreResourceType {
 		if (oreDictA == null){
 			oreDictA = new String[0];
 		}
-		if (oreDictA.length > 0) {
-			if (stack != null && !stack.isEmpty()) {
-				if (!(stack.getItem() == ItemRegister.ironNugget && ItemRegister.ironNugget.getRegistryName().getResourceDomain().equals("minecraft"))) {
-					for (String s : oreDictA) {
-						if (s.startsWith("nugget")) {
-							OreDictionary.registerOre(s, stack);
-						}
-					}
-					if (oreDictA[0].startsWith("nugget")) {
-						List<ItemStack> scks = OreDictionary.getOres(oreDictA[0].replace("nugget", getType()));
-						if (scks.size() > 0 && !scks.get(0).isEmpty()) {
-							//GameRegistry.addRecipe(new ShapedOreRecipe(scks.get(0), "XXX", "XXX", "XXX", 'X', oreDictA[0]));
-						}
-					}
-				}
-			}
-		}
 		setStack(stack);
 		this.oreDictA = oreDictA;
 	}
@@ -131,8 +119,28 @@ public enum EnumOreResourceType {
 		return finalStack == null ? ItemStack.EMPTY : finalStack;
 	}
 
-	public static void registerRecipes(){
-
+	public static void registerRecipes(IForgeRegistry<IRecipe> recipes){
+		for (EnumOreResourceType type : EnumOreResourceType.values()) {
+			if (type.oreDictA.length > 0) {
+				if (type.finalStack != null && !type.finalStack.isEmpty()) {
+					if (!(type.finalStack.getItem() == ItemRegister.ironNugget && ItemRegister.ironNugget.getRegistryName().getResourceDomain().equals("minecraft"))) {
+						for (String s : type.oreDictA) {
+							if (s.startsWith("nugget")) {
+								OreDictionary.registerOre(s, type.finalStack);
+							}
+						}
+						if (type.oreDictA[0].startsWith("nugget")) {
+							List<ItemStack> scks = OreDictionary.getOres(type.oreDictA[0].replace("nugget", type.getType()));
+							if (scks.size() > 0 && !scks.get(0).isEmpty()) {
+								ResourceLocation name = new MagicBeesResourceLocation(type.oreDictA[0] + "_to_block");
+								IRecipe recipe = new ShapedOreRecipe(null, scks.get(0), "XXX", "XXX", "XXX", 'X', type.oreDictA[0]).setRegistryName(name);
+								recipes.register(recipe);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 }

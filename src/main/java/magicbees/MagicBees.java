@@ -32,7 +32,7 @@ import org.apache.logging.log4j.Logger;
  * Created by Elec332 on 16-8-2016.
  */
 @Mod(modid = MagicBees.modid, name = MagicBees.modName, dependencies = "required-after:forestry",
-        acceptedMinecraftVersions = "[1.10.2,)", useMetadata = true)
+        acceptedMinecraftVersions = "[1.12,)", useMetadata = true)
 public class MagicBees {
 
     public static final String modid = "magicbees";
@@ -56,19 +56,28 @@ public class MagicBees {
         loadTimer.startPhase(event);
         forestryCompatHandler = new ForestryCompatHandler();
         forestryCompatHandler.preInit(event);
+
         crumblingHandler = new DefaultCrumblingHandler();
         transmutationController = new DefaultTransmutationController();
         creativeTab = new MagicBeesCreativeTab();
+
         config = new ConfigHandler(new Configuration(event.getSuggestedConfigurationFile()));
         config.registerConfig(new BotaniaIntegrationConfig());
         config.registerConfig(new Config());
-        config.registerConfig(new BotaniaIntegrationConfig());
-        ItemRegister.init();
-        BlockRegister.init();
+
+        MinecraftForge.EVENT_BUS.register(new ItemRegister());
+        MinecraftForge.EVENT_BUS.register(new BlockRegister());
+        MinecraftForge.EVENT_BUS.register(new RecipeRegister());
+
+        BlockRegister.preInit();
+        ItemRegister.preInit();
+
         ModuleHandler.INSTANCE.preInit(event);
+
         if (FMLCommonHandler.instance().getSide().isClient()){
             MinecraftForge.EVENT_BUS.register(new ModelHandler());
         }
+
         loadTimer.endPhase(event);
     }
 
@@ -76,14 +85,20 @@ public class MagicBees {
     public void init(FMLInitializationEvent event) throws Exception{
         loadTimer.startPhase(event);
         forestryCompatHandler.init(event);
+
         EnumBeeBranches.registerClassifications();
         AlleleRegister.init();
         RecipeRegister.init();
+
         config.reload();
+
         logger.info("Registering " + EnumBeeSpecies.values().length + " new bee species!");
         IndividualDefinitionRegistry.registerBees(EnumBeeSpecies.class);
+
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
         ModuleHandler.INSTANCE.init();
+
         loadTimer.endPhase(event);
     }
 
@@ -91,11 +106,15 @@ public class MagicBees {
     public void postInit(FMLPostInitializationEvent event){
         loadTimer.startPhase(event);
         forestryCompatHandler.postInit(event);
+
         for (EnumBeeHives h : EnumBeeHives.values()){
             h.registerDrops();
         }
+
         WorldGenBeeSpeciesCache.populateSpeciesListRarity();
+
         ModuleHandler.INSTANCE.postInit();
+
         loadTimer.endPhase(event);
     }
 

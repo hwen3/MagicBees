@@ -7,14 +7,18 @@ import forestry.apiculture.items.ItemRegistryApiculture;
 import forestry.core.fluids.Fluids;
 import magicbees.item.types.*;
 import magicbees.util.Config;
+import magicbees.util.EnumOreResourceType;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.Utils;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Map;
@@ -37,11 +41,12 @@ public final class RecipeRegister {
         magicWax = getWax(EnumWaxType.MAGIC);
         pollen = ai.pollenCluster.getItemStack();
         royaljelly = ai.royalJelly.getItemStack();
-        registerRecipes();
         registerForestryRecipes();
     }
 
-    private static void registerRecipes(){
+    @SubscribeEvent
+    public void registerVanillaRecipes(RegistryEvent.Register<IRecipe> event){
+
         Ingredient input;
         ItemStack output;
 
@@ -374,6 +379,7 @@ public final class RecipeRegister {
             );
         }
 
+        EnumOreResourceType.registerRecipes(event.getRegistry());
     }
 
     private static void registerForestryRecipes(){

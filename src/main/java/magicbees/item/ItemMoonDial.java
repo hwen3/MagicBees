@@ -5,11 +5,15 @@ import magicbees.elec332.corerepack.util.MoonPhase;
 import magicbees.util.Config;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.Utils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -28,9 +32,11 @@ public class ItemMoonDial extends Item {
     private static final ResourceLocation[] textureLocs;
 
     @Override
-    public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
-        if (Config.moonDialShowsPhaseInText && !stack.isEmpty() && stack.getItem() == this && player != null){
-            tooltip.add("\u00A77" + MoonPhase.getMoonPhase(player).getLocalizedName());
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced) {
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        if (player != null && Config.moonDialShowsPhaseInText && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == this){
+            tooltip.add("\u00A77" + MoonPhase.getMoonPhase(world).getLocalizedName());
         }
     }
 
