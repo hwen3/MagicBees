@@ -23,13 +23,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -112,13 +110,14 @@ public class IntegrationBotania implements IMagicBeesModule {
 	@Override
 	public void postInit(){
 
+		ResourceLocation manaSteelScoopRecipe = new MagicBeesResourceLocation("manasteelscoop");
+		ResourceLocation manaSteelGrafterRecipe = new MagicBeesResourceLocation("manasteelgrafter");
+
 		CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("twt", "tmt", " t ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 'w', Blocks.WOOL, 't', Items.STICK);
-		IRecipe manasteelScoopRecipe = new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelScoop)).setRegistryName(new MagicBeesResourceLocation("manasteelscoop"));
-		ForgeRegistries.RECIPES.register(manasteelScoopRecipe);
+		ForgeRegistries.RECIPES.register(new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelScoop)).setRegistryName(manaSteelScoopRecipe));
 
 		primer = CraftingHelper.parseShaped("  m", " t ", "t  ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 't', Items.STICK);
-		IRecipe manasteelGrafterRecipe = new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelgrafter)).setRegistryName(new MagicBeesResourceLocation("manasteelgrafter"));
-		ForgeRegistries.RECIPES.register(manasteelScoopRecipe);
+		ForgeRegistries.RECIPES.register(new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelgrafter)).setRegistryName(manaSteelGrafterRecipe));
 
 		RecipeManaInfusion infusionBeeBotanical = new RecipeManaInfusionBeeSpecies(EnumBeeSpecies.BOT_BOTANIC, EnumBeeSpecies.BOT_ROOTED, 55000, EnumBeeType.DRONE);
 		BotaniaAPI.manaInfusionRecipes.add(infusionBeeBotanical);
@@ -133,8 +132,8 @@ public class IntegrationBotania implements IMagicBeesModule {
 		LexiconEntry entryManasteelForestryTools = new BotaniaLexiconEntry("magicbees.botania.lexicon.manasteelTools.title", BotaniaAPI.categoryTools);
 		entryManasteelForestryTools.setIcon(new ItemStack(ItemRegister.manasteelScoop));
 		entryManasteelForestryTools.addPage(BotaniaAPI.internalHandler.textPage("magicbees.botania.lexicon.manasteelTools.0"));
-		entryManasteelForestryTools.addPage(BotaniaAPI.internalHandler.craftingRecipePage("magicbees.botania.lexicon.manasteelScoop", manasteelScoopRecipe));
-		entryManasteelForestryTools.addPage(BotaniaAPI.internalHandler.craftingRecipePage("magicbees.botania.lexicon.manasteelGrafter", manasteelGrafterRecipe));
+		entryManasteelForestryTools.addPage(BotaniaAPI.internalHandler.craftingRecipePage("magicbees.botania.lexicon.manasteelScoop", manaSteelScoopRecipe));
+		entryManasteelForestryTools.addPage(BotaniaAPI.internalHandler.craftingRecipePage("magicbees.botania.lexicon.manasteelGrafter", manaSteelGrafterRecipe));
 
 		LexiconEntry entryBeeTrade = new BotaniaLexiconEntry("magicbees.botania.lexicon.beeAlfheim.title", BotaniaAPI.categoryAlfhomancy);
 		entryBeeTrade.setIcon(BeeManager.beeRoot.getMemberStack(EnumBeeSpecies.BOT_ALFHEIM.getIndividual(), EnumBeeType.PRINCESS));

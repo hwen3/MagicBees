@@ -31,16 +31,17 @@ item.magicbees.mysteriousmagnet.name=Mysterious Magnet
 item.magicbees.moondial.name=Jade Moon Dial
 
 #Tiles
-tile.effectJar.name=Bee Collector's Jar
-tile.magicApiary.name=Magic Apiary
-tile.visAuraProvider.name=Vis Apiary Booster
-tile.manaAuraProvider.name=Mana Apiary Booster
+tile.magicbees.effectJar.name=Bee Collector's Jar
 tile.magicbees.hiveblock.curious.name=Curious Hive
 tile.magicbees.hiveblock.unusual.name=Unusual Hive
 tile.magicbees.hiveblock.deep.name=Deep Hive
 tile.magicbees.hiveblock.resonant.name=Resonating Hive
 tile.magicbees.hiveblock.infernal.name=Infernal Hive
 tile.magicbees.hiveblock.oblivion.name=Oblivion Hive
+
+tile.magicApiary.name=Magic Apiary
+tile.visAuraProvider.name=Vis Apiary Booster
+tile.manaAuraProvider.name=Mana Apiary Booster
 tile.enchantedEarth.name=Enchanted Earth
 
 #item.magicbees.beecomb.

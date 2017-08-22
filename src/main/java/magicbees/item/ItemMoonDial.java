@@ -1,26 +1,16 @@
 package magicbees.item;
 
-import forestry.api.apiculture.BeeManager;
-import forestry.api.apiculture.EnumBeeType;
-import forestry.api.apiculture.IBee;
 import magicbees.MagicBees;
-import magicbees.bees.EnumBeeSpecies;
 import magicbees.elec332.corerepack.util.MoonPhase;
 import magicbees.util.Config;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.Utils;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**

@@ -5,6 +5,7 @@ import magicbees.block.BlockEffectJar;
 import magicbees.block.BlockHive;
 import magicbees.tile.TileEntityEffectJar;
 import magicbees.util.MagicBeesResourceLocation;
+import magicbees.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -22,9 +23,9 @@ public final class BlockRegister {
     public static void init(){
         hiveBlock = new BlockHive().register(new MagicBeesResourceLocation("hiveBlock"));
         hiveBlock.setCreativeTab(MagicBees.creativeTab);
-        effectJar = new BlockEffectJar().setRegistryName(new MagicBeesResourceLocation("effectJar"));
+        effectJar = new BlockEffectJar().setCreativeTab(MagicBees.creativeTab).setRegistryName(new MagicBeesResourceLocation("effectJar"));
         ForgeRegistries.BLOCKS.register(effectJar);
-        effectJar.setCreativeTab(MagicBees.creativeTab);
+        Utils.setUnlocalizedName(effectJar);
         ForgeRegistries.ITEMS.register(new ItemBlock(effectJar).setCreativeTab(MagicBees.creativeTab).setRegistryName(effectJar.getRegistryName()));
         registerTiles();
     }

@@ -8,14 +8,13 @@ import forestry.apiculture.items.ItemRegistryApiculture;
 import forestry.core.PluginCore;
 import forestry.core.blocks.BlockRegistryCore;
 import forestry.core.items.ItemRegistryCore;
-import magicbees.elec332.corerepack.util.FMLUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
@@ -62,9 +61,17 @@ public class Utils {
 		return new AxisAlignedBB(xCoord - range, yCoord - (y ? range : 0), zCoord - range, xCoord + range + 1, yCoord + 1 + (y ? range : 0), zCoord + range + 1);
 	}
 
-	@SuppressWarnings("all")
 	public static void setUnlocalizedName(Item item){
-		item.setUnlocalizedName(item.getRegistryName().toString().replace(":", ".").toLowerCase());
+		item.setUnlocalizedName(getUnlocalizedName(item));
+	}
+
+	public static void setUnlocalizedName(Block block){
+		block.setUnlocalizedName(getUnlocalizedName(block));
+	}
+
+	@SuppressWarnings("all")
+	public static String getUnlocalizedName(IForgeRegistryEntry<?> object){
+		return object.getRegistryName().toString().replace(":", ".").toLowerCase();
 	}
 
 	private static Object getStatic(Field field) throws IllegalAccessException {

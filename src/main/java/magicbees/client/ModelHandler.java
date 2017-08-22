@@ -7,12 +7,10 @@ import com.google.common.collect.Maps;
 import forestry.core.models.BlankModel;
 import magicbees.MagicBees;
 import magicbees.bees.EnumBeeModifiers;
-import magicbees.client.tesr.TileEntityEffectJarRenderer;
 import magicbees.elec332.corerepack.util.MoonPhase;
 import magicbees.init.BlockRegister;
 import magicbees.item.types.EnumNuggetType;
 import magicbees.item.types.EnumResourceType;
-import magicbees.tile.TileEntityEffectJar;
 import magicbees.util.MagicBeesResourceLocation;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -38,8 +36,6 @@ import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,13 +43,11 @@ import org.lwjgl.util.vector.Vector3f;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
@@ -131,8 +125,8 @@ public class ModelHandler {
 		registerTESRs();
 	}
 
+	//TODO: Jar TESR
 	private void registerTESRs(){
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEffectJar.class, new TileEntityEffectJarRenderer());
 	}
 
 	@SubscribeEvent

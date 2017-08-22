@@ -4,9 +4,7 @@ import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumNuggetType;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import javax.annotation.Nullable;
 import java.util.List;

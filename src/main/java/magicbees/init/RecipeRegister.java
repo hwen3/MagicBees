@@ -16,7 +16,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.Map;
 

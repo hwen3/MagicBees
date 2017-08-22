@@ -1,4 +1,5 @@
 package magicbees.block;
+
 import forestry.api.apiculture.IHiveTile;
 import forestry.apiculture.tiles.TileHive;
 import magicbees.bees.EnumBeeHives;
@@ -47,6 +48,11 @@ public class BlockHive extends magicbees.elec332.corerepack.compat.forestry.bee.
 			IHiveTile hive = (IHiveTile) tile;
 			hive.onBroken(world, pos, player, canHarvestBlock(world, pos, player));
 		}
+	}
+
+	@Override //Fixes picking block returning wrong block
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Nullable
