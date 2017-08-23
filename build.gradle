@@ -24,10 +24,10 @@ repositories {
         name "Thaumcraft"
         artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-deobf-${project.version_mc}-[revision].[ext]"
     }
-    ivy {
-        name "Botania"
-        artifactPattern "http://botaniamod.net/files/deobf/[module] [revision]-deobf.[ext]"
-    }
+    //ivy {
+    //    name "Botania"
+    //    artifactPattern "http://botaniamod.net/files/deobf/[module] [revision]-deobf.[ext]"
+    //}
 }
 
 apply plugin: 'forge'
@@ -36,6 +36,9 @@ ext.version_mod = "${project.version_major}.${project.version_minor}.${project.v
 version = project.version_mc + "-" + project.version_mod
 group= "magicbees" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "magicbees"
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 minecraft {
     version = project.version_mc + "-" + project.version_forge
@@ -48,7 +51,7 @@ minecraft {
 dependencies {
     compile "net.sengir.forestry:forestry_${project.version_mc}:${project.version_forestry}:api"
     runtime "net.sengir.forestry:forestry_${project.version_mc}:${project.version_forestry}:dev"
-    compile name: 'Botania', version: "${project.version_botania}", ext: 'jar'
+    //compile name: 'Botania', version: "${project.version_botania}", ext: 'jar'
     compile name: 'Baubles', version: "${project.version_baubles}", ext: 'jar'
     compile name: 'Thaumcraft', version: "${project.version_thaumcraft}", ext: 'jar'
 }
