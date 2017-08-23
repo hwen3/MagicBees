@@ -7,10 +7,12 @@ import com.google.common.collect.Maps;
 import forestry.core.models.BlankModel;
 import magicbees.MagicBees;
 import magicbees.bees.EnumBeeModifiers;
+import magicbees.client.tesr.TileEntityEffectJarRenderer;
 import magicbees.elec332.corerepack.util.MoonPhase;
 import magicbees.init.BlockRegister;
 import magicbees.item.types.EnumNuggetType;
 import magicbees.item.types.EnumResourceType;
+import magicbees.tile.TileEntityEffectJar;
 import magicbees.util.MagicBeesResourceLocation;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -38,6 +40,7 @@ import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -112,8 +115,8 @@ public class ModelHandler {
 		registerTESRs();
 	}
 
-	//TODO: Jar TESR
 	private void registerTESRs(){
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEffectJar.class, new TileEntityEffectJarRenderer());
 	}
 
 	@SubscribeEvent

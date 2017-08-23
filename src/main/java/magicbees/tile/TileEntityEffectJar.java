@@ -73,7 +73,7 @@ public class TileEntityEffectJar extends TileEntity implements ITickable, IActiv
 
 	public ItemStack getDrone() {
 		if (droneQueen == null){
-			droneQueen = new ItemStack(PluginApiculture.getItems().beeQueenGE, 1, queenStack.getItemDamage());//droneStack.copy();
+			droneQueen = new ItemStack(PluginApiculture.getItems().beeDroneGE, 1, queenStack.getItemDamage());//droneStack.copy();
 			droneQueen.setTagCompound(Preconditions.checkNotNull(queenStack.getTagCompound()).copy());
 		}
 		return droneQueen;
