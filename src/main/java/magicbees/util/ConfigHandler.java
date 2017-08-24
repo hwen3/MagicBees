@@ -3,6 +3,8 @@ package magicbees.util;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import magicbees.api.module.config.IConfigRegistry;
+import magicbees.api.module.config.IConfiguration;
 import net.minecraftforge.common.config.Configuration;
 
 import java.util.Map;
@@ -11,7 +13,7 @@ import java.util.Set;
 /**
  * Created by Elec332 on 12-8-2017.
  */
-public final class ConfigHandler {
+public final class ConfigHandler implements IConfigRegistry {
 
 	public ConfigHandler(Configuration config){
 		this.config = Preconditions.checkNotNull(config);
@@ -26,6 +28,7 @@ public final class ConfigHandler {
 	private final Map<String, String> categoryComments;
 	private boolean reloadBlocked, lock;
 
+	@Override
 	public void registerConfig(IConfiguration config){
 		if (lock){
 			return;
@@ -37,6 +40,7 @@ public final class ConfigHandler {
 		this.reloadBlocked = false;
 	}
 
+	@Override
 	public void registerCategoryComment(String category, String comment){
 		if (lock){
 			throw new IllegalStateException("Config comments have to be registered in config init!");

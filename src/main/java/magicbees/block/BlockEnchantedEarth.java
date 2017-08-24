@@ -23,6 +23,18 @@ public class BlockEnchantedEarth extends Block {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random random) {
 		Block block = world.getBlockState(pos.up()).getBlock();
 		if (block.getTickRandomly()) {

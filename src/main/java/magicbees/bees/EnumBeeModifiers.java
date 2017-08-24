@@ -2,8 +2,15 @@ package magicbees.bees;
 
 import forestry.api.apiculture.IBeeGenome;
 import forestry.api.apiculture.IBeeModifier;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Created by Elec332 on 21-8-2016.
@@ -48,6 +55,26 @@ public enum EnumBeeModifiers implements IBeeModifier {
 
     public int getMaxDamage(){
         return this.maxDamage;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, boolean advanced){
+        getTooltip(tooltip, "territory", territoryMod, 1);
+        getTooltip(tooltip, "mutation", mutationMod, 1);
+        getTooltip(tooltip, "lifespan", lifespanMod, this == OBLIVION ? 4 : 1);
+        getTooltip(tooltip, "production", productionMod, 1);
+        getTooltip(tooltip, "flowering", floweringMod, 1);
+        getTooltip(tooltip, "genetic_decay", geneticDecayMod, this == GENTLE ? 2 : 1);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("deprecation")
+    private void getTooltip(List<String> tooltip, String type, float value, int decimals){
+        if (value == 1.0f){
+            return;
+        }
+        String translated = I18n.translateToLocal("magicbees.frame.modifier." + type);
+        tooltip.add(String.format(translated + ": %." + decimals + "fx", value));
     }
 
     @Override

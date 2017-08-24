@@ -13,7 +13,6 @@ import magicbees.init.AlleleRegister;
 import magicbees.init.BlockRegister;
 import magicbees.init.ItemRegister;
 import magicbees.init.RecipeRegister;
-import magicbees.integration.botania.BotaniaIntegrationConfig;
 import magicbees.inventory.GuiHandler;
 import magicbees.util.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -60,10 +59,7 @@ public class MagicBees {
         crumblingHandler = new DefaultCrumblingHandler();
         transmutationController = new DefaultTransmutationController();
         creativeTab = new MagicBeesCreativeTab();
-
         config = new ConfigHandler(new Configuration(event.getSuggestedConfigurationFile()));
-        config.registerConfig(new BotaniaIntegrationConfig());
-        config.registerConfig(new Config());
 
         MinecraftForge.EVENT_BUS.register(new ItemRegister());
         MinecraftForge.EVENT_BUS.register(new BlockRegister());
@@ -73,6 +69,9 @@ public class MagicBees {
         ItemRegister.preInit();
 
         ModuleHandler.INSTANCE.preInit(event);
+        ModuleHandler.INSTANCE.registerConfig(config);
+
+        config.registerConfig(new Config());
 
         if (FMLCommonHandler.instance().getSide().isClient()){
             MinecraftForge.EVENT_BUS.register(new ModelHandler());

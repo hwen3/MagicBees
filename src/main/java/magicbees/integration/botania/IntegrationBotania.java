@@ -8,6 +8,7 @@ import magicbees.api.ITransmutationHandler;
 import magicbees.api.module.IMagicBeesInitialisationEvent;
 import magicbees.api.module.IMagicBeesModule;
 import magicbees.api.module.MagicBeesModule;
+import magicbees.api.module.config.IConfigRegistry;
 import magicbees.bees.BeeIntegrationInterface;
 import magicbees.bees.EnumBeeSpecies;
 import magicbees.bees.allele.AlleleEffectTransmuting;
@@ -66,6 +67,11 @@ public class IntegrationBotania implements IMagicBeesModule {
 		if (FMLCommonHandler.instance().getSide().isClient()){
 			//cl(); MC iz broken...
 		}
+	}
+
+	@Override
+	public void registerConfig(IConfigRegistry registry) {
+		registry.registerConfig(new BotaniaIntegrationConfig());
 	}
 
 	@SideOnly(Side.CLIENT)

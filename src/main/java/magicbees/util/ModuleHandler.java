@@ -4,13 +4,18 @@ import com.google.common.base.Strings;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import magicbees.MagicBees;
 import magicbees.api.module.IMagicBeesInitialisationEvent;
 import magicbees.api.module.IMagicBeesModule;
 import magicbees.api.module.MagicBeesModule;
+import magicbees.api.module.config.IConfigRegistry;
+import magicbees.api.module.config.IConfiguration;
 import magicbees.elec332.corerepack.util.FMLUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.config.ConfigCategory;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
@@ -20,6 +25,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -77,6 +83,47 @@ public enum ModuleHandler {
 		runEvent("Preinitializing", data -> data.getLeft().preInit());
 	}
 
+	public void registerConfig(final IConfigRegistry configRegistry){
+		Set<IConfiguration> configRegistrySet = Sets.newHashSet();
+		final IConfigRegistry registry = new IConfigRegistry() {
+
+			@Override
+			public void registerConfig(IConfiguration config) {
+				if (configRegistrySet.add(config)){
+					config.init(this);
+				}
+			}
+
+			@Override
+			public void registerCategoryComment(String category, String comment) {
+				configRegistry.registerCategoryComment(category, comment);
+			}
+
+		};
+		runEvent(null, data -> data.getLeft().registerConfig(registry));
+		configRegistry.registerConfig(config -> {
+
+			Configuration wrapped = new Configuration(config.getConfigFile()){
+
+				@Override
+				public ConfigCategory getCategory(String category) {
+					return config.getCategory("integration." + category);
+				}
+
+				@Override
+				public void save(){
+				}
+
+				@Override
+				public void load(){
+				}
+
+			};
+			configRegistrySet.forEach(config_ -> config_.reload(wrapped));
+
+		});
+	}
+
 	public void init(){
 		final MBIE event = new MBIE();
 		runEvent("Initializing", data -> {
@@ -98,14 +145,18 @@ public enum ModuleHandler {
 
 	private void runEvent(String s, Consumer<Triple<IMagicBeesModule, String, List<String>>> run){
 		for (ModContainer mc : modules.keySet()){
-			MagicBees.logger.info(s + " modules for mod " + mc.getModId() + "...");
+			if (s != null) {
+				MagicBees.logger.info(s + " modules for mod " + mc.getModId() + "...");
+			}
 			int modules = 0;
 			for (Triple<IMagicBeesModule, String, List<String>> moduleData : this.modules.get(mc)){
 				MagicBees.logger.info("   " + s + " module " + moduleData.getMiddle());
 				run.accept(moduleData);
 				modules++;
 			}
-			MagicBees.logger.info(s.replace("ing", "ed ") + modules + " module" + (modules > 1 ? "s" : "") + " for mod " + mc.getModId());
+			if (s != null) {
+				MagicBees.logger.info(s.replace("ing", "ed ") + modules + " module" + (modules > 1 ? "s" : "") + " for mod " + mc.getModId());
+			}
 		}
 	}
 

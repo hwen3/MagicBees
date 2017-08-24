@@ -1,6 +1,7 @@
 package magicbees.client.tesr;
 
 import magicbees.tile.TileEntityEffectJar;
+import magicbees.util.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -18,6 +19,9 @@ public class TileEntityEffectJarRenderer extends TileEntitySpecialRenderer<TileE
 
 	@Override
 	public void render(TileEntityEffectJar te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+		if (!Config.fancyJarRenderer || !Minecraft.getMinecraft().gameSettings.fancyGraphics){
+			return;
+		}
 		ItemStack stack = te.getDrone();//BeeManager.beeRoot.getMemberStack(EnumBeeSpecies.DIAMOND.getIndividual(), EnumBeeType.QUEEN);
 		RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 		GlStateManager.pushMatrix();

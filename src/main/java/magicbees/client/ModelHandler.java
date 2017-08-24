@@ -13,10 +13,12 @@ import magicbees.init.BlockRegister;
 import magicbees.item.types.EnumNuggetType;
 import magicbees.item.types.EnumResourceType;
 import magicbees.tile.TileEntityEffectJar;
+import magicbees.util.Config;
 import magicbees.util.MagicBeesResourceLocation;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiVideoSettings;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
@@ -32,6 +34,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -40,6 +43,7 @@ import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -69,6 +73,7 @@ public class ModelHandler {
 	public static final ModelResourceLocation effectJarModel = new ModelResourceLocation(new MagicBeesResourceLocation("effectJar"), "normal");
 	private static final ResourceLocation someModel = new ResourceLocation("stick");
 	private static ItemCameraTransforms itemTransform;
+	private static boolean tesrRegistered = false;
 
 	@SubscribeEvent
 	public void loadModels(ModelRegistryEvent event){
@@ -116,7 +121,32 @@ public class ModelHandler {
 	}
 
 	private void registerTESRs(){
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEffectJar.class, new TileEntityEffectJarRenderer());
+		MinecraftForge.EVENT_BUS.register(new Object(){
+
+			@SubscribeEvent
+			public void onGuiButtonClicked(GuiScreenEvent.ActionPerformedEvent.Post event){
+				if (!(event.getGui() instanceof GuiVideoSettings)){
+					return;
+				}
+				if (Minecraft.getMinecraft().gameSettings.fancyGraphics && !tesrRegistered){
+					registerFancyTESRs();
+				}
+			}
+
+		});
+		registerFancyTESRs();
+	}
+
+	private void registerFancyTESRs(){
+
+		if (Minecraft.getMinecraft().gameSettings.fancyGraphics && !tesrRegistered){
+
+			if (Config.fancyJarRenderer){
+				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEffectJar.class, new TileEntityEffectJarRenderer());
+			}
+
+			tesrRegistered = true;
+		}
 	}
 
 	@SubscribeEvent
