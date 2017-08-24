@@ -64,7 +64,6 @@ minecraft {
     runDir = "run"
 	
 	replaceIn mod.mainClass
-    replace "#ELECCORE_VER#", config.eleccore_version
 	replace "#FORGE_VER#", config.forge_version
 	
 	mappings = config.mappings
