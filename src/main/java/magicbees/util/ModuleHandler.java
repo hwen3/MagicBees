@@ -150,7 +150,9 @@ public enum ModuleHandler {
 			}
 			int modules = 0;
 			for (Triple<IMagicBeesModule, String, List<String>> moduleData : this.modules.get(mc)){
-				MagicBees.logger.info("   " + s + " module " + moduleData.getMiddle());
+				if (s != null) {
+					MagicBees.logger.info("   " + s + " module " + moduleData.getMiddle());
+				}
 				run.accept(moduleData);
 				modules++;
 			}

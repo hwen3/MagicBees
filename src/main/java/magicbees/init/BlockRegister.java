@@ -57,6 +57,11 @@ public final class BlockRegister {
                 return hiveBlock.getUnlocalizedName(stack);
             }
 
+            @Override
+            public int getMetadata(int damage) {
+                return damage;
+            }
+
         }.setRegistryName(hiveBlock.getRegistryName()), createItem(effectJar));
         event.getRegistry().register(createItem(enchantedEarth));
     }

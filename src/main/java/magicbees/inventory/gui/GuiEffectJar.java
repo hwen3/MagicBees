@@ -24,8 +24,6 @@ public class GuiEffectJar extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		int i = (this.width - this.xSize) / 2;
-		int j = (this.height - this.ySize) / 2;
 		int currentBeeColour = jar.getCurrentBeeColour();
 		float r = ((currentBeeColour >> 16) & 255) / 255f;
 		float g = ((currentBeeColour >> 8) & 255) / 255f;
@@ -35,7 +33,7 @@ public class GuiEffectJar extends GuiContainer {
 		this.mc.getTextureManager().bindTexture(BACKGROUND);
 
 		int value = BAR_HEIGHT - (jar.getCurrentBeeHealth() * BAR_HEIGHT) / 100;
-		drawTexturedModalRect(i - 8, j + 13 - (BAR_HEIGHT - value), 176, 0, 10, BAR_HEIGHT - value);
+		drawTexturedModalRect(117, 50 - (BAR_HEIGHT - value), 176, 0, 10, BAR_HEIGHT - value);
 	}
 
 	@Override
