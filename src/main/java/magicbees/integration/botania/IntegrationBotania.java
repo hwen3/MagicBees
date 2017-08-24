@@ -8,7 +8,7 @@ import magicbees.api.ITransmutationHandler;
 import magicbees.api.module.IMagicBeesInitialisationEvent;
 import magicbees.api.module.IMagicBeesModule;
 import magicbees.api.module.MagicBeesModule;
-import magicbees.api.module.config.IConfigRegistry;
+import magicbees.api.module.IConfigRegistry;
 import magicbees.bees.BeeIntegrationInterface;
 import magicbees.bees.EnumBeeSpecies;
 import magicbees.bees.allele.AlleleEffectTransmuting;

@@ -3,8 +3,8 @@ package magicbees.util;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import magicbees.api.module.config.IConfigRegistry;
-import magicbees.api.module.config.IConfiguration;
+import magicbees.api.module.IConfigRegistry;
+import magicbees.api.module.IConfiguration;
 import net.minecraftforge.common.config.Configuration;
 
 import java.util.Map;

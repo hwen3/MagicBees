@@ -1,7 +1,7 @@
 package magicbees.util;
 
 
-import magicbees.api.module.config.IConfiguration;
+import magicbees.api.module.IConfiguration;
 import net.minecraftforge.common.config.Configuration;
 
 /**

@@ -1,7 +1,5 @@
 package magicbees.api.module;
 
-import magicbees.api.module.config.IConfigRegistry;
-
 /**
  * Created by Elec332 on 14-8-2017.
  */
