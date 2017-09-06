@@ -25,8 +25,8 @@ public class TileEntityEffectJarRenderer extends TileEntitySpecialRenderer<TileE
 		ItemStack stack = te.getDrone();//BeeManager.beeRoot.getMemberStack(EnumBeeSpecies.DIAMOND.getIndividual(), EnumBeeType.QUEEN);
 		RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(x + 0.5f, y + 0.36f, z + 0.5f);
-		GlStateManager.scale(0.6F, 0.6F, 0.6F);
+		GlStateManager.translate(x + 0.5f, y + 0.3125f, z + 0.5f);
+		GlStateManager.scale(0.625F, 0.625F, 0.625F);
 		int angle = (int) (te.getWorld().getWorldTime() % 360);
 		GlStateManager.rotate(angle * 3, 0, 1, 0);
 		GlStateManager.translate(0, Math.cos(Math.toRadians(angle)) * 0.1, 0);

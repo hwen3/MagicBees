@@ -1,11 +1,7 @@
 package magicbees.client;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import forestry.core.models.BlankModel;
-import magicbees.MagicBees;
 import magicbees.bees.EnumBeeModifiers;
 import magicbees.client.tesr.TileEntityEffectJarRenderer;
 import magicbees.elec332.corerepack.util.MoonPhase;
@@ -29,20 +25,15 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -52,15 +43,12 @@ import org.lwjgl.util.vector.Vector3f;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-import java.util.function.Predicate;
-
 import static magicbees.init.ItemRegister.*;
 
 /**
@@ -114,7 +102,6 @@ public class ModelHandler {
 		linkItemTextureToBlock(BlockRegister.hiveBlock);
 		linkItemTextureToBlock(BlockRegister.enchantedEarth);
 
-		OBJLoader.INSTANCE.addDomain(MagicBees.modid);
 		setItemModelLocation(Item.getItemFromBlock(BlockRegister.effectJar), effectJarModel);
 
 		registerTESRs();
@@ -198,42 +185,7 @@ public class ModelHandler {
 			}
 
 		});
-
-		IBakedModel defaultModel = Preconditions.checkNotNull(event.getModelRegistry().getObject(effectJarModel));
-		IBakedModel lidModel = getOBJParts(event.getModelLoader(), effectJarModel, "jarLid");
-		IBakedModel baseModel = getOBJParts(event.getModelLoader(), effectJarModel, "jarBase");
-		event.getModelRegistry().putObject(effectJarModel, new BlankModel() {
-
-			@Override
-			@Nonnull
-			protected ItemOverrideList createOverrides() {
-				return new ItemOverrideList(Collections.emptyList()){
-
-					@Override
-					@Nonnull
-					public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
-						return defaultModel;
-					}
-
-				};
-			}
-
-			@Override
-			@Nonnull
-			public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-				BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
-				if (layer == null){
-					return defaultModel.getQuads(state, side, rand);
-				} else if (layer == BlockRenderLayer.TRANSLUCENT){
-					return baseModel.getQuads(state, side, rand);
-				} else if (layer == BlockRenderLayer.SOLID){
-					return lidModel.getQuads(state, side, rand);
-				}
-				return Collections.emptyList();
-			}
-
-		});
-
+		
 	}
 
 
@@ -267,47 +219,6 @@ public class ModelHandler {
 			return loc;
 
 		});
-	}
-
-	private static IBakedModel getOBJParts(ModelLoader modelLoader, ModelResourceLocation location, String... parts){
-		List<String> partsList = Lists.newArrayList(parts);
-		return getOBJParts(modelLoader, location, partsList::contains);
-	}
-
-	@SuppressWarnings({"deprecation", "unchecked"})
-	private static IBakedModel getOBJParts(ModelLoader modelLoader, ModelResourceLocation location, Predicate<String> filter){
-		try {
-			Field f = ModelLoader.class.getDeclaredField("stateModels");
-			f.setAccessible(true);
-			Map<ModelResourceLocation, IModel> stateModels = (Map<ModelResourceLocation, IModel>) f.get(modelLoader);
-			IModel model = stateModels.get(location);
-			if (!(model instanceof OBJModel)) {
-				Class clazz = Class.forName("net.minecraftforge.client.model.ModelLoader$WeightedRandomModel");
-				Field f2 = clazz.getDeclaredField("models");
-				f2.setAccessible(true);
-				model = (IModel) ((List) f2.get(model)).get(0);
-				if (!(model instanceof OBJModel)) {
-					throw new RuntimeException("No OBJ model found for "+location);
-				}
-			}
-			OBJModel objModel = (OBJModel) model;
-			OBJModel.MaterialLibrary lib = objModel.getMatLib().makeLibWithReplacements(ImmutableMap.of());
-			Field f3 = OBJModel.MaterialLibrary.class.getDeclaredField("groups");
-			f3.setAccessible(true);
-			Map<String, OBJModel.Group> map = Maps.newHashMap(lib.getGroups());
-			lib.getGroups().forEach((s, group) -> {
-
-				if (!filter.test(s)){
-					map.remove(s);
-				}
-
-			});
-			f3.set(lib, map);
-			OBJModel newModel = new OBJModel(lib, new MagicBeesResourceLocation("neen"));
-			return newModel.bake(ModelRotation.X0_Y0, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
-		} catch (Exception e){
-			throw new RuntimeException(e);
-		}
 	}
 
 	private static ModelResourceLocation createMRL(String name){

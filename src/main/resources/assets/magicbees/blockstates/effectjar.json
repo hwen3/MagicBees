@@ -1,11 +1,22 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "custom": { "flip-v": true },
-    "model": "magicbees:obj/effectjar.obj"
-  },
-  "variants": {
-    "normal": [{}],
-    "inventory": [{}]
-  }
+    "forge_marker": 1,
+    "defaults": {
+        "model": "forge:multi-layer",
+        "custom": {
+            "base": "magicbees:effectjar#base",
+            "Solid": "magicbees:effectjar#base",
+            "Translucent": "magicbees:effectjar#trans"
+        },
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}],
+        "base": [{
+            "model": "magicbees:collector_jar_glass"
+        }],
+        "trans": [{
+            "model": "magicbees:collector_jar_lid"
+        }]
+    }
 }

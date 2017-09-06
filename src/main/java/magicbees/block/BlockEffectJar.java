@@ -32,7 +32,7 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
 		this.setResistance(1.5f);
 	}
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25f, 0f, 0.25f, 0.75f, 0.81f, 0.74f);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25f, 0f, 0.25f, 0.75f, 0.875f, 0.75f);
 
 	@Override
 	@Nonnull
@@ -73,17 +73,6 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-		return layer == getBlockLayer() || layer == BlockRenderLayer.SOLID;
-	}
-
-	@Override
-	@Nonnull
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.TRANSLUCENT;
-	}
-
-	@Override
 	@SuppressWarnings("deprecation")
 	public boolean isFullCube(IBlockState state) {
 		return false;
@@ -94,6 +83,11 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
 	public boolean isFullBlock(IBlockState state) {
 		return false;
 	}
+
+	@Override
+    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+        return layer == BlockRenderLayer.SOLID || layer == BlockRenderLayer.TRANSLUCENT;
+    }
 
 	@Override
 	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
