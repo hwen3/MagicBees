@@ -90,6 +90,11 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
     }
 
 	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return super.getBlockLayer();
+	}
+
+	@Override
 	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEntity tile = world.getTileEntity(pos);
 

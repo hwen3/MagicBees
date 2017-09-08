@@ -4,8 +4,8 @@
         "model": "forge:multi-layer",
         "custom": {
             "base": "magicbees:effectjar#base",
-            "Solid": "magicbees:effectjar#base",
-            "Translucent": "magicbees:effectjar#trans"
+            "Solid": "magicbees:effectjar#lid",
+            "Translucent": "magicbees:effectjar#base"
         },
         "transform": "forge:default-block"
     },
@@ -15,7 +15,7 @@
         "base": [{
             "model": "magicbees:collector_jar_glass"
         }],
-        "trans": [{
+        "lid": [{
             "model": "magicbees:collector_jar_lid"
         }]
     }

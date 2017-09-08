@@ -41,7 +41,7 @@ configFile.withReader {
     def prop = new Properties()
     prop.load(it)
     project.ext.config = new ConfigSlurper().parse prop
-    project.ext.modVersion = "${config.minecraft_version}-" + "${config.mod_version}." + (System.env.BUILD_NUMBER ?: "localBuild")
+    project.ext.modVersion = "${config.mod_version}." + (System.env.BUILD_NUMBER ?: "localBuild")
 }
 
 ext.modInfo = file "mod.properties"
@@ -52,7 +52,7 @@ modInfo.withReader {
     project.ext.mod = new ConfigSlurper().parse prop
 }
 
-version = modVersion
+version = "${config.minecraft_version}-" + modVersion
 group= mod.group // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod.fileName
 

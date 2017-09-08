@@ -1,7 +1,10 @@
 package magicbees.client;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import forestry.core.models.BlankModel;
+import magicbees.MagicBees;
 import magicbees.bees.EnumBeeModifiers;
 import magicbees.client.tesr.TileEntityEffectJarRenderer;
 import magicbees.elec332.corerepack.util.MoonPhase;
@@ -25,15 +28,20 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -43,12 +51,15 @@ import org.lwjgl.util.vector.Vector3f;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
+
 import static magicbees.init.ItemRegister.*;
 
 /**
@@ -59,12 +70,17 @@ public class ModelHandler {
 
 	private static final ModelResourceLocation moonDialModelLocation = new ModelResourceLocation(new MagicBeesResourceLocation("moondialworkaround"), "inventory");
 	public static final ModelResourceLocation effectJarModel = new ModelResourceLocation(new MagicBeesResourceLocation("effectJar"), "normal");
+	public static final ModelResourceLocation effectJarModelOld = new ModelResourceLocation(new MagicBeesResourceLocation("effectJar_old"), "normal");
 	private static final ResourceLocation someModel = new ResourceLocation("stick");
 	private static ItemCameraTransforms itemTransform;
 	private static boolean tesrRegistered = false;
+	private static IBakedModel jarModel;
+	private static ModelResourceLocation effectJarLink = new ModelResourceLocation(new MagicBeesResourceLocation("runtimeLoadedEffJarModelLink"), "normal");
 
 	@SubscribeEvent
 	public void loadModels(ModelRegistryEvent event){
+		OBJLoader.INSTANCE.addDomain(MagicBees.modid);
+
 		ModelLoader.registerItemVariants(moonDial, someModel);
 		setItemModelLocation(moonDial, stack -> moonDialModelLocation);
 		setForestryModel(combItem, "bee_combs");
@@ -185,7 +201,61 @@ public class ModelHandler {
 			}
 
 		});
-		
+		IBakedModel originalModel = event.getModelRegistry().getObject(effectJarModel);
+		if (originalModel != null) {
+			IBakedModel replacement;
+			try {
+				IModel model = OBJLoader.INSTANCE.loadModel(new MagicBeesResourceLocation("models/block/obj/effectjar.obj"));
+				IBakedModel oldModelBase = model.bake(ModelRotation.X0_Y0, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+				IBakedModel lidModel = getOBJParts(model, "jarLid");
+				IBakedModel baseModel = getOBJParts(model, "jarBase");
+				IBakedModel oldJarModel = new BlankModel() {
+
+					@Override
+					@Nonnull
+					protected ItemOverrideList createOverrides() {
+						return new ItemOverrideList(Collections.emptyList()) {
+
+							@Override
+							@Nonnull
+							public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
+								return oldModelBase;
+							}
+						};
+					}
+
+					@Override
+					@Nonnull
+					public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+						BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
+						if (layer == null) {
+							return oldModelBase.getQuads(state, side, rand);
+						} else if (layer == BlockRenderLayer.TRANSLUCENT) {
+							return baseModel.getQuads(state, side, rand);
+						} else if (layer == BlockRenderLayer.SOLID) {
+							return lidModel.getQuads(state, side, rand);
+						}
+						return Collections.emptyList();
+					}
+
+				};
+				replacement = new BlankModel() {
+
+					@Override
+					@Nonnull
+					public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+						return (Config.oldJarModel ? oldJarModel : originalModel).getQuads(state, side, rand);
+					}
+
+				};
+			} catch (Exception e) {
+				replacement = originalModel;
+				MagicBees.logger.error("Error loading models for Bee Collector's Jar, using backup...", e);
+			}
+			event.getModelRegistry().putObject(effectJarModel, replacement);
+		} else {
+			throw new RuntimeException("Error creating model for Bee Collector's Jar");
+		}
 	}
 
 
@@ -195,6 +265,7 @@ public class ModelHandler {
 		for (int i = 0; i < MoonPhase.values().length; i++) {
 			map.registerSprite(new MagicBeesResourceLocation("items/moondial." + i));
 		}
+		map.registerSprite(new MagicBeesResourceLocation("model/jartexture"));
 	}
 
 	@SuppressWarnings("all")
@@ -219,6 +290,61 @@ public class ModelHandler {
 			return loc;
 
 		});
+	}
+
+	private static IBakedModel getOBJParts(IModel model, String... parts) {
+		List<String> partsList = Lists.newArrayList(parts);
+		return getOBJParts(model, partsList::contains);
+	}
+
+	private static IBakedModel getOBJParts(ModelLoader modelLoader, ModelResourceLocation location, String... parts) {
+		List<String> partsList = Lists.newArrayList(parts);
+		return getOBJParts(modelLoader, location, partsList::contains);
+	}
+
+	@SuppressWarnings("unchecked")
+	private static IBakedModel getOBJParts(ModelLoader modelLoader, ModelResourceLocation location, Predicate<String> filter) {
+		try {
+			Field f = ModelLoader.class.getDeclaredField("stateModels");
+			f.setAccessible(true);
+			Map<ModelResourceLocation, IModel> stateModels = (Map<ModelResourceLocation, IModel>) f.get(modelLoader);
+			IModel model = stateModels.get(location);
+			return getOBJParts(model, filter);
+		} catch (Exception e){
+			throw new RuntimeException(e);
+		}
+	}
+
+	@SuppressWarnings({"deprecation"})
+ 	private static IBakedModel getOBJParts(IModel model, Predicate<String> filter) {
+		try {
+			if (!(model instanceof OBJModel)) {
+				Class clazz = Class.forName("net.minecraftforge.client.model.ModelLoader$WeightedRandomModel");
+				Field f2 = clazz.getDeclaredField("models");
+				f2.setAccessible(true);
+				model = (IModel) ((List) f2.get(model)).get(0);
+				if (!(model instanceof OBJModel)) {
+					throw new RuntimeException("No OBJ model found for " + model.toString());
+				}
+			}
+			OBJModel objModel = (OBJModel) model;
+			OBJModel.MaterialLibrary lib = objModel.getMatLib().makeLibWithReplacements(ImmutableMap.of());
+			Field f3 = OBJModel.MaterialLibrary.class.getDeclaredField("groups");
+			f3.setAccessible(true);
+			Map<String, OBJModel.Group> map = Maps.newHashMap(lib.getGroups());
+			lib.getGroups().forEach((s, group) -> {
+
+				if (!filter.test(s)) {
+					map.remove(s);
+				}
+
+			});
+			f3.set(lib, map);
+			OBJModel newModel = new OBJModel(lib, new MagicBeesResourceLocation("neen"));
+			return newModel.bake(ModelRotation.X0_Y0, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private static ModelResourceLocation createMRL(String name){

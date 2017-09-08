@@ -21,6 +21,8 @@ public class Config implements IConfiguration {
 
     public static boolean fancyJarRenderer = true;
 
+    public static boolean oldJarModel = false;
+
     @Override
     public void reload(Configuration config) {
         magnetSound = config.getBoolean("magnetSound", Configuration.CATEGORY_GENERAL, true, "Enables/Disables the magnet sounds.");
@@ -29,6 +31,7 @@ public class Config implements IConfiguration {
         magnetLevelMultiplier = config.getFloat("magnetLevelMultiplier", Configuration.CATEGORY_GENERAL, 0.75f, 0.1f, 8,"Used to calculate the range of the Mysterious Magnet; Range = baseValue + level * multiplier");
         moonDialShowsPhaseInText = config.getBoolean("moonDialShowsPhaseInText", Configuration.CATEGORY_GENERAL, true, "Whether the MoonDial should show the MoonPhase in it's tooltip.");
         fancyJarRenderer = config.getBoolean("fancyJarRenderer", Configuration.CATEGORY_CLIENT, true, "Whether to render the bee inside the Bee Collector's Jar with a TESR.");
+        oldJarModel = config.getBoolean("oldJarmodel", Configuration.CATEGORY_CLIENT, false, "Set to true to use the old model for the Bee Collector's Jar");
     }
 
     //@Configurable.Class(comment = "Here you can configure certain bees")
