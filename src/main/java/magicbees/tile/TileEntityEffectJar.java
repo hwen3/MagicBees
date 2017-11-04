@@ -1,28 +1,33 @@
 package magicbees.tile;
 
 import com.google.common.base.Preconditions;
-import com.mojang.authlib.GameProfile;
-import forestry.api.apiculture.BeeManager;
-import forestry.api.apiculture.IBee;
-import forestry.api.genetics.IEffectData;
-import forestry.apiculture.PluginApiculture;
-import forestry.apiculture.network.packets.PacketActiveUpdate;
-import forestry.core.network.IStreamable;
-import forestry.core.network.PacketBufferForestry;
-import forestry.core.network.packets.PacketTileStream;
-import forestry.core.tiles.IActivatable;
-import forestry.core.utils.NetworkUtil;
-import magicbees.tile.logic.EffectJarHousing;
+
+import javax.annotation.Nonnull;
+import java.io.IOException;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+
+import com.mojang.authlib.GameProfile;
+
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nonnull;
-import java.io.IOException;
+import forestry.api.apiculture.BeeManager;
+import forestry.api.apiculture.IBee;
+import forestry.api.genetics.IEffectData;
+import forestry.apiculture.network.packets.PacketActiveUpdate;
+import forestry.core.network.IStreamable;
+import forestry.core.network.PacketBufferForestry;
+import forestry.core.network.packets.PacketTileStream;
+import forestry.core.tiles.IActivatable;
+import forestry.core.utils.NetworkUtil;
+
+import magicbees.tile.logic.EffectJarHousing;
+import magicbees.util.Utils;
 
 /**
  * Created by Elec332 on 5-4-2017.
@@ -77,7 +82,7 @@ public class TileEntityEffectJar extends TileEntity implements ITickable, IActiv
 				droneQueen = ItemStack.EMPTY;
 				return droneQueen;
 			}
-			droneQueen = new ItemStack(PluginApiculture.getItems().beeDroneGE, 1, queenStack.getItemDamage());//droneStack.copy();
+			droneQueen = new ItemStack(Utils.getApicultureItems().beeDroneGE, 1, queenStack.getItemDamage());//droneStack.copy();
 			droneQueen.setTagCompound(Preconditions.checkNotNull(queenStack.getTagCompound()).copy());
 		}
 		return droneQueen;
@@ -114,7 +119,7 @@ public class TileEntityEffectJar extends TileEntity implements ITickable, IActiv
 				droneStack.shrink(1);
 			}
 
-			queenStack = new ItemStack(PluginApiculture.getItems().beeQueenGE, 1, droneStack.getItemDamage());//droneStack.copy();
+			queenStack = new ItemStack(Utils.getApicultureItems().beeQueenGE, 1, droneStack.getItemDamage());//droneStack.copy();
 			queenStack.setTagCompound(Preconditions.checkNotNull(droneStack.getTagCompound()).copy());
 			queenStack.setCount(1);
 			droneQueen = null;

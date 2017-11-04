@@ -1,23 +1,25 @@
 package magicbees.util;
 
 import com.google.common.base.Preconditions;
-import forestry.api.genetics.IAlleleSpeciesBuilder;
-import forestry.apiculture.PluginApiculture;
-import forestry.apiculture.blocks.BlockRegistryApiculture;
-import forestry.apiculture.items.ItemRegistryApiculture;
-import forestry.core.PluginCore;
-import forestry.core.blocks.BlockRegistryCore;
-import forestry.core.items.ItemRegistryCore;
+
+import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-import javax.annotation.Nonnull;
-import java.lang.reflect.Field;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+import forestry.api.genetics.IAlleleSpeciesBuilder;
+import forestry.apiculture.blocks.BlockRegistryApiculture;
+import forestry.apiculture.items.ItemRegistryApiculture;
+import forestry.core.blocks.BlockRegistryCore;
+import forestry.core.items.ItemRegistryCore;
 
 /**
  * Created by Elec332 on 15-5-2017.
@@ -85,12 +87,26 @@ public class Utils {
 	private static final BlockRegistryCore blocksC;
 
 	static {
+		Class apiculture;
+		Class core;
 		try {
-			itemsA = Preconditions.checkNotNull((ItemRegistryApiculture) getStatic(PluginApiculture.class.getDeclaredField("items")));
-			blocksA = Preconditions.checkNotNull((BlockRegistryApiculture) getStatic(PluginApiculture.class.getDeclaredField("blocks")));
-			itemsC = Preconditions.checkNotNull((ItemRegistryCore) getStatic(PluginCore.class.getDeclaredField("items")));
-			blocksC = Preconditions.checkNotNull((BlockRegistryCore) getStatic(PluginCore.class.getDeclaredField("blocks")));
-		} catch (Exception e){
+			//Test for old forestry version.
+			apiculture = Class.forName("forestry.apiculture.PluginApiculture");
+			core = Class.forName("forestry.core.PluginCore");
+		}catch (ClassNotFoundException e){
+			try {
+				apiculture = Class.forName("forestry.apiculture.ModuleApiculture");
+				core = Class.forName("forestry.core.ModuleCore");
+			}catch (ClassNotFoundException ex){
+				throw new RuntimeException(ex);
+			}
+		}
+		try {
+			itemsA = Preconditions.checkNotNull((ItemRegistryApiculture) getStatic(apiculture.getDeclaredField("items")));
+			blocksA = Preconditions.checkNotNull((BlockRegistryApiculture) getStatic(apiculture.getDeclaredField("blocks")));
+			itemsC = Preconditions.checkNotNull((ItemRegistryCore) getStatic(core.getDeclaredField("items")));
+			blocksC = Preconditions.checkNotNull((BlockRegistryCore) getStatic(core.getDeclaredField("blocks")));
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
