@@ -65,7 +65,7 @@ public class IntegrationBotania implements IMagicBeesModule {
 		BotaniaAPI.registerSubTileSignature(SubTileHibeescus.class, new BotaniaSignature(SubTileHibeescus.NAME));
 		BotaniaAPI.addSubTileToCreativeMenu(SubTileHibeescus.NAME);
 		if (FMLCommonHandler.instance().getSide().isClient()){
-			//cl(); MC iz broken...
+			cl();
 		}
 	}
 
@@ -76,8 +76,14 @@ public class IntegrationBotania implements IMagicBeesModule {
 
 	@SideOnly(Side.CLIENT)
 	private void cl(){
-		ModelResourceLocation mrl = new ModelResourceLocation(new MagicBeesResourceLocation("beegonia"), "normal");
+		ModelResourceLocation mrl;
+
+		mrl = new ModelResourceLocation(new MagicBeesResourceLocation("beegonia"), "normal");
 		BotaniaAPIClient.registerSubtileModel(SubTileBeegonia.class, mrl);
+		mrl = new ModelResourceLocation(new MagicBeesResourceLocation("hibeescus"), "normal");
+		BotaniaAPIClient.registerSubtileModel(SubTileHibeescus.class, mrl);
+		mrl = new ModelResourceLocation(new MagicBeesResourceLocation("hiveacynth"), "normal");
+		BotaniaAPIClient.registerSubtileModel(SubTileHiveacynth.class, mrl);
 	}
 
 	@Override

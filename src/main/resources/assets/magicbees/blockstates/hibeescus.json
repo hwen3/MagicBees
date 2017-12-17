@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "normal": { 
+			"model": "magicbees:botaniaflowers/hibeescus"
+		},
+		"inventory": { 
+			"model": "magicbees:botaniaflowers/hibeescusinv"
+		}
+    }
+}
