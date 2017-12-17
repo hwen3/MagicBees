@@ -1,18 +1,19 @@
 package magicbees.elec332.corerepack.compat.forestry;
 
-import forestry.api.apiculture.BeeManager;
-import forestry.api.apiculture.IBeeRoot;
-import forestry.api.core.Tabs;
-import forestry.api.genetics.AlleleManager;
-import forestry.api.genetics.IAlleleSpecies;
-import forestry.apiculture.PluginApiculture;
-import forestry.plugins.IForestryPlugin;
-import forestry.plugins.PluginManager;
-import magicbees.elec332.corerepack.compat.forestry.bee.ForestryBeeEffects;
 import net.minecraft.creativetab.CreativeTabs;
+
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import forestry.api.apiculture.BeeManager;
+import forestry.api.apiculture.IBeeRoot;
+import forestry.api.core.ForestryAPI;
+import forestry.api.core.Tabs;
+import forestry.api.genetics.AlleleManager;
+import forestry.api.genetics.IAlleleSpecies;
+
+import magicbees.elec332.corerepack.compat.forestry.bee.ForestryBeeEffects;
 
 /**
  * Created by Elec332 on 14-8-2016.
@@ -32,12 +33,10 @@ public class ForestryCompatHandler  {
     }
 
     public void init(FMLInitializationEvent event){
-        for (IForestryPlugin plugin : PluginManager.getLoadedPlugins()) {
-            if (plugin instanceof PluginApiculture) {
-                ForestryAlleles.dummyLoad();
-                ForestryBeeEffects.init();
-                return; //Just to make sure
-            }
+        if (ForestryAPI.enabledPlugins.contains("forestry.apiculture")) {
+            ForestryAlleles.dummyLoad();
+            ForestryBeeEffects.init();
+            return; //Just to make sure
         }
         throw new RuntimeException("MagicBees requires the Apiculture plugin from forestry!");
     }
