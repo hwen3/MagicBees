@@ -92,12 +92,12 @@ public class MagicBees {
 
         config.reload();
 
+        ModuleHandler.INSTANCE.init();
+
         logger.info("Registering " + EnumBeeSpecies.values().length + " new bee species!");
         IndividualDefinitionRegistry.registerBees(EnumBeeSpecies.class);
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-
-        ModuleHandler.INSTANCE.init();
 
         loadTimer.endPhase(event);
     }

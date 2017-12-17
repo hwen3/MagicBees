@@ -6,6 +6,7 @@ import forestry.api.apiculture.IBeeGenome;
 import forestry.api.apiculture.IBeeHousing;
 import forestry.api.genetics.IAlleleEffect;
 import forestry.api.genetics.IEffectData;
+import magicbees.elec332.corerepack.compat.forestry.EffectData;
 import magicbees.elec332.corerepack.compat.forestry.ForestryAlleles;
 import magicbees.elec332.corerepack.compat.forestry.allele.AlleleEffectThrottled;
 import magicbees.elec332.corerepack.compat.forestry.allele.AlleleFlowerProvider;
@@ -112,7 +113,11 @@ public final class BeeIntegrationInterface {
 			}
 
 			@Override
+			@SuppressWarnings("all")
 			public IEffectData validateStorage(IEffectData effectData) {
+				if (effectData == null){
+					return new EffectData(1, 0, 0);
+				}
 				return effectData;
 			}
 
