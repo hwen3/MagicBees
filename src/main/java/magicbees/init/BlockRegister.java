@@ -62,7 +62,7 @@ public final class BlockRegister {
                 return damage;
             }
 
-        }.setRegistryName(hiveBlock.getRegistryName()), createItem(effectJar));
+        }.setHasSubtypes(true).setRegistryName(hiveBlock.getRegistryName()), createItem(effectJar));
         event.getRegistry().register(createItem(enchantedEarth));
     }
 
