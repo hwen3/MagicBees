@@ -27,4 +27,9 @@ public class BotaniaLexiconEntry extends LexiconEntry implements IAddonEntry {
 		return unlocalizedName;
 	}
 
+	@Override
+	public String getTagline() {
+		return unlocalizedName.replace(".name", ".lore");
+	}
+
 }
