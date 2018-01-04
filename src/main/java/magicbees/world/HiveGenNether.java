@@ -26,7 +26,7 @@ public class HiveGenNether extends HiveGenUnderground {
 
             while(!Block.isEqualTo(world.getBlockState(cP).getBlock(), this.replace)) {
                 cP = cP.up(searchDirection);
-                if(cP.getY() < this.minLevel || cP.getY() > this.minLevel + this.range) {
+                if(cP.getY() < this.minLevel || cP.getY() > this.minLevel + this.range || Block.isEqualTo(world.getBlockState(cP.down(1)).getBlock(), Blocks.BEDROCK)) {
                     return null;
                 }
             }
