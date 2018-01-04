@@ -23,6 +23,10 @@ public class Config implements IConfiguration {
 
     public static boolean oldJarModel = false;
 
+    public static boolean showAllBees = false;
+
+    public static boolean removeUnneededBees = true;
+
     @Override
     public void reload(Configuration config) {
         magnetSound = config.getBoolean("magnetSound", Configuration.CATEGORY_GENERAL, true, "Enables/Disables the magnet sounds.");
@@ -32,6 +36,8 @@ public class Config implements IConfiguration {
         moonDialShowsPhaseInText = config.getBoolean("moonDialShowsPhaseInText", Configuration.CATEGORY_GENERAL, true, "Whether the MoonDial should show the MoonPhase in it's tooltip.");
         fancyJarRenderer = config.getBoolean("fancyJarRenderer", Configuration.CATEGORY_CLIENT, true, "Whether to render the bee inside the Bee Collector's Jar with a TESR.");
         oldJarModel = config.getBoolean("oldJarmodel", Configuration.CATEGORY_CLIENT, false, "Set to true to use the old model for the Bee Collector's Jar");
+        showAllBees = config.getBoolean("showAllBees", Configuration.CATEGORY_GENERAL, false, "Set to true to show all MagicBees bees in the creative tab/JEI.");
+        removeUnneededBees = config.getBoolean("removeUnneededBees", Configuration.CATEGORY_GENERAL, true, "When true, removes all bees related to mods that are not present from the game.");
     }
 
     //@Configurable.Class(comment = "Here you can configure certain bees")

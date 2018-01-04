@@ -53,9 +53,9 @@ public class Utils {
 	}
 
 	public static void setSecret(IAlleleSpeciesBuilder builder){
-		//if (!FMLUtil.developmentEnvironment) {
+		if (/*!FMLUtil.developmentEnvironment ||*/ !Config.showAllBees) {
 			builder.setIsSecret();
-		//}
+		}
 	}
 
 	public static AxisAlignedBB getAABB(BlockPos pos, int range, boolean y){

@@ -6,6 +6,7 @@ import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IAlleleSpecies;
 import forestry.api.genetics.IAlleleSpeciesBuilder;
 import forestry.api.genetics.ISpeciesRoot;
+import magicbees.util.Config;
 
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,9 @@ public class IndividualDefinitionRegistry {
         }
         if (!registeredTemplates.add(template)){
             throw new IllegalArgumentException("You cannot register a bee twice! Type: "+template.getUid());
+        }
+        if (Config.removeUnneededBees && !template.isActive()){
+            return;
         }
         T genomeTemplate;
         try {
