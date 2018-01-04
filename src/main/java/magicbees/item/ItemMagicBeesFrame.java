@@ -29,6 +29,7 @@ public class ItemMagicBeesFrame extends Item implements IDefaultHiveFrame {
         Utils.setUnlocalizedName(this);
         setMaxDamage(modifier.getMaxDamage());
         setCreativeTab(MagicBees.creativeTab);
+        setMaxStackSize(1);
         this.modifier = modifier;
     }
 
