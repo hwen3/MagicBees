@@ -131,14 +131,14 @@ public final class RecipeRegister {
         GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_eld1"), null, getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY),
                 "gwg", "wiw", "gwg",
                 'g', Blocks.GLASS,
-                'w', "waxMagical",
+                'w', getWax(EnumWaxType.MAGIC),
                 'i', Blocks.IRON_BLOCK
         );
 
         GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_eld2"), null, getResource(EnumResourceType.ESSENCE_EVERLASTING_DURABILITY),
                 "wgw", "gig", "wgw",
                 'g', Blocks.GLASS,
-                'w', "waxMagical",
+                'w', getWax(EnumWaxType.MAGIC),
                 'i', Blocks.IRON_BLOCK
         );
 
