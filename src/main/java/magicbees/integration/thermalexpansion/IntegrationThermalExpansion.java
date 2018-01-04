@@ -5,12 +5,15 @@ import magicbees.MagicBees;
 import magicbees.api.module.IMagicBeesInitialisationEvent;
 import magicbees.api.module.IMagicBeesModule;
 import magicbees.api.module.MagicBeesModule;
+import magicbees.bees.BeeIntegrationInterface;
+import magicbees.elec332.corerepack.compat.forestry.allele.AlleleEffectSpawnMob;
 import magicbees.elec332.corerepack.item.ItemEnumBased;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumDropType;
 import magicbees.util.ModNames;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -29,6 +32,9 @@ public class IntegrationThermalExpansion implements IMagicBeesModule {
 		addCrucibleRecipe(drops.getStackFromType(EnumDropType.DESTABILIZED), FluidRegistry.getFluid("redstone"));
 		addCrucibleRecipe(drops.getStackFromType(EnumDropType.ENDEARING), FluidRegistry.getFluid("ender"));
 		addCrucibleRecipe(drops.getStackFromType(EnumDropType.LUX), FluidRegistry.getFluid("glowstone"));
+		BeeIntegrationInterface.effectSpawnBasalz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBasalz_name, new ResourceLocation("thermalfoundation:basalz"));
+		BeeIntegrationInterface.effectSpawnBlitz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlitz_name, new ResourceLocation("thermalfoundation:blitz"));
+		BeeIntegrationInterface.effectSpawnBlizz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlizz_name, new ResourceLocation("thermalfoundation:blizz"));
 	}
 
 	private static void addCrucibleRecipe(ItemStack in, Fluid out){
