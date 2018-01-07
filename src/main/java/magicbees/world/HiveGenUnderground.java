@@ -58,7 +58,7 @@ public class HiveGenUnderground implements IHiveGen {
         return !world.isAirBlock(blockPos) && isReplaceableOreGen(iBlockState, world, blockPos, replace);
     }
 
-    protected static boolean isReplaceableOreGen(IBlockState iBlockState, World world, BlockPos blockPos, Block replace){
+    public static boolean isReplaceableOreGen(IBlockState iBlockState, World world, BlockPos blockPos, Block replace){
         return iBlockState.getBlock().isReplaceableOreGen(iBlockState, world, blockPos, new Predicate<IBlockState>() {
 
             @Override

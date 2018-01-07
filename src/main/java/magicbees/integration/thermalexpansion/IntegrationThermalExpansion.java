@@ -32,9 +32,9 @@ public class IntegrationThermalExpansion implements IMagicBeesModule {
 		addCrucibleRecipe(drops.getStackFromType(EnumDropType.DESTABILIZED), FluidRegistry.getFluid("redstone"));
 		addCrucibleRecipe(drops.getStackFromType(EnumDropType.ENDEARING), FluidRegistry.getFluid("ender"));
 		addCrucibleRecipe(drops.getStackFromType(EnumDropType.LUX), FluidRegistry.getFluid("glowstone"));
-		BeeIntegrationInterface.effectSpawnBasalz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBasalz_name, new ResourceLocation("thermalfoundation:basalz"));
-		BeeIntegrationInterface.effectSpawnBlitz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlitz_name, new ResourceLocation("thermalfoundation:blitz"));
-		BeeIntegrationInterface.effectSpawnBlizz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlizz_name, new ResourceLocation("thermalfoundation:blizz"));
+		BeeIntegrationInterface.effectSpawnBasalz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBasalz_name, new ResourceLocation("thermalfoundation:basalz")).setThrottle(100).setSpawnChance(80);
+		BeeIntegrationInterface.effectSpawnBlitz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlitz_name, new ResourceLocation("thermalfoundation:blitz")).setThrottle(100).setSpawnChance(80);
+		BeeIntegrationInterface.effectSpawnBlizz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlizz_name, new ResourceLocation("thermalfoundation:blizz")).setThrottle(100).setSpawnChance(80);
 	}
 
 	private static void addCrucibleRecipe(ItemStack in, Fluid out){

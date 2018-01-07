@@ -35,6 +35,9 @@ public class MagicBeesCreativeTab extends CreativeTabs {
 		}
 		for (EnumBeeType type : EnumBeeType.values()) {
 			for (EnumBeeSpecies species : EnumBeeSpecies.values()) {
+				if (!species.isActive()){
+					continue;
+				}
 				IBee bee = species.getIndividual();
 				if (bee.isSecret()) {
 					continue;

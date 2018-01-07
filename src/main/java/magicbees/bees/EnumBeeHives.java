@@ -71,11 +71,6 @@ public enum EnumBeeHives implements IHiveEnum {
             addDefaultDrops(20);
         }
 
-        @Override
-        public boolean showInTab() {
-            return false;
-        }
-
     },
     INFERNAL(EnumBeeSpecies.INFERNAL, 15, true, EnumHiveGen.INFERNAL, EnumHiveGen.INFERNAL_OVERWORLD){
 
@@ -88,11 +83,6 @@ public enum EnumBeeHives implements IHiveEnum {
             addDrop(new HiveDrop(BeeManager.beeRoot.templateAsGenome(EnumBeeSpecies.getForestrySpeciesTemplate("Steadfast")), 0.03f, combs));
         }
 
-        @Override
-        public boolean showInTab() {
-            return false;
-        }
-
     },
     OBLIVION(EnumBeeSpecies.OBLIVION, 7, true, EnumHiveGen.OBLIVION, EnumHiveGen.OBLIVION_OVERWORLD){
 
@@ -103,11 +93,6 @@ public enum EnumBeeHives implements IHiveEnum {
             };
             addDrop(new HiveDrop(getBeeType(), 0.8f, combs));
             addDrop(new HiveDrop(BeeManager.beeRoot.templateAsGenome(EnumBeeSpecies.getForestrySpeciesTemplate("Steadfast")), 0.09f, combs));
-        }
-
-        @Override
-        public boolean showInTab() {
-            return false;
         }
 
     }
