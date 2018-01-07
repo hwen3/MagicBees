@@ -108,7 +108,7 @@ public enum EnumHiveGen {
 
         while (spawnCount < maxSpawnCount && spawnAttempts < maxSpawnCount * 2) {
             ++spawnAttempts;
-            if (!world.isAirBlock(pos) && world.isBlockLoaded(pos) && HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos), world, pos, toReplace)) {
+            if (world.isBlockLoaded(pos) && !world.isAirBlock(pos) && HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos), world, pos, toReplace)) {
                 world.setBlockState(pos, replacement, 2);
                 ++spawnCount;
             }
