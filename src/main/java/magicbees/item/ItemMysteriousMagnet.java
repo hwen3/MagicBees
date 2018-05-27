@@ -98,7 +98,7 @@ public class ItemMysteriousMagnet extends Item {
                         e.motionZ = z;
                         e.isAirBorne = true;
 
-                        if (e.isCollidedHorizontally) {
+                        if (e.collidedHorizontally) {
                             e.motionY += 1;
                         }
 

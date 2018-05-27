@@ -52,4 +52,9 @@ public class ItemMagicBeesFrame extends Item implements IDefaultHiveFrame {
         return modifier;
     }
 
+    @Override
+    public IBeeModifier getBeeModifier(ItemStack frame)
+    {
+        return modifier;
+    }
 }

@@ -1,6 +1,7 @@
 package magicbees.elec332.corerepack.compat.forestry.bee;
 
 import forestry.api.apiculture.*;
+import magicbees.MagicBees;
 import magicbees.elec332.corerepack.compat.forestry.IIndividualTemplate;
 
 import javax.annotation.Nonnull;
@@ -31,7 +32,7 @@ public interface IBeeTemplate extends IIndividualTemplate<BeeGenomeTemplate, IAl
     @Nonnull
     @Override
     default public IAlleleBeeSpeciesBuilder getSpeciesBuilder(){
-        return BeeManager.beeFactory.createSpecies(getUid(), isDominant(), getAuthority(), getUnlocalizedName(), getUnlocalizedDescription(), getIndividualBranch().getClassification(), getBinominalName(), getPrimaryColor(), getSecondaryColor());
+        return BeeManager.beeFactory.createSpecies(MagicBees.modid, getUid(), isDominant(), getAuthority(), getUnlocalizedName(), getUnlocalizedDescription(), getIndividualBranch().getClassification(), getBinominalName(), getPrimaryColor(), getSecondaryColor());
     }
 
 }

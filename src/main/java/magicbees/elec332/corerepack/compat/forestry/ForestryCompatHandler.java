@@ -2,6 +2,7 @@ package magicbees.elec332.corerepack.compat.forestry;
 
 import net.minecraft.creativetab.CreativeTabs;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -33,7 +34,7 @@ public class ForestryCompatHandler  {
     }
 
     public void init(FMLInitializationEvent event){
-        if (ForestryAPI.enabledPlugins.contains("forestry.apiculture")) {
+        if (ForestryAPI.enabledModules.contains(new ResourceLocation("forestry", "apiculture"))) {
             ForestryAlleles.dummyLoad();
             ForestryBeeEffects.init();
             return; //Just to make sure

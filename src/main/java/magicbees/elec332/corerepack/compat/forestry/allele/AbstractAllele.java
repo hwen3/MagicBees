@@ -3,6 +3,7 @@ package magicbees.elec332.corerepack.compat.forestry.allele;
 import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IChromosomeType;
+import magicbees.MagicBees;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
@@ -36,6 +37,12 @@ public abstract class AbstractAllele implements IAllele {
     @Override
     public String getUID() {
         return uid;
+    }
+
+    @Override
+    public String getModID()
+    {
+        return MagicBees.modid;
     }
 
     @Override

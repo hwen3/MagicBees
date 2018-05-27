@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 
+import forestry.core.network.packets.PacketActiveUpdate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,7 +20,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.IBee;
 import forestry.api.genetics.IEffectData;
-import forestry.apiculture.network.packets.PacketActiveUpdate;
 import forestry.core.network.IStreamable;
 import forestry.core.network.PacketBufferForestry;
 import forestry.core.network.packets.PacketTileStream;
