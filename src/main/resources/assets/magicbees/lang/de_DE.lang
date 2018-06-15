@@ -67,10 +67,10 @@ item.magicbees.beecomb.TCorder=Glitzernde Ordentliche Wabe
 item.magicbees.beecomb.TCchaos=Glitzernde Entropische Wabe
 item.magicbees.beecomb.essence=Essenzwabe
 item.magicbees.beecomb.potent=Mächtige Wabe
-item.magicbees.beecomb.TEcarbon=Kohlenstoffwabe
-item.magicbees.beecomb.TEelectric=Electrische Wabe
-item.magicbees.beecomb.TElux=Lux-Wabe
-item.magicbees.beecomb.TEendearing=Enderwabe
+item.magicbees.beecomb.te_carbon=Kohlenstoffwabe
+item.magicbees.beecomb.te_destabilized=Electrische Wabe
+item.magicbees.beecomb.te_lux=Lux-Wabe
+item.magicbees.beecomb.te_endearing=Enderwabe
 item.magicbees.beecomb.BMSanguine=Blutrote Wabe
 
 #item.magicbees.wax.s

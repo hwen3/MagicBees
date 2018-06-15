@@ -46,10 +46,10 @@ item.magicbees.beecomb.TCorder=Блестящие упорядоченные с�
 item.magicbees.beecomb.TCchaos=Блестящие энтропийные соты
 item.magicbees.beecomb.essence=Соты эссенции
 item.magicbees.beecomb.potent=Крепкие соты
-item.magicbees.beecomb.TEcarbon=Углеродные соты
-item.magicbees.beecomb.TEelectric=Электрические соты
-item.magicbees.beecomb.TElux=Соты света
-item.magicbees.beecomb.TEendearing=Покоряющие соты
+item.magicbees.beecomb.te_carbon=Углеродные соты
+item.magicbees.beecomb.te_destabilized=Электрические соты
+item.magicbees.beecomb.te_lux=Соты света
+item.magicbees.beecomb.te_endearing=Покоряющие соты
 
 #item.magicbees.wax.s
 item.magicbees.wax.magic=Магический воск

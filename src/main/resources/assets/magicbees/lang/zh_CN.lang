@@ -70,10 +70,10 @@ item.magicbees.beecomb.TCorder.name=闪耀的秩序蜂窝
 item.magicbees.beecomb.TCchaos.name=闪耀的混沌蜂窝
 item.magicbees.beecomb.essence.name=源质蜂窝
 item.magicbees.beecomb.potent.name=强力蜂窝
-item.magicbees.beecomb.TEcarbon.name=碳素蜂窝
-item.magicbees.beecomb.TEelectric.name=电气蜂窝
-item.magicbees.beecomb.TElux.name=流明蜂窝
-item.magicbees.beecomb.TEendearing.name=可爱蜂窝
+item.magicbees.beecomb.te_carbon.name=碳素蜂窝
+item.magicbees.beecomb.te_destabilized.name=电气蜂窝
+item.magicbees.beecomb.te_lux.name=流明蜂窝
+item.magicbees.beecomb.te_endearing.name=可爱蜂窝
 
 #Wax
 item.magicbees.wax.magic.name=魔力蜜蜡

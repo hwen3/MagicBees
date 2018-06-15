@@ -44,10 +44,10 @@ item.magicbees.beecomb.TCorder=閃耀的秩序蜂巢
 item.magicbees.beecomb.TCchaos=閃耀的混沌蜂巢
 item.magicbees.beecomb.essence=源質蜂巢
 item.magicbees.beecomb.potent=強力蜂巢
-item.magicbees.beecomb.TEcarbon=煤碳蜂巢
-item.magicbees.beecomb.TEelectric=電氣蜂巢
-item.magicbees.beecomb.TElux=勒克斯蜂巢
-item.magicbees.beecomb.TEendearing=可愛蜂巢
+item.magicbees.beecomb.te_carbon=煤碳蜂巢
+item.magicbees.beecomb.te_destabilized=電氣蜂巢
+item.magicbees.beecomb.te_lux=勒克斯蜂巢
+item.magicbees.beecomb.te_endearing=可愛蜂巢
 
 #item.magicbees.wax.s
 item.magicbees.wax.magic=魔力蜜蠟

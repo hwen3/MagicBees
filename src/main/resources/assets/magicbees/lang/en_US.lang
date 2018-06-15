@@ -78,10 +78,10 @@ item.magicbees.beecomb.TCorder.name=Glittering Ordered Comb
 item.magicbees.beecomb.TCchaos.name=Glittering Entropic Comb
 item.magicbees.beecomb.essence.name=Essence Comb
 item.magicbees.beecomb.potent.name=Potent Comb
-item.magicbees.beecomb.TEcarbon.name=Carbon Comb
-item.magicbees.beecomb.TEelectric.name=Electric Comb
-item.magicbees.beecomb.TElux.name=Lux Comb
-item.magicbees.beecomb.TEendearing.name=Endearing Comb
+item.magicbees.beecomb.te_carbon.name=Carbon Comb
+item.magicbees.beecomb.te_destabilized.name=Destabilized Comb
+item.magicbees.beecomb.te_lux.name=Lux Comb
+item.magicbees.beecomb.te_endearing.name=Endearing Comb
 
 #Wax
 item.magicbees.wax.magic.name=Magic Wax
