@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import forestry.api.apiculture.hives.HiveManager;
 import forestry.api.apiculture.hives.IHiveGen;
-import forestry.core.utils.BlockUtil;
 import magicbees.world.HiveGenNether;
 import magicbees.world.HiveGenOblivion;
 import magicbees.world.HiveGenUnderground;
@@ -19,6 +18,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.List;
 import java.util.Random;
 
+import static magicbees.util.ConfigWorldGen.*;
+
 /**
  * Created by Elec332 on 11-2-2017.
  */
@@ -31,6 +32,9 @@ public enum EnumHiveGen {
 
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
+            if (!postGenRedstone){
+                return;
+            }
             for (EnumFacing facing : EnumFacing.VALUES){
                 EnumHiveGen.spawnVein(world, blockPos.offset(facing), 5, Blocks.REDSTONE_BLOCK.getDefaultState(), Blocks.STONE);
             }
@@ -41,6 +45,9 @@ public enum EnumHiveGen {
 
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
+            if (!postGenNetherQuartz){
+                return;
+            }
             for (EnumFacing facing : EnumFacing.VALUES){
                 EnumHiveGen.spawnVein(world, blockPos.offset(facing), 4, Blocks.QUARTZ_BLOCK.getDefaultState(), Blocks.NETHERRACK);
             }
@@ -51,6 +58,9 @@ public enum EnumHiveGen {
 
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
+            if (!postGenGlowstone){
+                return;
+            }
             for (EnumFacing facing : EnumFacing.VALUES){
                 if (facing.getAxis() != EnumFacing.Axis.Y) {
                     EnumHiveGen.spawnVein(world, blockPos.offset(facing), world.rand.nextInt(4) + 1, Blocks.GLOWSTONE.getDefaultState(), Blocks.STONE);
@@ -68,6 +78,9 @@ public enum EnumHiveGen {
 
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
+            if (!postGenObsidianSpikes){
+                return;
+            }
             int obsidianSpikeHeight = world.rand.nextInt(8) + 3;
             for (int i = 1; i < obsidianSpikeHeight && blockPos.getY() - i > 0; ++i) {
                 world.setBlockState(blockPos.offset(EnumFacing.DOWN, i), Blocks.OBSIDIAN.getDefaultState(), 2);
@@ -79,6 +92,9 @@ public enum EnumHiveGen {
 
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
+            if (!postGenEndstone){
+                return;
+            }
             for (EnumFacing facing : EnumFacing.VALUES){
                 EnumHiveGen.spawnVein(world, blockPos.offset(facing), world.rand.nextInt(facing.getAxis() == EnumFacing.Axis.Y ? 3 : 6) + 1, Blocks.END_STONE.getDefaultState(), Blocks.STONE);
             }

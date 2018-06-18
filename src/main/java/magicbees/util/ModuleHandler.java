@@ -6,11 +6,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import magicbees.MagicBees;
-import magicbees.api.module.IMagicBeesInitialisationEvent;
-import magicbees.api.module.IMagicBeesModule;
-import magicbees.api.module.MagicBeesModule;
-import magicbees.api.module.IConfigRegistry;
-import magicbees.api.module.IConfiguration;
+import magicbees.api.module.*;
 import magicbees.elec332.corerepack.util.FMLUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -23,9 +19,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.commons.lang3.tuple.Triple;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 
 /**
@@ -85,6 +83,7 @@ public enum ModuleHandler {
 
 	public void registerConfig(final IConfigRegistry configRegistry){
 		Set<IConfiguration> configRegistrySet = Sets.newHashSet();
+		String start = "integration";
 		final IConfigRegistry registry = new IConfigRegistry() {
 
 			@Override
@@ -96,18 +95,20 @@ public enum ModuleHandler {
 
 			@Override
 			public void registerCategoryComment(String category, String comment) {
-				configRegistry.registerCategoryComment(category, comment);
+				configRegistry.registerCategoryComment(start + "." + category, comment);
 			}
 
 		};
 		runEvent(null, data -> data.getLeft().registerConfig(registry));
 		configRegistry.registerConfig(config -> {
 
+			fixConfigOrder(config, start);
+			config.getCategory(start);
 			Configuration wrapped = new Configuration(config.getConfigFile()){
 
 				@Override
 				public ConfigCategory getCategory(String category) {
-					return config.getCategory("integration." + category);
+					return config.getCategory(start + "." + category);
 				}
 
 				@Override
@@ -122,6 +123,7 @@ public enum ModuleHandler {
 			configRegistrySet.forEach(config_ -> config_.reload(wrapped));
 
 		});
+		configRegistry.registerCategoryComment(start, "Mod integration settings");
 	}
 
 	public void init(){
@@ -159,6 +161,34 @@ public enum ModuleHandler {
 			if (s != null) {
 				MagicBees.logger.info(s.replace("ing", "ed ") + modules + " module" + (modules > 1 ? "s" : "") + " for mod " + mc.getModId());
 			}
+		}
+	}
+
+	@SuppressWarnings("all")
+	private void fixConfigOrder(Configuration config, String last){
+		try {
+			Field f = Configuration.class.getDeclaredField("categories");
+			f.setAccessible(true);
+			TreeMap current = (TreeMap) f.get(config);
+			if (current.comparator() != null){
+				return;
+			}
+			TreeMap tm = new TreeMap((o1, o2) -> {
+				if (o1.equals(o2)){
+					return 0;
+				}
+				if (o1.equals(last)){
+					return 1;
+				}
+				if (o2.equals(last)){
+					return -1;
+				}
+				return ((Comparable) o1).compareTo(o2);
+			});
+			tm.putAll(current);
+			f.set(config, tm);
+		} catch (Exception e){
+			throw new RuntimeException(e);
 		}
 	}
 

@@ -59,11 +59,12 @@ public final class ConfigHandler implements IConfigRegistry {
 			lock = true;
 		}
 		config.load();
-		for (Map.Entry<String, String> entry : categoryComments.entrySet()){
-			config.addCustomCategoryComment(entry.getKey(), entry.getValue());
-		}
+
 		for (IConfiguration c : configs){
 			c.reload(config);
+		}
+		for (Map.Entry<String, String> entry : categoryComments.entrySet()){
+			config.addCustomCategoryComment(entry.getKey(), entry.getValue());
 		}
 		if (config.hasChanged()){
 			config.save();

@@ -1,6 +1,7 @@
 package magicbees.util;
 
 
+import magicbees.api.module.IConfigRegistry;
 import magicbees.api.module.IConfiguration;
 import net.minecraftforge.common.config.Configuration;
 
@@ -26,6 +27,13 @@ public class Config implements IConfiguration {
     public static boolean showAllBees = true;
 
     public static boolean removeUnneededBees = true;
+
+    @Override
+    public void init(IConfigRegistry configHandler) {
+        configHandler.registerCategoryComment(Configuration.CATEGORY_GENERAL, "General settings");
+        configHandler.registerCategoryComment(Configuration.CATEGORY_CLIENT, "Client settings");
+        configHandler.registerConfig(new ConfigWorldGen());
+    }
 
     @Override
     public void reload(Configuration config) {
