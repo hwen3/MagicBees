@@ -1854,7 +1854,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public boolean isActive() {
-            return Loader.isModLoaded(ModNames.RSA);
+            return super.isActive() && Loader.isModLoaded(ModNames.RSA);
         }
 
     },
