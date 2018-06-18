@@ -149,7 +149,7 @@ public class TileEntityEffectJar extends TileEntity implements ITickable, IActiv
 
 	@Override
 	public void setActive(boolean active){
-		if (this.active != active) {
+		if (this.active != active && pos != null) {
 			this.active = active;
 			if (!world.isRemote) {
 				NetworkUtil.sendNetworkPacket(new PacketActiveUpdate(this), pos, world);
