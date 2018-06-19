@@ -91,7 +91,7 @@ public class IntegrationBotania implements IMagicBeesModule {
 		IBlockState livingWood = BeeIntegrationInterface.livingWood = event.getBlock("livingwood").getDefaultState();
 		livingRock = event.getBlock("livingrock");
 		dreamWood = event.getBlock("dreamwood");
-		Block mysticalFlower = event.getBlock("specialFlower");
+		Block mysticalFlower = event.getBlock("flower");
 		BeeIntegrationInterface.effectDreaming = new AlleleEffectTransmuting(BeeIntegrationInterface.bot_dreaming_name, new DefaultTransmutationController((ITransmutationHandler) (world, pos, block, biome) -> {
 
 			int[] oreIDs = OreDictionary.getOreIDs(block);
