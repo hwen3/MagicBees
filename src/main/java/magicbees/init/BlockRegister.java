@@ -5,6 +5,7 @@ import magicbees.block.BlockEffectJar;
 import magicbees.block.BlockEnchantedEarth;
 import magicbees.block.BlockHive;
 import magicbees.tile.TileEntityEffectJar;
+import magicbees.tile.TileHive;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.Utils;
 import net.minecraft.block.Block;
@@ -38,6 +39,7 @@ public final class BlockRegister {
 
     private static void registerTiles(){
         GameRegistry.registerTileEntity(TileEntityEffectJar.class, "TileEntityMagicBeesEffectJar");
+        GameRegistry.registerTileEntity(TileHive.class, "tileMagicBeesHive");
     }
 
     @SubscribeEvent

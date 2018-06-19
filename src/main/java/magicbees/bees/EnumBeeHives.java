@@ -112,9 +112,15 @@ public enum EnumBeeHives implements IHiveEnum {
 
 
     @Override
+    @Nonnull
     @SuppressWarnings("all")
     public IHiveDescription getHiveDescription() {
         return genTypes.get(0);
+    }
+
+    @Override
+    public String getBeeUid() {
+        return this.bee.getUid();
     }
 
     @Nonnull

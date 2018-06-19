@@ -35,6 +35,8 @@ public interface IHiveEnum extends IStringSerializable {
     @Nonnull
     public IHiveDescription getHiveDescription();
 
+    public String getBeeUid();
+
     public int getMeta();
 
     public String getUid(IHiveDescription description);

@@ -1,8 +1,8 @@
 package magicbees.block;
 
 import forestry.api.apiculture.IHiveTile;
-import forestry.apiculture.tiles.TileHive;
 import magicbees.bees.EnumBeeHives;
+import magicbees.tile.TileHive;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
