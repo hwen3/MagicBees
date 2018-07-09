@@ -1,25 +1,21 @@
 package magicbees.util;
 
 import com.google.common.base.Preconditions;
-
-import javax.annotation.Nonnull;
-import java.lang.reflect.Field;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-
-import net.minecraftforge.registries.IForgeRegistryEntry;
-
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-
 import forestry.api.genetics.IAlleleSpeciesBuilder;
 import forestry.apiculture.blocks.BlockRegistryApiculture;
 import forestry.apiculture.items.ItemRegistryApiculture;
 import forestry.core.blocks.BlockRegistryCore;
 import forestry.core.items.ItemRegistryCore;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+
+import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 
 /**
  * Created by Elec332 on 15-5-2017.

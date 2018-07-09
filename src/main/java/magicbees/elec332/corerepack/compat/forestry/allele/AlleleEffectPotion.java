@@ -58,7 +58,7 @@ public class AlleleEffectPotion extends AlleleEffectThrottled {
                 entityLivingBase.addPotionEffect(new PotionEffect(baseEffect));
             } else {
                 int armour = BeeManager.armorApiaristHelper.wearsItems(entityLivingBase, getUID(), true);
-                PotionEffect effect = new PotionEffect(baseEffect.getPotion(), baseEffect.getDuration() / 60 * armour, baseEffect.getAmplifier(), false, baseEffect.doesShowParticles());
+                PotionEffect effect = new PotionEffect(baseEffect.getPotion(), baseEffect.getDuration() / 4 * armour * 20, baseEffect.getAmplifier(), false, baseEffect.doesShowParticles());
                 effect.setCurativeItems(baseEffect.getCurativeItems());
                 entityLivingBase.addPotionEffect(effect);
             }

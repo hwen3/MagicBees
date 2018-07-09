@@ -1,9 +1,9 @@
 package magicbees.elec332.corerepack.util;
 
-import javax.annotation.Nullable;
-
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Elec332 on 17-10-2016.

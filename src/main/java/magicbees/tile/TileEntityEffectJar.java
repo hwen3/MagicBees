@@ -1,33 +1,28 @@
 package magicbees.tile;
 
 import com.google.common.base.Preconditions;
-
-import javax.annotation.Nonnull;
-import java.io.IOException;
-
+import com.mojang.authlib.GameProfile;
+import forestry.api.apiculture.BeeManager;
+import forestry.api.apiculture.IBee;
+import forestry.api.genetics.IEffectData;
+import forestry.core.network.IStreamable;
+import forestry.core.network.PacketBufferForestry;
 import forestry.core.network.packets.PacketActiveUpdate;
+import forestry.core.network.packets.PacketTileStream;
+import forestry.core.tiles.IActivatable;
+import forestry.core.utils.NetworkUtil;
+import magicbees.tile.logic.EffectJarHousing;
+import magicbees.util.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-
-import com.mojang.authlib.GameProfile;
-
 import net.minecraftforge.items.ItemStackHandler;
 
-import forestry.api.apiculture.BeeManager;
-import forestry.api.apiculture.IBee;
-import forestry.api.genetics.IEffectData;
-import forestry.core.network.IStreamable;
-import forestry.core.network.PacketBufferForestry;
-import forestry.core.network.packets.PacketTileStream;
-import forestry.core.tiles.IActivatable;
-import forestry.core.utils.NetworkUtil;
-
-import magicbees.tile.logic.EffectJarHousing;
-import magicbees.util.Utils;
+import javax.annotation.Nonnull;
+import java.io.IOException;
 
 /**
  * Created by Elec332 on 5-4-2017.

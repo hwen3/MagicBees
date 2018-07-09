@@ -34,7 +34,14 @@ public enum EnumCombType implements IEnumItem {
     TE_DESTABILIZED(false, new Color(0xCC002C), new Color(0x6B0118)),
     TE_CARBON(false, new Color(0x454545), new Color(0x0F0F0F)),
     TE_LUX(false, new Color(0xF5F3A4), new Color(0xC9C87D)),
-    TE_ENDEARING(false, new Color(0x12E3D9), new Color(0x069E97))
+    TE_ENDEARING(false, new Color(0x12E3D9), new Color(0x069E97)),
+
+    TC_AIR(false, new Color(0xFFDF14), new Color(0x707019)),
+    TC_FIRE(false, new Color(0xE21802), new Color(0x3F0E12)),
+    TC_WATER(false, new Color(0x00B6FF), new Color(0x0F373D)),
+    TC_EARTH(false, new Color(0x28D328), new Color(0x333004)),
+    TC_ORDER(false, new Color(0xDDDDFF), new Color(0x9D9DB5)),
+    TC_ENTROPY(false, new Color(0x555577), new Color(0x2D2D56))
     ;
 
     EnumCombType(boolean shouldShow, Color firstColor, Color secondColor){

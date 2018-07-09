@@ -229,7 +229,17 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setFertility(FERTILITY_LOW);
-            genomeTemplate.setFlowerProvider(null/*thaumcraft*/);
+            genomeTemplate.setFlowerProvider(BeeIntegrationInterface.flowersThaumcraft);
+        }
+
+        @Override
+        public Color getSecondaryColor() {
+            return new Color(0x999999);
+        }
+
+        @Override
+        public boolean enabled() {
+            return Loader.isModLoaded(ModNames.THAUMCRAFT);
         }
 
     },

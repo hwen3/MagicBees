@@ -28,11 +28,11 @@ repositories {
         name = "progwml6"
         url "http://dvs1.progwml6.com/files/maven"
     }
-    maven {
-        name = "ic2"
+    maven { //IC2
+        name = "IC2"
         url = "http://maven.ic2.player.to/"
     }
-    maven { // jei bees
+    maven { // JEI Bees & Thaumcraft
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
@@ -40,11 +40,11 @@ repositories {
         name "CoFH"
         url "http://maven.covers1624.net/"
     }
-    maven { // baubles
+    maven { // Baubles
         name "Thiakil"
         url = "http://maven.thiakil.com"
     }
-    maven { // botania
+    maven { // Botania
         name "BlameJared"
         url "https://maven.blamejared.com/"
     }
@@ -100,6 +100,7 @@ dependencies {
     deobfCompile ("cofh:ThermalFoundation:${config.minecraft_version}-${config.thermal_foundation_version}:universal") {
         exclude group: 'mezz.jei', module: 'jei_1.12.2'
     }
+    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA17"
 }
 
 processResources {
