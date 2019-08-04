@@ -402,12 +402,12 @@ magicbees.speciesTCEmpowering=Empowering
 magicbees.speciesTCEmpowering.description=So charged with aura are they, that nodes seem to wax in their presence.|Apinomicon
 magicbees.speciesTCNexus=Nexus
 magicbees.speciesTCNexus.description=Spoken only of in hushed whispers, their abilities to pass through nodes into the other side is scoffed at as imagined and fantasy.|Apinomicon
-magicbees.speciesTCFlux=Flux
-magicbees.speciesTCFlux.description="I thought they would help clean up, but it only makes things worse!"|Kreicus, Apprentice Thaumaturge
+magicbees.speciesTCTaint=Flux
+magicbees.speciesTCTaint.description="I thought they would help clean up, but it only makes things worse!"|Kreicus, Apprentice Thaumaturge
 magicbees.speciesTCPure=Pure
 magicbees.speciesTCPure.description="It's like a bee janitor!"|MysteriousAges, Thaumaturge
 magicbees.speciesTCHungry=Ravening
-magicbees.speciesTCHungry.description=It is unknown how the bees take raw essence from the nodes and what they do with it, but the process eventually transforms the node into a terrifying vortex.|Apinomicon
+magicbees.speciesTCHungry.description=It is unknown how the bees take raw essence from the surroundings and what they do with it, but the Crimson Cult seems to be interested...|Apinomicon
 magicbees.speciesTCVoid=Void
 # Description is gibberish; don't bother translating. <3
 magicbees.speciesTCVoid.description=§kNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit|?????
