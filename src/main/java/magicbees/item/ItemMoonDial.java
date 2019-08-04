@@ -35,7 +35,7 @@ public class ItemMoonDial extends Item {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced) {
         EntityPlayer player = Minecraft.getMinecraft().player;
-        if (player != null && Config.moonDialShowsPhaseInText && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == this){
+        if (player != null && Config.moonDialShowsPhaseInText && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == this) {
             tooltip.add("\u00A77" + MoonPhase.getMoonPhase(world).getLocalizedName());
         }
     }
@@ -43,7 +43,7 @@ public class ItemMoonDial extends Item {
     static {
         textureLocs = new ResourceLocation[MoonPhase.values().length];
         for (int i = 0; i < textureLocs.length; i++) {
-            textureLocs[i] = new MagicBeesResourceLocation("items/moondial."+i);
+            textureLocs[i] = new MagicBeesResourceLocation("items/moondial." + i);
         }
     }
 

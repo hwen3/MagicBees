@@ -8,8 +8,8 @@ import net.minecraft.world.World;
  */
 public interface ITransmutationController {
 
-    public boolean addTransmutationHandler(ITransmutationHandler transmutationHandler);
+    boolean addTransmutationHandler(ITransmutationHandler transmutationHandler);
 
-    public boolean transmute(World world, BlockPos pos);
+    boolean transmute(World world, BlockPos pos);
 
 }

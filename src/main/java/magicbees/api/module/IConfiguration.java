@@ -7,9 +7,9 @@ import net.minecraftforge.common.config.Configuration;
  */
 public interface IConfiguration {
 
-	default public void init(IConfigRegistry configHandler){
-	}
+    default void init(IConfigRegistry configHandler) {
+    }
 
-	public void reload(Configuration config);
+    void reload(Configuration config);
 
 }

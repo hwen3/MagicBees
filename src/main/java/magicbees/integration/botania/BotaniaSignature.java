@@ -8,20 +8,20 @@ import vazkii.botania.api.subtile.signature.SubTileSignature;
  */
 public class BotaniaSignature implements SubTileSignature {
 
-	public BotaniaSignature(String subtileName) {
-		this.name = subtileName;
-	}
+    public BotaniaSignature(String subtileName) {
+        this.name = subtileName;
+    }
 
-	private String name;
+    private String name;
 
-	@Override
-	public String getUnlocalizedNameForStack(ItemStack stack) {
-		return "tile.botania:flower." + name;
-	}
+    @Override
+    public String getUnlocalizedNameForStack(ItemStack stack) {
+        return "tile.botania:flower." + name;
+    }
 
-	@Override
-	public String getUnlocalizedLoreTextForStack(ItemStack stack) {
-		return "tile.botania:flower." + name + ".lore";
-	}
+    @Override
+    public String getUnlocalizedLoreTextForStack(ItemStack stack) {
+        return "tile.botania:flower." + name + ".lore";
+    }
 
 }

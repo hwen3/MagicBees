@@ -12,10 +12,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface MagicBeesModule {
 
-	String owner();
+    String owner();
 
-	String name();
+    String name();
 
-	String modDependencies() default "";
+    String modDependencies() default "";
 
 }

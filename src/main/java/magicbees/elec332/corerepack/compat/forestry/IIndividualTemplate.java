@@ -16,7 +16,7 @@ public interface IIndividualTemplate<T extends IGenomeTemplate, B extends IAllel
     public boolean isDominant();
 
     @Nonnull
-    default public String getAuthority(){
+    default public String getAuthority() {
         return "Elec332";
     }
 
@@ -24,8 +24,8 @@ public interface IIndividualTemplate<T extends IGenomeTemplate, B extends IAllel
     public String getUnlocalizedName();
 
     @Nonnull
-    default public String getUnlocalizedDescription(){
-        return getUnlocalizedName()+".description";
+    default public String getUnlocalizedDescription() {
+        return getUnlocalizedName() + ".description";
     }
 
     @Nonnull
@@ -49,7 +49,7 @@ public interface IIndividualTemplate<T extends IGenomeTemplate, B extends IAllel
 
     public void registerMutations();
 
-    default public boolean isActive(){
+    default public boolean isActive() {
         return true;
     }
 
@@ -59,23 +59,23 @@ public interface IIndividualTemplate<T extends IGenomeTemplate, B extends IAllel
 
     @Nonnull
     @Override
-    default public G getGenome(){
+    default public G getGenome() {
         return getIndividualDefinition().getGenome();
     }
 
     @Nonnull
     @Override
-    default public IAllele[] getAlleles(){
+    default public IAllele[] getAlleles() {
         return getIndividualDefinition().getAlleles();
     }
 
     @Override
-    default public I getIndividual(){
+    default public I getIndividual() {
         return getIndividualDefinition().getIndividual();
     }
 
     @Override
-    default public ItemStack getMemberStack(S speciesType){
+    default public ItemStack getMemberStack(S speciesType) {
         return getIndividualDefinition().getMemberStack(speciesType);
     }
 

@@ -17,38 +17,38 @@ import javax.annotation.Nonnull;
  */
 public class MagicBeesCreativeTab extends CreativeTabs {
 
-	public MagicBeesCreativeTab() {
-		super(MagicBees.modid);
-	}
+    public MagicBeesCreativeTab() {
+        super(MagicBees.modid);
+    }
 
-	@Override
-	@Nonnull
-	public ItemStack getTabIconItem() {
-		return new ItemStack(ItemRegister.magicFrame);
-	}
+    @Override
+    @Nonnull
+    public ItemStack getTabIconItem() {
+        return new ItemStack(ItemRegister.magicFrame);
+    }
 
-	@Override
-	public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
-		super.displayAllRelevantItems(items);
-		if (EnumBeeSpecies.values()[0].getIndividualDefinition() == null){
-			return;
-		}
-		for (EnumBeeType type : EnumBeeType.values()) {
-			for (EnumBeeSpecies species : EnumBeeSpecies.values()) {
-				if (!species.isActive()){
-					continue;
-				}
-				IBee bee = species.getIndividual();
-				if (bee.isSecret()) {
-					continue;
-				}
+    @Override
+    public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
+        super.displayAllRelevantItems(items);
+        if (EnumBeeSpecies.values()[0].getIndividualDefinition() == null) {
+            return;
+        }
+        for (EnumBeeType type : EnumBeeType.values()) {
+            for (EnumBeeSpecies species : EnumBeeSpecies.values()) {
+                if (!species.isActive()) {
+                    continue;
+                }
+                IBee bee = species.getIndividual();
+                if (bee.isSecret()) {
+                    continue;
+                }
 
-				ItemStack beeStack = BeeManager.beeRoot.getMemberStack(bee, type);
-				if (!beeStack.isEmpty()) {
-					items.add(beeStack);
-				}
-			}
-		}
-	}
+                ItemStack beeStack = BeeManager.beeRoot.getMemberStack(bee, type);
+                if (!beeStack.isEmpty()) {
+                    items.add(beeStack);
+                }
+            }
+        }
+    }
 
 }

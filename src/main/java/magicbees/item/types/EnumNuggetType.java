@@ -13,25 +13,25 @@ import net.minecraft.util.ResourceLocation;
  */
 public enum EnumNuggetType implements IEnumItem {
 
-	DIAMOND,
-	EMERALD,
-	APATITE,
-	COPPER,
-	TIN,
-	BRONZE;
+    DIAMOND,
+    EMERALD,
+    APATITE,
+    COPPER,
+    TIN,
+    BRONZE;
 
-	public ItemStack getStack(){
-		return ItemRegister.orePartItem.getStackFromType(this);
-	}
+    public ItemStack getStack() {
+        return ItemRegister.orePartItem.getStackFromType(this);
+    }
 
-	@Override
-	public void initializeItem(ItemEnumBased<? extends IEnumItem> itemEnumBased) {
-		itemEnumBased.setCreativeTab(MagicBees.creativeTab);
-	}
+    @Override
+    public void initializeItem(ItemEnumBased<? extends IEnumItem> itemEnumBased) {
+        itemEnumBased.setCreativeTab(MagicBees.creativeTab);
+    }
 
-	@Override
-	public ResourceLocation getTextureLocation() {
-		return new MagicBeesResourceLocation("items/part"+toString().toLowerCase());
-	}
+    @Override
+    public ResourceLocation getTextureLocation() {
+        return new MagicBeesResourceLocation("items/part" + toString().toLowerCase());
+    }
 
 }

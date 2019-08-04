@@ -10,6 +10,6 @@ import net.minecraft.world.biome.Biome;
  */
 public interface ITransmutationHandler {
 
-    public boolean transmute(World world, BlockPos pos, ItemStack block, Biome biome);
+    boolean transmute(World world, BlockPos pos, ItemStack block, Biome biome);
 
 }

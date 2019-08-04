@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public final class DefaultIndividualDefinition<G extends IGenome, I extends IIndividual, T extends ISpeciesType> implements IIndividualDefinition<G, I, T> {
 
     @SuppressWarnings("unchecked")
-    DefaultIndividualDefinition(IAllele[] alleles, ISpeciesRoot speciesRoot){
+    DefaultIndividualDefinition(IAllele[] alleles, ISpeciesRoot speciesRoot) {
         this.alleles = alleles;
         this.speciesRoot = speciesRoot;
         this.g = (G) this.speciesRoot.templateAsGenome(this.alleles);
@@ -29,7 +29,7 @@ public final class DefaultIndividualDefinition<G extends IGenome, I extends IInd
 
     @Nonnull
     @Override
-    public IAllele[] getAlleles(){
+    public IAllele[] getAlleles() {
         IAllele[] ret = new IAllele[alleles.length];
         System.arraycopy(alleles, 0, ret, 0, alleles.length);
         return ret;

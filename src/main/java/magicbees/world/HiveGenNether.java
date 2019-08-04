@@ -21,12 +21,12 @@ public class HiveGenNether extends HiveGenUnderground {
     @Override
     public BlockPos getPosForHive(@Nonnull World world, int x, int z) {
         BlockPos cP = super.getPosForHive(world, x, z);
-        if(cP != null && !this.isValidLocation(world, cP)) {
-            int searchDirection = world.rand.nextBoolean()?4:-4;
+        if (cP != null && !this.isValidLocation(world, cP)) {
+            int searchDirection = world.rand.nextBoolean() ? 4 : -4;
 
-            while(!Block.isEqualTo(world.getBlockState(cP).getBlock(), this.replace)) {
+            while (!Block.isEqualTo(world.getBlockState(cP).getBlock(), this.replace)) {
                 cP = cP.up(searchDirection);
-                if(cP.getY() < this.minLevel || cP.getY() > this.minLevel + this.range || Block.isEqualTo(world.getBlockState(cP.down(1)).getBlock(), Blocks.BEDROCK)) {
+                if (cP.getY() < this.minLevel || cP.getY() > this.minLevel + this.range || Block.isEqualTo(world.getBlockState(cP.down(1)).getBlock(), Blocks.BEDROCK)) {
                     return null;
                 }
             }

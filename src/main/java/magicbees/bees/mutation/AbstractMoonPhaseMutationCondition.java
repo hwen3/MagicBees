@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AbstractMoonPhaseMutationCondition implements IMutationCondition {
 
-    public AbstractMoonPhaseMutationCondition(MoonPhase moonPhaseStart, MoonPhase moonPhaseEnd){
+    public AbstractMoonPhaseMutationCondition(MoonPhase moonPhaseStart, MoonPhase moonPhaseEnd) {
         this.moonPhaseStart = moonPhaseStart;
         this.moonPhaseEnd = moonPhaseEnd;
         this.two = moonPhaseStart != moonPhaseEnd;
@@ -25,7 +25,7 @@ public abstract class AbstractMoonPhaseMutationCondition implements IMutationCon
     protected final MoonPhase moonPhaseStart, moonPhaseEnd;
     private final boolean two;
 
-    protected boolean isBetweenPhases(World world){
+    protected boolean isBetweenPhases(World world) {
         return MoonPhase.getMoonPhase(world).isBetween(this.moonPhaseStart, this.moonPhaseEnd);
     }
 

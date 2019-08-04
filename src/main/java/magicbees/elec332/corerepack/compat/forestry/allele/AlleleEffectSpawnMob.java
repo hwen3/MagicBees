@@ -48,27 +48,27 @@ public class AlleleEffectSpawnMob extends AlleleEffectThrottled {
     private int maxMobs = 5;
     private boolean angryOnPlayer = false, playerMustBeNear = false;
 
-    public AlleleEffectSpawnMob setSpawnChance(int chance){
+    public AlleleEffectSpawnMob setSpawnChance(int chance) {
         this.chance = chance;
         return this;
     }
 
-    public AlleleEffectSpawnMob setMaxMobsInArea(int maxMobs){
+    public AlleleEffectSpawnMob setMaxMobsInArea(int maxMobs) {
         this.maxMobs = maxMobs;
         return this;
     }
 
-    public AlleleEffectSpawnMob setOnlySpawnsWhenPlayersNear(){
+    public AlleleEffectSpawnMob setOnlySpawnsWhenPlayersNear() {
         this.playerMustBeNear = true;
         return this;
     }
 
-    public AlleleEffectSpawnMob setMobTypeWhenPlayerNear(ResourceLocation mobType){
+    public AlleleEffectSpawnMob setMobTypeWhenPlayerNear(ResourceLocation mobType) {
         this.mobTypePlayerNear = mobType;
         return this;
     }
 
-    public AlleleEffectSpawnMob setAngryOnPlayers(){
+    public AlleleEffectSpawnMob setAngryOnPlayers() {
         this.angryOnPlayer = true;
         return this;
     }
@@ -80,7 +80,7 @@ public class AlleleEffectSpawnMob extends AlleleEffectThrottled {
 
     @Override
     public IEffectData validateStorage(IEffectData storedData) {
-        if (storedData == null){
+        if (storedData == null) {
             return new EffectData(1, 0, 0);
         }
         return storedData;
@@ -89,9 +89,9 @@ public class AlleleEffectSpawnMob extends AlleleEffectThrottled {
     @Override
     public IEffectData doEffectThrottled(IBeeGenome genome, IEffectData storedData, IBeeHousing housing) {
         World world = housing.getWorldObj();
-        if (world.rand.nextInt(100) <= chance){
+        if (world.rand.nextInt(100) <= chance) {
             EntityPlayer player = getClosestPlayer(genome, housing);
-            if (player == null && playerMustBeNear){
+            if (player == null && playerMustBeNear) {
                 return storedData;
             }
             spawn(player, angryOnPlayer, genome, housing);
@@ -99,25 +99,25 @@ public class AlleleEffectSpawnMob extends AlleleEffectThrottled {
         return storedData;
     }
 
-    protected boolean spawn(EntityPlayer player, boolean angry, IBeeGenome genome, IBeeHousing housing){
+    protected boolean spawn(EntityPlayer player, boolean angry, IBeeGenome genome, IBeeHousing housing) {
         Entity entity = null;
-        if (mobTypePlayerNear != null && player != null){
+        if (mobTypePlayerNear != null && player != null) {
             entity = EntityList.createEntityByIDFromName(mobTypePlayerNear, housing.getWorldObj());
         }
-        if (entity == null){
+        if (entity == null) {
             entity = EntityList.createEntityByIDFromName(mobType, housing.getWorldObj());
         }
-        if (entity == null){
+        if (entity == null) {
             return false;
         }
-        if (getEntitiesInRange(genome, housing, entity.getClass()).size() > maxMobs){
+        if (getEntitiesInRange(genome, housing, entity.getClass()).size() > maxMobs) {
             return false;
         }
         Random random = housing.getWorldObj().rand;
         AxisAlignedBB aabb = getBounding(genome, housing);
-        entity.setLocationAndAngles(aabb.minX + random.nextDouble() * (aabb.maxX - aabb.minX), aabb.minY + random.nextDouble() * (aabb.maxY - aabb.minY), aabb.minZ + random.nextDouble() * (aabb.maxZ - aabb.minZ), random.nextFloat() * 360 , 0);
-        if (housing.getWorldObj().spawnEntity(entity)){
-            if (entity instanceof EntityLiving && angry && player != null){
+        entity.setLocationAndAngles(aabb.minX + random.nextDouble() * (aabb.maxX - aabb.minX), aabb.minY + random.nextDouble() * (aabb.maxY - aabb.minY), aabb.minZ + random.nextDouble() * (aabb.maxZ - aabb.minZ), random.nextFloat() * 360, 0);
+        if (housing.getWorldObj().spawnEntity(entity)) {
+            if (entity instanceof EntityLiving && angry && player != null) {
                 ((EntityLiving) entity).setAttackTarget(player);
             }
             return true;
@@ -126,16 +126,17 @@ public class AlleleEffectSpawnMob extends AlleleEffectThrottled {
     }
 
     @Nullable
-    protected EntityPlayer getClosestPlayer(IBeeGenome genome, IBeeHousing housing){
+    protected EntityPlayer getClosestPlayer(IBeeGenome genome, IBeeHousing housing) {
         List<EntityPlayer> players = getEntitiesInRange(genome, housing, EntityPlayer.class);
         Collections.sort(players, new Comparator<EntityPlayer>() {
+
             @Override
             public int compare(EntityPlayer o1, EntityPlayer o2) {
                 return (int) (o1.getDistanceSq(housing.getCoordinates()) - o2.getDistanceSq(housing.getCoordinates()));
             }
         });
-        for (EntityPlayer player : players){
-            if (BeeManager.armorApiaristHelper.wearsItems(player, getUID(), true) >= 4){
+        for (EntityPlayer player : players) {
+            if (BeeManager.armorApiaristHelper.wearsItems(player, getUID(), true) >= 4) {
                 return player;
             }
         }

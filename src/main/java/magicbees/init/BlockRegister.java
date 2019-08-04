@@ -25,7 +25,7 @@ public final class BlockRegister {
     public static Block effectJar;
     public static Block enchantedEarth;
 
-    public static void preInit(){
+    public static void preInit() {
         hiveBlock = (BlockHive) new BlockHive().setRegistryName(new MagicBeesResourceLocation("hiveBlock")).setCreativeTab(MagicBees.creativeTab);
         effectJar = new BlockEffectJar().setRegistryName(new MagicBeesResourceLocation("effectJar")).setCreativeTab(MagicBees.creativeTab);
         enchantedEarth = new BlockEnchantedEarth().setRegistryName(new MagicBeesResourceLocation("enchanted_earth")).setCreativeTab(MagicBees.creativeTab);
@@ -37,13 +37,13 @@ public final class BlockRegister {
         registerTiles();
     }
 
-    private static void registerTiles(){
+    private static void registerTiles() {
         GameRegistry.registerTileEntity(TileEntityEffectJar.class, "TileEntityMagicBeesEffectJar");
         GameRegistry.registerTileEntity(TileHive.class, "tileMagicBeesHive");
     }
 
     @SubscribeEvent
-    public void registerBlocks(RegistryEvent.Register<Block> event){
+    public void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(hiveBlock);
         event.getRegistry().register(effectJar);
         event.getRegistry().register(enchantedEarth);
@@ -51,8 +51,8 @@ public final class BlockRegister {
 
     @SubscribeEvent
     @SuppressWarnings("all")
-    public void registerItems(RegistryEvent.Register<Item> event){
-        event.getRegistry().registerAll(new ItemBlock(hiveBlock){
+    public void registerItems(RegistryEvent.Register<Item> event) {
+        event.getRegistry().registerAll(new ItemBlock(hiveBlock) {
 
             @Override
             public String getUnlocalizedName(ItemStack stack) {
@@ -69,7 +69,7 @@ public final class BlockRegister {
     }
 
     @SuppressWarnings("all")
-    private static Item createItem(Block block){
+    private static Item createItem(Block block) {
         return new ItemBlock(block).setRegistryName(block.getRegistryName());
     }
 

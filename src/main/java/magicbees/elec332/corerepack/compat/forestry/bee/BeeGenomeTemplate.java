@@ -16,81 +16,81 @@ import static forestry.api.apiculture.EnumBeeChromosome.*;
  */
 public class BeeGenomeTemplate implements IGenomeTemplate<IAlleleBeeSpecies> {
 
-    public BeeGenomeTemplate(){
+    public BeeGenomeTemplate() {
         alleles = getDefaultTemplate();
     }
 
     private IAllele[] alleles;
 
     @Override
-    public BeeGenomeTemplate setSpecies(IAlleleBeeSpecies species){
+    public BeeGenomeTemplate setSpecies(IAlleleBeeSpecies species) {
         setAllele(SPECIES, species);
         return this;
     }
 
-    public BeeGenomeTemplate setSpeed(IAlleleFloat speed){
+    public BeeGenomeTemplate setSpeed(IAlleleFloat speed) {
         setAllele(SPEED, speed);
         return this;
     }
 
-    public BeeGenomeTemplate setLifeSpan(IAlleleInteger lifeSpan){
+    public BeeGenomeTemplate setLifeSpan(IAlleleInteger lifeSpan) {
         setAllele(LIFESPAN, lifeSpan);
         return this;
     }
 
-    public BeeGenomeTemplate setFertility(IAlleleInteger fertility){
+    public BeeGenomeTemplate setFertility(IAlleleInteger fertility) {
         setAllele(FERTILITY, fertility);
         return this;
     }
 
-    public BeeGenomeTemplate setTemperatureTolerance(IAlleleTolerance temperatureTolerance){
+    public BeeGenomeTemplate setTemperatureTolerance(IAlleleTolerance temperatureTolerance) {
         setAllele(TEMPERATURE_TOLERANCE, temperatureTolerance);
         return this;
     }
 
-    public BeeGenomeTemplate setNeverSleeps(IAlleleBoolean neverSleeps){
+    public BeeGenomeTemplate setNeverSleeps(IAlleleBoolean neverSleeps) {
         setAllele(NEVER_SLEEPS, neverSleeps);
         return this;
     }
 
-    public BeeGenomeTemplate setHumidityTolerance(IAlleleTolerance humidityTolerance){
+    public BeeGenomeTemplate setHumidityTolerance(IAlleleTolerance humidityTolerance) {
         setAllele(HUMIDITY_TOLERANCE, humidityTolerance);
         return this;
     }
 
-    public BeeGenomeTemplate setToleratesRain(IAlleleBoolean toleratesRain){
+    public BeeGenomeTemplate setToleratesRain(IAlleleBoolean toleratesRain) {
         setAllele(TOLERATES_RAIN, toleratesRain);
         return this;
     }
 
-    public BeeGenomeTemplate setCaveDwelling(IAlleleBoolean caveDwelling){
+    public BeeGenomeTemplate setCaveDwelling(IAlleleBoolean caveDwelling) {
         setAllele(CAVE_DWELLING, caveDwelling);
         return this;
     }
 
-    public BeeGenomeTemplate setFlowerProvider(IAlleleFlowers flowerProvider){
+    public BeeGenomeTemplate setFlowerProvider(IAlleleFlowers flowerProvider) {
         setAllele(FLOWER_PROVIDER, flowerProvider);
         return this;
     }
 
-    public BeeGenomeTemplate setFloweringSpeed(IAlleleInteger floweringSpeed){
+    public BeeGenomeTemplate setFloweringSpeed(IAlleleInteger floweringSpeed) {
         setAllele(FLOWERING, floweringSpeed);
         return this;
     }
 
-    public BeeGenomeTemplate setTerritory(IAlleleArea territory){
+    public BeeGenomeTemplate setTerritory(IAlleleArea territory) {
         setAllele(TERRITORY, territory);
         return this;
     }
 
-    public BeeGenomeTemplate setEffect(IAlleleEffect effect){
+    public BeeGenomeTemplate setEffect(IAlleleEffect effect) {
         setAllele(EFFECT, effect);
         return this;
     }
 
     @Override
     @Nonnull
-    public BeeGenomeTemplate copy(){
+    public BeeGenomeTemplate copy() {
         BeeGenomeTemplate ret = new BeeGenomeTemplate();
         System.arraycopy(alleles, 0, ret.alleles, 0, alleles.length);
         return ret;
@@ -98,7 +98,7 @@ public class BeeGenomeTemplate implements IGenomeTemplate<IAlleleBeeSpecies> {
 
     @Override
     @Nonnull
-    public IAllele[] getAlleles(){
+    public IAllele[] getAlleles() {
         return alleles;
     }
 
@@ -107,7 +107,7 @@ public class BeeGenomeTemplate implements IGenomeTemplate<IAlleleBeeSpecies> {
         return (IAlleleBeeSpecies) alleles[EnumBeeChromosome.SPECIES.ordinal()];
     }
 
-    private void setAllele(EnumBeeChromosome chromosome, IAllele allele){
+    private void setAllele(EnumBeeChromosome chromosome, IAllele allele) {
         alleles[chromosome.ordinal()] = allele;
     }
 

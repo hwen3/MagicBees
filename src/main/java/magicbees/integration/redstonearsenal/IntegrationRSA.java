@@ -14,10 +14,10 @@ import net.minecraft.item.ItemStack;
 @MagicBeesModule(owner = MagicBees.modid, name = "RedstoneArsenal Integration", modDependencies = ModNames.RSA)
 public class IntegrationRSA implements IMagicBeesModule {
 
-	@Override
-	public void init(IMagicBeesInitialisationEvent event){
-		BeeIntegrationInterface.itemRSAFluxedElectrumNugget = new ItemStack(event.getItem("material"), 1, 64);
-		BeeIntegrationInterface.blockRSAFluxedElectrum = event.getBlock("storage").getDefaultState();
-	}
+    @Override
+    public void init(IMagicBeesInitialisationEvent event) {
+        BeeIntegrationInterface.itemRSAFluxedElectrumNugget = new ItemStack(event.getItem("material"), 1, 64);
+        BeeIntegrationInterface.blockRSAFluxedElectrum = event.getBlock("storage").getDefaultState();
+    }
 
 }

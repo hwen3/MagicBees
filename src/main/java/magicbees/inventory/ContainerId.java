@@ -5,6 +5,6 @@ package magicbees.inventory;
  */
 public class ContainerId {
 
-	public static final int EFFECT_JAR = 1;
+    public static final int EFFECT_JAR = 1;
 
 }

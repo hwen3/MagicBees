@@ -39,11 +39,11 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
     @SideOnly(Side.CLIENT)
     private IBakedModel[] models;
 
-    public ItemStack getStackFromType(E type){
+    public ItemStack getStackFromType(E type) {
         return getStackFromType(type, 1);
     }
 
-    public ItemStack getStackFromType(E type, int amount){
+    public ItemStack getStackFromType(E type, int amount) {
         return new ItemStack(this, amount, type.ordinal());
     }
 
@@ -55,11 +55,11 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-        if (!isInCreativeTab(tab)){
+        if (!isInCreativeTab(tab)) {
             return;
         }
-        for (E e : values){
-            if (e.shouldShow()){
+        for (E e : values) {
+            if (e.shouldShow()) {
                 subItems.add(getStackFromType(e));
             }
         }
@@ -69,7 +69,7 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
     @Nonnull
     public String getUnlocalizedName(ItemStack stack) {
         E e = stack == null ? null : get(stack.getItemDamage());
-        if (e == null){
+        if (e == null) {
             return super.getUnlocalizedName(stack);
         }
         return e.getUnlocalizedName(stack);
@@ -84,7 +84,7 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
     }
 
 
-    private E get(int i){
+    private E get(int i) {
         return i >= values.length ? null : values[i];
     }
 

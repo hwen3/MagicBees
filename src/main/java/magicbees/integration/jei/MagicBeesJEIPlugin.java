@@ -15,12 +15,12 @@ public class MagicBeesJEIPlugin implements IModPlugin {
 
     @Override
     public void register(IModRegistry registry) {
-        for (EnumBeeHives hiveType : EnumBeeHives.values()){
-            addDescription(registry, new ItemStack(BlockRegister.hiveBlock, 1, hiveType.ordinal()), "hive."+hiveType.toString().toLowerCase());
+        for (EnumBeeHives hiveType : EnumBeeHives.values()) {
+            addDescription(registry, new ItemStack(BlockRegister.hiveBlock, 1, hiveType.ordinal()), "hive." + hiveType.toString().toLowerCase());
         }
     }
 
-    public static void addDescription(IModRegistry registry, ItemStack stack, String descUnlName) { ;
+    public static void addDescription(IModRegistry registry, ItemStack stack, String descUnlName) {
         registry.addIngredientInfo(stack.copy(), ItemStack.class, "magicbees.jei.description." + descUnlName);
     }
 

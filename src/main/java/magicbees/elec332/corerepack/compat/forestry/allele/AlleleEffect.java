@@ -7,10 +7,12 @@ import forestry.api.apiculture.IBeeHousing;
 import forestry.api.genetics.IEffectData;
 import magicbees.elec332.corerepack.compat.forestry.bee.ForestryBeeEffects;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by Elec332 on 14-8-2016.
@@ -31,7 +33,7 @@ public abstract class AlleleEffect extends AbstractAllele implements IAlleleBeeE
 
     private boolean combinable;
 
-    public AlleleEffect setCombinable(){
+    public AlleleEffect setCombinable() {
         this.combinable = true;
         return this;
     }
@@ -58,7 +60,12 @@ public abstract class AlleleEffect extends AbstractAllele implements IAlleleBeeE
     }
 
     public static <T extends Entity> List<T> getEntitiesInRange(IBeeGenome genome, IBeeHousing housing, Class<T> entityClass) {
-        return forestry.apiculture.genetics.alleles.AlleleEffect.getEntitiesInRange(genome, housing, entityClass);
+        return getEntitiesInRange(genome, housing, entityClass, EntitySelectors.NOT_SPECTATING);
+    }
+
+    public static <T extends Entity> List<T> getEntitiesInRange(IBeeGenome genome, IBeeHousing housing, Class<T> entityClass, Predicate<? super T> predicate) {
+        AxisAlignedBB boundingBox = getBounding(genome, housing);
+        return housing.getWorldObj().getEntitiesWithinAABB(entityClass, boundingBox, predicate::test);
     }
 
 }

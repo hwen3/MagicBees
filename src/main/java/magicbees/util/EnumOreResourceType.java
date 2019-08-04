@@ -18,128 +18,125 @@ import java.util.List;
  */
 public enum EnumOreResourceType {
 
-	IRON(new ItemStack(ItemRegister.ironNugget), "nuggetIron"),
-	GOLD(new ItemStack(Items.GOLD_NUGGET)),
-	COPPER(EnumNuggetType.COPPER, "nuggetCopper"),
-	TIN(EnumNuggetType.TIN, "nuggetTin"),
-	SILVER("nuggetSilver", "dustTinySilver"),
-	LEAD("nuggetLead", "dustTinyLead"),
-	ALUMINIUM("nuggetAluminium", "nuggetAluminum"),
-	ARDITE("nuggetArdite"),
-	COBALT("nuggetCobalt"),
-	MANYULLYN("nuggetManyullyn"),
-	OSMIUM("nuggetOsmium"),
-	DIAMOND(EnumNuggetType.DIAMOND, "nuggetDiamond"){
+    IRON(new ItemStack(ItemRegister.ironNugget), "nuggetIron"),
+    GOLD(new ItemStack(Items.GOLD_NUGGET)),
+    COPPER(EnumNuggetType.COPPER, "nuggetCopper"),
+    TIN(EnumNuggetType.TIN, "nuggetTin"),
+    SILVER("nuggetSilver", "dustTinySilver"),
+    LEAD("nuggetLead", "dustTinyLead"),
+    ALUMINIUM("nuggetAluminium", "nuggetAluminum"),
+    ARDITE("nuggetArdite"),
+    COBALT("nuggetCobalt"),
+    MANYULLYN("nuggetManyullyn"),
+    OSMIUM("nuggetOsmium"),
+    DIAMOND(EnumNuggetType.DIAMOND, "nuggetDiamond") {
+        @Override
+        public String getType() {
+            return "gem";
+        }
 
-		@Override
-		public String getType() {
-			return "gem";
-		}
+    },
+    EMERALD(EnumNuggetType.EMERALD, "nuggetEmerald") {
+        @Override
+        public String getType() {
+            return "gem";
+        }
 
-	},
-	EMERALD(EnumNuggetType.EMERALD, "nuggetEmerald"){
+    },
+    APATITE(EnumNuggetType.APATITE, "nuggetApatite") {
+        @Override
+        public String getType() {
+            return "gem";
+        }
 
-		@Override
-		public String getType() {
-			return "gem";
-		}
+    },
+    SILICON,
+    CERTUS,
+    FLUIX,
+    PLATINUM("nuggetPlatinum"),
+    NICKEL("nuggetNickel", "nuggetFerrous"),
+    BRONZE(EnumNuggetType.BRONZE, "nuggetBronze"),
+    INVAR("nuggetInvar"),
+    ELECTRUM("nuggetElectrum"),
+    ;
 
-	},
-	APATITE(EnumNuggetType.APATITE, "nuggetApatite"){
+    EnumOreResourceType(EnumNuggetType nugget, String... oreDictA) {
+        this(nugget.getStack(), oreDictA);
+    }
 
-		@Override
-		public String getType() {
-			return "gem";
-		}
+    EnumOreResourceType(String... oreDictA) {
+        this((ItemStack) null, oreDictA);
+    }
 
-	},
-	SILICON,
-	CERTUS,
-	FLUIX,
-	PLATINUM("nuggetPlatinum"),
-	NICKEL("nuggetNickel", "nuggetFerrous"),
-	BRONZE(EnumNuggetType.BRONZE, "nuggetBronze"),
-	INVAR("nuggetInvar"),
-	ELECTRUM("nuggetElectrum"),
-	;
+    @SuppressWarnings("all")
+    EnumOreResourceType(@Nullable ItemStack stack, String... oreDictA) {
+        if (oreDictA == null) {
+            oreDictA = new String[0];
+        }
+        setStack(stack);
+        this.oreDictA = oreDictA;
+    }
 
-	EnumOreResourceType(EnumNuggetType nugget, String... oreDictA){
-		this(nugget.getStack(), oreDictA);
-	}
+    private String[] oreDictA;
+    private ItemStack finalStack;
 
-	EnumOreResourceType(String... oreDictA){
-		this((ItemStack)null, oreDictA);
-	}
+    public String getType() {
+        return "ingot";
+    }
 
-	@SuppressWarnings("all")
-	EnumOreResourceType(@Nullable ItemStack stack, String... oreDictA){
-		if (oreDictA == null){
-			oreDictA = new String[0];
-		}
-		setStack(stack);
-		this.oreDictA = oreDictA;
-	}
+    private void setStack(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            stack = null;
+        }
+        this.finalStack = stack;
+    }
 
-	private String[] oreDictA;
-	private ItemStack finalStack;
+    public boolean enabled() {
+        getStack();
+        return finalStack != null;
+    }
 
-	public String getType(){
-		return "ingot";
-	}
+    public ItemStack getStack() {
+        if (oreDictA != null) {
+            primLoop:
+            for (String oreDict : oreDictA) {
+                List<ItemStack> l = OreDictionary.getOres(oreDict);
+                if (!l.isEmpty()) {
+                    for (ItemStack stack_ : l) {
+                        if (!stack_.isEmpty()) {
+                            setStack(stack_.copy());
+                            break primLoop;
+                        }
+                    }
+                }
+            }
+            oreDictA = null;
+        }
+        return finalStack == null ? ItemStack.EMPTY : finalStack;
+    }
 
-	private void setStack(ItemStack stack){
-		if (stack == null || stack.isEmpty()){
-			stack = null;
-		}
-		this.finalStack = stack;
-	}
-
-	public boolean enabled(){
-		getStack();
-		return finalStack != null;
-	}
-
-	public ItemStack getStack() {
-		if (oreDictA != null){
-			primLoop:
-			for (String oreDict : oreDictA) {
-				List<ItemStack> l = OreDictionary.getOres(oreDict);
-				if (!l.isEmpty()) {
-					for (ItemStack stack_ : l) {
-						if (!stack_.isEmpty()) {
-							setStack(stack_.copy());
-							break primLoop;
-						}
-					}
-				}
-			}
-			oreDictA = null;
-		}
-		return finalStack == null ? ItemStack.EMPTY : finalStack;
-	}
-
-	public static void registerRecipes(IForgeRegistry<IRecipe> recipes){
-		for (EnumOreResourceType type : EnumOreResourceType.values()) {
-			if (type.oreDictA.length > 0) {
-				if (type.finalStack != null && !type.finalStack.isEmpty()) {
-					if (!(type.finalStack.getItem() == ItemRegister.ironNugget && ItemRegister.ironNugget.getRegistryName().getResourceDomain().equals("minecraft"))) {
-						for (String s : type.oreDictA) {
-							if (s.startsWith("nugget")) {
-								OreDictionary.registerOre(s, type.finalStack);
-							}
-						}
-						if (type.oreDictA[0].startsWith("nugget")) {
-							List<ItemStack> scks = OreDictionary.getOres(type.oreDictA[0].replace("nugget", type.getType()));
-							if (scks.size() > 0 && !scks.get(0).isEmpty()) {
-								ResourceLocation name = new MagicBeesResourceLocation(type.oreDictA[0] + "_to_block");
-								IRecipe recipe = new ShapedOreRecipe(null, scks.get(0), "XXX", "XXX", "XXX", 'X', type.oreDictA[0]).setRegistryName(name);
-								recipes.register(recipe);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    public static void registerRecipes(IForgeRegistry<IRecipe> recipes) {
+        for (EnumOreResourceType type : EnumOreResourceType.values()) {
+            if (type.oreDictA.length > 0) {
+                if (type.finalStack != null && !type.finalStack.isEmpty()) {
+                    if (!(type.finalStack.getItem() == ItemRegister.ironNugget && ItemRegister.ironNugget.getRegistryName().getResourceDomain().equals("minecraft"))) {
+                        for (String s : type.oreDictA) {
+                            if (s.startsWith("nugget")) {
+                                OreDictionary.registerOre(s, type.finalStack);
+                            }
+                        }
+                        if (type.oreDictA[0].startsWith("nugget")) {
+                            List<ItemStack> scks = OreDictionary.getOres(type.oreDictA[0].replace("nugget", type.getType()));
+                            if (scks.size() > 0 && !scks.get(0).isEmpty()) {
+                                ResourceLocation name = new MagicBeesResourceLocation(type.oreDictA[0] + "_to_block");
+                                IRecipe recipe = new ShapedOreRecipe(null, scks.get(0), "XXX", "XXX", "XXX", 'X', type.oreDictA[0]).setRegistryName(name);
+                                recipes.register(recipe);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

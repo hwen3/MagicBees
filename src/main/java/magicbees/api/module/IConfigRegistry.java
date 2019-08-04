@@ -5,8 +5,8 @@ package magicbees.api.module;
  */
 public interface IConfigRegistry {
 
-	public void registerConfig(IConfiguration config);
+    void registerConfig(IConfiguration config);
 
-	public void registerCategoryComment(String category, String comment);
+    void registerCategoryComment(String category, String comment);
 
 }

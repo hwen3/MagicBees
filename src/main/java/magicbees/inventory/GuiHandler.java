@@ -19,35 +19,35 @@ import javax.annotation.Nullable;
  */
 public class GuiHandler implements IGuiHandler {
 
-	@Nullable
-	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		switch (ID){
-			case ContainerId.EFFECT_JAR:
-				if (!(tile instanceof TileEntityEffectJar)){
-					return null;
-				}
-				return new ContainerEffectJar((TileEntityEffectJar) tile, player);
-			default:
-				return null;
-		}
-	}
+    @Nullable
+    @Override
+    public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+        switch (ID) {
+            case ContainerId.EFFECT_JAR:
+                if (!(tile instanceof TileEntityEffectJar)) {
+                    return null;
+                }
+                return new ContainerEffectJar((TileEntityEffectJar) tile, player);
+            default:
+                return null;
+        }
+    }
 
-	@Nullable
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		Container container = getServerGuiElement(ID, player, world, x, y, z);
-		switch (ID){
-			case ContainerId.EFFECT_JAR:
-				if (!(container instanceof ContainerEffectJar)){
-					return null;
-				}
-				return new GuiEffectJar((ContainerEffectJar) container);
-			default:
-				return null;
-		}
-	}
+    @Nullable
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        Container container = getServerGuiElement(ID, player, world, x, y, z);
+        switch (ID) {
+            case ContainerId.EFFECT_JAR:
+                if (!(container instanceof ContainerEffectJar)) {
+                    return null;
+                }
+                return new GuiEffectJar((ContainerEffectJar) container);
+            default:
+                return null;
+        }
+    }
 
 }

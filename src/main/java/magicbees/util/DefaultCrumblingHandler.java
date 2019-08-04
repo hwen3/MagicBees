@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class DefaultCrumblingHandler implements ICrumblingHandler {
 
-    public DefaultCrumblingHandler(){
+    public DefaultCrumblingHandler() {
         this.crumbleMap = Maps.newHashMap();
     }
 
@@ -28,11 +28,11 @@ public class DefaultCrumblingHandler implements ICrumblingHandler {
     @Override
     @SuppressWarnings("all")
     public void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull ItemStack after) {
-        if (after.isEmpty()){
+        if (after.isEmpty()) {
             throw new IllegalArgumentException();
         }
         Block block = Block.getBlockFromItem(after.getItem());
-        if (block == null || block == Blocks.AIR){
+        if (block == null || block == Blocks.AIR) {
             throw new IllegalArgumentException();
         }
         addCrumblingHandler(before, block.getStateFromMeta(after.getMetadata()));
@@ -40,11 +40,11 @@ public class DefaultCrumblingHandler implements ICrumblingHandler {
 
     @Override
     public void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull IBlockState after) {
-        if (before.isEmpty()){
+        if (before.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        for (ItemStack stack : crumbleMap.keySet()){
-            if(OreDictionary.itemMatches(before, stack, false)) {
+        for (ItemStack stack : crumbleMap.keySet()) {
+            if (OreDictionary.itemMatches(before, stack, false)) {
                 return;
             }
         }
@@ -53,12 +53,12 @@ public class DefaultCrumblingHandler implements ICrumblingHandler {
 
     @Override
     public boolean crumble(World world, BlockPos pos) {
-        if(!world.isAirBlock(pos)) {
+        if (!world.isAirBlock(pos)) {
             IBlockState state = world.getBlockState(pos);
             ItemStack source = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 
-            for (ItemStack stack : crumbleMap.keySet()){
-                if(OreDictionary.itemMatches(source, stack, false)) {
+            for (ItemStack stack : crumbleMap.keySet()) {
+                if (OreDictionary.itemMatches(source, stack, false)) {
                     IBlockState target = crumbleMap.get(stack);
                     world.setBlockState(pos, target, 2);
                     return true;

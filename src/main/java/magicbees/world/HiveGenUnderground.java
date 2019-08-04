@@ -42,11 +42,11 @@ public class HiveGenUnderground implements IHiveGen {
     @Override
     public boolean isValidLocation(@Nonnull World world, @Nonnull BlockPos blockPos) {
         int i = surroundCount;
-        for (EnumFacing f : EnumFacing.VALUES){
-            if (isReplaceableOreGen(world.getBlockState(blockPos.offset(f)), world, blockPos, replace)){
+        for (EnumFacing f : EnumFacing.VALUES) {
+            if (isReplaceableOreGen(world.getBlockState(blockPos.offset(f)), world, blockPos, replace)) {
                 i--;
             }
-            if (i <= 0){
+            if (i <= 0) {
                 return true;
             }
         }
@@ -58,7 +58,7 @@ public class HiveGenUnderground implements IHiveGen {
         return !world.isAirBlock(blockPos) && isReplaceableOreGen(iBlockState, world, blockPos, replace);
     }
 
-    public static boolean isReplaceableOreGen(IBlockState iBlockState, World world, BlockPos blockPos, Block replace){
+    public static boolean isReplaceableOreGen(IBlockState iBlockState, World world, BlockPos blockPos, Block replace) {
         return iBlockState.getBlock().isReplaceableOreGen(iBlockState, world, blockPos, new Predicate<IBlockState>() {
 
             @Override

@@ -40,7 +40,7 @@ public class Config implements IConfiguration {
         magnetSound = config.getBoolean("magnetSound", Configuration.CATEGORY_GENERAL, magnetSound, "Enables/Disables the magnet sounds.");
         magnetMaxLevel = config.getInt("magnetMaxLevel", Configuration.CATEGORY_GENERAL, 9, 1, 16, "Sets max level of the Mysterious Magnet.");
         magnetBaseRange = config.getInt("magnetBaseRange", Configuration.CATEGORY_GENERAL, 3, 1, 8, "Sets base range of the Mysterious Magnet.");
-        magnetLevelMultiplier = config.getFloat("magnetLevelMultiplier", Configuration.CATEGORY_GENERAL, 0.75f, 0.1f, 8,"Used to calculate the range of the Mysterious Magnet; Range = baseValue + level * multiplier");
+        magnetLevelMultiplier = config.getFloat("magnetLevelMultiplier", Configuration.CATEGORY_GENERAL, 0.75f, 0.1f, 8, "Used to calculate the range of the Mysterious Magnet; Range = baseValue + level * multiplier");
         moonDialShowsPhaseInText = config.getBoolean("moonDialShowsPhaseInText", Configuration.CATEGORY_GENERAL, moonDialShowsPhaseInText, "Whether the MoonDial should show the MoonPhase in it's tooltip.");
         fancyJarRenderer = config.getBoolean("fancyJarRenderer", Configuration.CATEGORY_CLIENT, fancyJarRenderer, "Whether to render the bee inside the Bee Collector's Jar with a TESR.");
         oldJarModel = config.getBoolean("oldJarmodel", Configuration.CATEGORY_CLIENT, oldJarModel, "Set to true to use the old model for the Bee Collector's Jar");

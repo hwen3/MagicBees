@@ -18,164 +18,164 @@ import java.util.Random;
  */
 public class SubTileHibeescus extends SubTileFunctional {
 
-	public static final String NAME = "hibeescus";
-	private final int MANA_PER_OPERATION = 10000;
-	// Ticks per second * seconds per minute * real-time minutes
-	private final int OPERATION_TICKS_TIME = 20 * 60 * 15;
-	private final double RANGE = 0.75;
+    public static final String NAME = "hibeescus";
+    private final int MANA_PER_OPERATION = 10000;
+    // Ticks per second * seconds per minute * real-time minutes
+    private final int OPERATION_TICKS_TIME = 20 * 60 * 15;
+    private final double RANGE = 0.75;
 
-	private ItemStack beeSlot = ItemStack.EMPTY;
-	private long operationTicksRemaining;
-	private float manaCostRollover;
+    private ItemStack beeSlot = ItemStack.EMPTY;
+    private long operationTicksRemaining;
+    private float manaCostRollover;
 
-	@Override
-	public int getColor() {
-		return 0xF94F4F;
-	}
+    @Override
+    public int getColor() {
+        return 0xF94F4F;
+    }
 
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		if (supertile.getWorld().isRemote) {
-			return;
-		}
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (supertile.getWorld().isRemote) {
+            return;
+        }
 
-		if (!beeSlot.isEmpty()) {
-			progressOperation();
-		} else if (isTimeToPickUpItem() && redstoneSignal == 0) {
-			findBeeItemToHold();
-		}
-	}
+        if (!beeSlot.isEmpty()) {
+            progressOperation();
+        } else if (isTimeToPickUpItem() && redstoneSignal == 0) {
+            findBeeItemToHold();
+        }
+    }
 
-	private boolean isTimeToPickUpItem() {
-		return (this.supertile.getWorld().getTotalWorldTime() ^ supertile.getPos().getX() ^ supertile.getPos().getZ()) % 11 == 0;
-	}
+    private boolean isTimeToPickUpItem() {
+        return (this.supertile.getWorld().getTotalWorldTime() ^ supertile.getPos().getX() ^ supertile.getPos().getZ()) % 11 == 0;
+    }
 
-	private void progressOperation() {
-		if (0 < operationTicksRemaining && 0 < this.mana) {
-			operationTicksRemaining--;
-			manaCostRollover += getManaPerOpTick();
-			if (1f <= manaCostRollover) {
-				int amount = (int)manaCostRollover;
-				mana -= amount;
-				manaCostRollover -= amount;
-			}
-		} else if (operationTicksRemaining <= 0) {
-			IBee bee = BeeManager.beeRoot.getMember(beeSlot);
-			if (bee == null){
-				return;
-			}
-			bee.setIsNatural(true);
-			EnumBeeType beeType = EnumBeeType.QUEEN;
-			if (bee.getMate() == null) {
-				beeType = EnumBeeType.PRINCESS;
-			}
-			ItemStack outputStack = BeeManager.beeRoot.getMemberStack(bee, beeType);
-			EntityItem entity = dropItemStackInRange(outputStack);
+    private void progressOperation() {
+        if (0 < operationTicksRemaining && 0 < this.mana) {
+            operationTicksRemaining--;
+            manaCostRollover += getManaPerOpTick();
+            if (1f <= manaCostRollover) {
+                int amount = (int) manaCostRollover;
+                mana -= amount;
+                manaCostRollover -= amount;
+            }
+        } else if (operationTicksRemaining <= 0) {
+            IBee bee = BeeManager.beeRoot.getMember(beeSlot);
+            if (bee == null) {
+                return;
+            }
+            bee.setIsNatural(true);
+            EnumBeeType beeType = EnumBeeType.QUEEN;
+            if (bee.getMate() == null) {
+                beeType = EnumBeeType.PRINCESS;
+            }
+            ItemStack outputStack = BeeManager.beeRoot.getMemberStack(bee, beeType);
+            EntityItem entity = dropItemStackInRange(outputStack);
 
-			supertile.getWorld().spawnEntity(entity);
-			beeSlot = ItemStack.EMPTY;
-		}
-	}
+            supertile.getWorld().spawnEntity(entity);
+            beeSlot = ItemStack.EMPTY;
+        }
+    }
 
-	private EntityItem dropItemStackInRange(ItemStack outputStack) {
-		Random r = supertile.getWorld().rand;
-		EntityItem entity = new EntityItem(supertile.getWorld(), supertile.getPos().getX() - RANGE + r.nextInt((int)(RANGE * 2 + 1)), supertile.getPos().getY() + 1, supertile.getPos().getZ() - RANGE + r.nextInt((int)(RANGE * 2 + 1)), outputStack);
-		entity.motionX = 0;
-		entity.motionY = 0;
-		entity.motionZ = 0;
-		return entity;
-	}
+    private EntityItem dropItemStackInRange(ItemStack outputStack) {
+        Random r = supertile.getWorld().rand;
+        EntityItem entity = new EntityItem(supertile.getWorld(), supertile.getPos().getX() - RANGE + r.nextInt((int) (RANGE * 2 + 1)), supertile.getPos().getY() + 1, supertile.getPos().getZ() - RANGE + r.nextInt((int) (RANGE * 2 + 1)), outputStack);
+        entity.motionX = 0;
+        entity.motionY = 0;
+        entity.motionZ = 0;
+        return entity;
+    }
 
-	private void findBeeItemToHold() {
-		@SuppressWarnings("unchecked")
-		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, getSearchBoundingBox());
+    private void findBeeItemToHold() {
+        @SuppressWarnings("unchecked")
+        List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, getSearchBoundingBox());
 
-		for (EntityItem itemEntity : items) {
-			ItemStack item = itemEntity.getItem();
-			if (!itemEntity.isDead && isItemPrincessOrQueen(item)) {
-				beeSlot = itemEntity.getItem().copy();
-				beeSlot.setCount(1);
-				operationTicksRemaining = (long)(OPERATION_TICKS_TIME * BotaniaIntegrationConfig.hibeescusTicksMultiplier) + supertile.getWorld().rand.nextInt(200);
-				manaCostRollover = 0f;
+        for (EntityItem itemEntity : items) {
+            ItemStack item = itemEntity.getItem();
+            if (!itemEntity.isDead && isItemPrincessOrQueen(item)) {
+                beeSlot = itemEntity.getItem().copy();
+                beeSlot.setCount(1);
+                operationTicksRemaining = (long) (OPERATION_TICKS_TIME * BotaniaIntegrationConfig.hibeescusTicksMultiplier) + supertile.getWorld().rand.nextInt(200);
+                manaCostRollover = 0f;
 
-				// Princesses and Queens don't stack, but YOU NEVER KNOW.
-				item.shrink(1);
-				if (item.getCount() <= 0) {
-					itemEntity.setDead();
-				}
+                // Princesses and Queens don't stack, but YOU NEVER KNOW.
+                item.shrink(1);
+                if (item.getCount() <= 0) {
+                    itemEntity.setDead();
+                }
 
-				// Leave for loop
-				break;
-			}
-		}
-	}
+                // Leave for loop
+                break;
+            }
+        }
+    }
 
-	private boolean isItemPrincessOrQueen(ItemStack stack) {
-		boolean isBee = BeeManager.beeRoot.isMember(stack, EnumBeeType.PRINCESS) || BeeManager.beeRoot.isMember(stack, EnumBeeType.QUEEN);
-		if (isBee) {
-			IBee bee = BeeManager.beeRoot.getMember(stack);
-			// Only process Ignoble bees.
-			if (bee != null && !bee.isNatural()) {
-				return true;
-			}
-		}
-		return false;
-	}
+    private boolean isItemPrincessOrQueen(ItemStack stack) {
+        boolean isBee = BeeManager.beeRoot.isMember(stack, EnumBeeType.PRINCESS) || BeeManager.beeRoot.isMember(stack, EnumBeeType.QUEEN);
+        if (isBee) {
+            IBee bee = BeeManager.beeRoot.getMember(stack);
+            // Only process Ignoble bees.
+            if (bee != null && !bee.isNatural()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	private AxisAlignedBB getSearchBoundingBox() {
-		BlockPos pos = supertile.getPos();
-		int xCoord = pos.getX(), yCoord = pos.getY(), zCoord = pos.getZ();
-		return new AxisAlignedBB(xCoord - RANGE, yCoord, zCoord - RANGE, xCoord + RANGE + 1, yCoord + 1, zCoord + RANGE + 1);
-	}
+    private AxisAlignedBB getSearchBoundingBox() {
+        BlockPos pos = supertile.getPos();
+        int xCoord = pos.getX(), yCoord = pos.getY(), zCoord = pos.getZ();
+        return new AxisAlignedBB(xCoord - RANGE, yCoord, zCoord - RANGE, xCoord + RANGE + 1, yCoord + 1, zCoord + RANGE + 1);
+    }
 
-	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
-		super.readFromPacketNBT(cmp);
-		if (cmp.hasKey("slot")) {
-			NBTTagCompound itemTag = (NBTTagCompound)cmp.getTag("slot");
-			beeSlot = new ItemStack(itemTag);
-		}
-		operationTicksRemaining = cmp.getLong("operationTicks");
-		manaCostRollover = cmp.getFloat("manaRollover");
-	}
+    @Override
+    public void readFromPacketNBT(NBTTagCompound cmp) {
+        super.readFromPacketNBT(cmp);
+        if (cmp.hasKey("slot")) {
+            NBTTagCompound itemTag = (NBTTagCompound) cmp.getTag("slot");
+            beeSlot = new ItemStack(itemTag);
+        }
+        operationTicksRemaining = cmp.getLong("operationTicks");
+        manaCostRollover = cmp.getFloat("manaRollover");
+    }
 
-	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
-		super.writeToPacketNBT(cmp);
-		if (!beeSlot.isEmpty()) {
-			NBTTagCompound itemTag = new NBTTagCompound();
-			beeSlot.writeToNBT(itemTag);
-			cmp.setTag("slot", itemTag);
-		}
-		cmp.setLong("operationTicks", operationTicksRemaining);
-		cmp.setFloat("manaRollover", manaCostRollover);
-	}
+    @Override
+    public void writeToPacketNBT(NBTTagCompound cmp) {
+        super.writeToPacketNBT(cmp);
+        if (!beeSlot.isEmpty()) {
+            NBTTagCompound itemTag = new NBTTagCompound();
+            beeSlot.writeToNBT(itemTag);
+            cmp.setTag("slot", itemTag);
+        }
+        cmp.setLong("operationTicks", operationTicksRemaining);
+        cmp.setFloat("manaRollover", manaCostRollover);
+    }
 
-	@Override
-	public List<ItemStack> getDrops(List<ItemStack> list) {
-		if (!beeSlot.isEmpty()) {
-			list.add(beeSlot);
-		}
-		return super.getDrops(list);
-	}
+    @Override
+    public List<ItemStack> getDrops(List<ItemStack> list) {
+        if (!beeSlot.isEmpty()) {
+            list.add(beeSlot);
+        }
+        return super.getDrops(list);
+    }
 
-	@Override
-	public int getMaxMana() {
-		return getFinalOperationManaCost() / 20;
-	}
+    @Override
+    public int getMaxMana() {
+        return getFinalOperationManaCost() / 20;
+    }
 
-	private int getFinalOperationManaCost() {
-		return (int)(MANA_PER_OPERATION * BotaniaIntegrationConfig.hibeescusManaCostMultiplier);
-	}
+    private int getFinalOperationManaCost() {
+        return (int) (MANA_PER_OPERATION * BotaniaIntegrationConfig.hibeescusManaCostMultiplier);
+    }
 
-	private float getManaPerOpTick() {
-		return getFinalOperationManaCost() / OPERATION_TICKS_TIME;
-	}
+    private float getManaPerOpTick() {
+        return getFinalOperationManaCost() / OPERATION_TICKS_TIME;
+    }
 
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
-	}
+    @Override
+    public boolean acceptsRedstone() {
+        return true;
+    }
 
 }

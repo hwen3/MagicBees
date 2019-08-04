@@ -34,7 +34,7 @@ public class AlleleEffectPotion extends AlleleEffectThrottled {
         this.baseEffect = baseEffect;
     }
 
-    public AlleleEffectPotion setBypassesArmour(){
+    public AlleleEffectPotion setBypassesArmour() {
         this.bypassesArmour = true;
         return this;
     }
@@ -44,7 +44,7 @@ public class AlleleEffectPotion extends AlleleEffectThrottled {
 
     @Override
     public IEffectData validateStorage(IEffectData storedData) {
-        if (storedData == null){
+        if (storedData == null) {
             storedData = new EffectData(1, 0, 0);
         }
         return storedData;
@@ -53,8 +53,8 @@ public class AlleleEffectPotion extends AlleleEffectThrottled {
     @Override
     public IEffectData doEffectThrottled(IBeeGenome genome, IEffectData storedData, IBeeHousing housing) {
         List<EntityLivingBase> entities = getEntitiesInRange(genome, housing, EntityLivingBase.class);
-        for (EntityLivingBase entityLivingBase : entities){
-            if (bypassesArmour){
+        for (EntityLivingBase entityLivingBase : entities) {
+            if (bypassesArmour) {
                 entityLivingBase.addPotionEffect(new PotionEffect(baseEffect));
             } else {
                 int armour = BeeManager.armorApiaristHelper.wearsItems(entityLivingBase, getUID(), true);

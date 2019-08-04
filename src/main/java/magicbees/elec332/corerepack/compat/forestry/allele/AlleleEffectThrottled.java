@@ -25,12 +25,12 @@ public abstract class AlleleEffectThrottled extends AlleleEffect {
     private int throttle = 20;
     protected boolean requiresWorkingQueen = false;
 
-    public AlleleEffectThrottled setThrottle(int throttle){
+    public AlleleEffectThrottled setThrottle(int throttle) {
         this.throttle = throttle;
         return this;
     }
 
-    public AlleleEffectThrottled setRequiresWorkingQueen(){
+    public AlleleEffectThrottled setRequiresWorkingQueen() {
         this.requiresWorkingQueen = true;
         return this;
     }

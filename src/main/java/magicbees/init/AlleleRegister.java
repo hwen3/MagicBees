@@ -40,7 +40,7 @@ public final class AlleleRegister {
     public static AlleleEffectSpawnMob spawnWolf, spawnBats, spawnCow, spawnChicken, spawnPig,
             spawnSheep, spawnCat, spawnHorse, spawnGhast, spawnSpider, spawnBlaze, spawnZombie;
 
-    public static void init(){
+    public static void init() {
         flowersBookshelf = new AlleleFlowerProvider(new MagicBeesResourceLocation("flowersBookshelf"), new FlowerProvider("flowersBookshelf"));
         flowersBookshelf.registerAcceptableFlower(Blocks.BOOKSHELF);
 
@@ -70,7 +70,7 @@ public final class AlleleRegister {
             @Override
             @SuppressWarnings("all")
             public IEffectData validateStorage(IEffectData storedData) {
-                if (storedData == null){
+                if (storedData == null) {
                     storedData = new EffectData(1, 0, 0);
                 }
                 return storedData;
@@ -96,7 +96,7 @@ public final class AlleleRegister {
 
     }
 
-    private static AlleleEffectSpawnMob newMobEffect(String name, boolean dominant, String mob){
+    private static AlleleEffectSpawnMob newMobEffect(String name, boolean dominant, String mob) {
         return new AlleleEffectSpawnMob(new MagicBeesResourceLocation(name), new ResourceLocation(mob));
     }
 

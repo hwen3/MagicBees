@@ -12,21 +12,21 @@ import net.minecraft.util.text.translation.I18n;
  */
 public abstract class AbstractAllele implements IAllele {
 
-    public AbstractAllele(ResourceLocation rl, IChromosomeType... types){
+    public AbstractAllele(ResourceLocation rl, IChromosomeType... types) {
         this(rl.toString(), rl.toString().replace(":", ".allele."), types);
     }
 
-    public AbstractAllele(String s, IChromosomeType... types){
+    public AbstractAllele(String s, IChromosomeType... types) {
         this(s, s, types);
     }
 
-    public AbstractAllele(String uid, String unlocalizedName, IChromosomeType... types){
+    public AbstractAllele(String uid, String unlocalizedName, IChromosomeType... types) {
         this.uid = uid;
         this.unlocalizedName = unlocalizedName;
         AlleleManager.alleleRegistry.registerAllele(this, types);
     }
 
-    public AbstractAllele setDominant(){
+    public AbstractAllele setDominant() {
         this.dominant = true;
         return this;
     }
@@ -40,8 +40,7 @@ public abstract class AbstractAllele implements IAllele {
     }
 
     @Override
-    public String getModID()
-    {
+    public String getModID() {
         return MagicBees.modid;
     }
 

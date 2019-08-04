@@ -38,32 +38,32 @@ public class ForestryAlleles {
         return AlleleManager.alleleRegistry.getAllele("forestry." + name);
     }
 
-    private static IAlleleFlowers getAlleleFl(IAlleleValue<FlowerProvider> flowerProviderIAlleleValue){
+    private static IAlleleFlowers getAlleleFl(IAlleleValue<FlowerProvider> flowerProviderIAlleleValue) {
         return (IAlleleFlowers) getAllele(EnumBeeChromosome.FLOWER_PROVIDER, flowerProviderIAlleleValue);
     }
 
-    private static IAlleleArea getAlleleA(IAlleleValue<Vec3i> areaIAlleleValue){
+    private static IAlleleArea getAlleleA(IAlleleValue<Vec3i> areaIAlleleValue) {
         return (IAlleleArea) getAllele(EnumBeeChromosome.TERRITORY, areaIAlleleValue);
     }
 
-    private static IAlleleInteger getAlleleFlower(IAlleleValue<Integer> integerIAlleleValue){
+    private static IAlleleInteger getAlleleFlower(IAlleleValue<Integer> integerIAlleleValue) {
         return (IAlleleInteger) getAllele(EnumBeeChromosome.FLOWERING, integerIAlleleValue);
     }
 
-    private static IAlleleInteger getAlleleFertility(IAlleleValue<Integer> integerIAlleleValue){
+    private static IAlleleInteger getAlleleFertility(IAlleleValue<Integer> integerIAlleleValue) {
         return (IAlleleInteger) getAllele(EnumBeeChromosome.FERTILITY, integerIAlleleValue);
     }
 
-    private static IAlleleTolerance getAlleleT(IAlleleValue<EnumTolerance> toleranceIAlleleValue){
+    private static IAlleleTolerance getAlleleT(IAlleleValue<EnumTolerance> toleranceIAlleleValue) {
         return (IAlleleTolerance) getAllele(EnumBeeChromosome.HUMIDITY_TOLERANCE, toleranceIAlleleValue);
     }
 
-    private static IAllele getAllele(EnumBeeChromosome chromosome, IAlleleValue value){
+    private static IAllele getAllele(EnumBeeChromosome chromosome, IAlleleValue value) {
         alleleHelper.set(cache, chromosome, value);
         return cache[chromosome.ordinal()];
     }
 
-    static void dummyLoad(){
+    static void dummyLoad() {
     }
 
     private static IAllele[] cache;
@@ -73,7 +73,7 @@ public class ForestryAlleles {
             Field f = AlleleHelper.class.getDeclaredField("instance");
             f.setAccessible(true);
             alleleHelper = (AlleleHelper) f.get(null);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         cache = new IAllele[EnumBeeChromosome.values().length];

@@ -28,7 +28,7 @@ import java.util.Random;
 public interface IHiveEnum extends IStringSerializable {
 
     @Nonnull
-    default public List<IHiveDescription> getHiveDescriptions(){
+    default public List<IHiveDescription> getHiveDescriptions() {
         return Lists.newArrayList(getHiveDescription());
     }
 
@@ -41,11 +41,11 @@ public interface IHiveEnum extends IStringSerializable {
 
     public String getUid(IHiveDescription description);
 
-    default public boolean showInTab(){
+    default public boolean showInTab() {
         return true;
     }
 
-    default public int getLight(){
+    default public int getLight() {
         return 0;
     }
 
@@ -55,16 +55,16 @@ public interface IHiveEnum extends IStringSerializable {
         return toString().toLowerCase(Locale.ENGLISH);
     }
 
-    default public void addDrop(IHiveDrop... drops){
+    default public void addDrop(IHiveDrop... drops) {
         HiveManager.hiveRegistry.addDrops(getUid(getHiveDescription()), drops);
     }
 
     @Nonnull
-    default public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune){
+    default public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         List<ItemStack> ret = Lists.newArrayList();
         Random random = world instanceof World ? ((World) world).rand : new Random(pos.toLong());
 
-        List<IHiveDrop> hiveDrops = ((HiveRegistry)HiveManager.hiveRegistry).getDrops(getUid(getHiveDescription()));
+        List<IHiveDrop> hiveDrops = ((HiveRegistry) HiveManager.hiveRegistry).getDrops(getUid(getHiveDescription()));
         Collections.shuffle(hiveDrops);
 
         int tries = 0;

@@ -25,7 +25,7 @@ public class ItemMagicBeesFrame extends Item implements IDefaultHiveFrame {
 
     public ItemMagicBeesFrame(EnumBeeModifiers modifier) {
         super();
-        setRegistryName(new MagicBeesResourceLocation("frames."+modifier.name().toLowerCase()));
+        setRegistryName(new MagicBeesResourceLocation("frames." + modifier.name().toLowerCase()));
         Utils.setUnlocalizedName(this);
         setMaxDamage(modifier.getMaxDamage());
         setCreativeTab(MagicBees.creativeTab);
@@ -53,8 +53,8 @@ public class ItemMagicBeesFrame extends Item implements IDefaultHiveFrame {
     }
 
     @Override
-    public IBeeModifier getBeeModifier(ItemStack frame)
-    {
+    public IBeeModifier getBeeModifier(ItemStack frame) {
         return modifier;
     }
+
 }

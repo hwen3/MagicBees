@@ -14,19 +14,19 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("all")
 public class FlowerProvider extends forestry.apiculture.flowers.FlowerProvider {
 
-    public FlowerProvider(@Nonnull String flowerType){
+    public FlowerProvider(@Nonnull String flowerType) {
         this(flowerType, DEFAULT_PREDICATE);
     }
 
-    public FlowerProvider(@Nonnull String flowerType, @Nonnull String unlocalizedName){
+    public FlowerProvider(@Nonnull String flowerType, @Nonnull String unlocalizedName) {
         this(flowerType, unlocalizedName, DEFAULT_PREDICATE);
     }
 
-    public FlowerProvider(@Nonnull String flowerType, @Nonnull Predicate<Pair<World, ICheckPollinatable>> predicate){
-        this(flowerType, "flowerprovider."+flowerType, predicate);
+    public FlowerProvider(@Nonnull String flowerType, @Nonnull Predicate<Pair<World, ICheckPollinatable>> predicate) {
+        this(flowerType, "flowerprovider." + flowerType, predicate);
     }
 
-    public FlowerProvider(@Nonnull String flowerType, @Nonnull String unlocalizedName, @Nonnull Predicate<Pair<World, ICheckPollinatable>> predicate){
+    public FlowerProvider(@Nonnull String flowerType, @Nonnull String unlocalizedName, @Nonnull Predicate<Pair<World, ICheckPollinatable>> predicate) {
         super(flowerType, unlocalizedName);
         this.predicate = predicate;
     }

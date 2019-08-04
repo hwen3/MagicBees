@@ -24,7 +24,7 @@ public class TileHive extends forestry.apiculture.tiles.TileHive {
     @SuppressWarnings("all")
     public IBee getContainedBee() {
         IBee sr = super.getContainedBee();
-        if (sr == null || sr.getGenome() == BeeDefinition.FOREST.getGenome()){
+        if (sr == null || sr.getGenome() == BeeDefinition.FOREST.getGenome()) {
             return BeeManager.beeRoot.getBee(ObjectUtils.firstNonNull(getBeeFromBlock(), BeeDefinition.FOREST.getGenome()));
         }
         return sr;
@@ -32,7 +32,7 @@ public class TileHive extends forestry.apiculture.tiles.TileHive {
 
     @Nullable
     @SuppressWarnings("all")
-    public IBeeGenome getBeeFromBlock(){
+    public IBeeGenome getBeeFromBlock() {
         if (world.isBlockLoaded(pos)) {
             IBlockState blockState = world.getBlockState(pos);
             Block block = blockState.getBlock();

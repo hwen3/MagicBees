@@ -17,10 +17,10 @@ import java.util.Set;
  */
 public class DefaultTransmutationController implements ITransmutationController {
 
-    public DefaultTransmutationController(ITransmutationHandler... handlers){
+    public DefaultTransmutationController(ITransmutationHandler... handlers) {
         this.transmutationHandlers = Sets.newHashSet();
-        if (handlers != null){
-            for (ITransmutationHandler handler : handlers){
+        if (handlers != null) {
+            for (ITransmutationHandler handler : handlers) {
                 addTransmutationHandler(handler);
             }
         }
@@ -35,16 +35,16 @@ public class DefaultTransmutationController implements ITransmutationController 
 
     @Override
     public boolean transmute(World world, BlockPos pos) {
-        if(!world.isAirBlock(pos)) {
+        if (!world.isAirBlock(pos)) {
             IBlockState state = world.getBlockState(pos);
             ItemStack source = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
-            if (source.isEmpty()){
+            if (source.isEmpty()) {
                 return false;
             }
             Biome biome = world.getBiome(pos);
 
-            for (ITransmutationHandler transmutationHandler : transmutationHandlers){
-                if (transmutationHandler.transmute(world, pos, source, biome)){
+            for (ITransmutationHandler transmutationHandler : transmutationHandlers) {
+                if (transmutationHandler.transmute(world, pos, source, biome)) {
                     return true;
                 }
             }

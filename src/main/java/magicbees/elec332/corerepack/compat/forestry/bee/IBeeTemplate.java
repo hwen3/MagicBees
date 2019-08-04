@@ -13,25 +13,25 @@ public interface IBeeTemplate extends IIndividualTemplate<BeeGenomeTemplate, IAl
 
     public int getPrimaryColor();
 
-    default public int getSecondaryColor(){
+    default public int getSecondaryColor() {
         return getPrimaryColor();
     }
 
     @Nonnull
     @Override
-    default public Class<BeeGenomeTemplate> getGenomeTemplateType(){
+    default public Class<BeeGenomeTemplate> getGenomeTemplateType() {
         return BeeGenomeTemplate.class;
     }
 
     @Nonnull
     @Override
-    default public IBeeRoot getSpeciesRoot(){
+    default public IBeeRoot getSpeciesRoot() {
         return BeeManager.beeRoot;
     }
 
     @Nonnull
     @Override
-    default public IAlleleBeeSpeciesBuilder getSpeciesBuilder(){
+    default public IAlleleBeeSpeciesBuilder getSpeciesBuilder() {
         return BeeManager.beeFactory.createSpecies(MagicBees.modid, getUid(), isDominant(), getAuthority(), getUnlocalizedName(), getUnlocalizedDescription(), getIndividualBranch().getClassification(), getBinominalName(), getPrimaryColor(), getSecondaryColor());
     }
 

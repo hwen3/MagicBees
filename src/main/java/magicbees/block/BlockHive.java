@@ -19,45 +19,45 @@ import javax.annotation.Nullable;
  */
 public class BlockHive extends magicbees.elec332.corerepack.compat.forestry.bee.BlockHive<EnumBeeHives> implements ITileEntityProvider {
 
-	@Nonnull
-	@Override
-	public Class<EnumBeeHives> getHiveTypes() {
-		return EnumBeeHives.class;
-	}
+    @Nonnull
+    @Override
+    public Class<EnumBeeHives> getHiveTypes() {
+        return EnumBeeHives.class;
+    }
 
-	@Override
-	public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
-		super.onBlockClicked(world, pos, player);
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile instanceof IHiveTile) {
-			IHiveTile hive = (IHiveTile) tile;
-			hive.onAttack(world, pos, player);
-		}
-	}
+    @Override
+    public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
+        super.onBlockClicked(world, pos, player);
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IHiveTile) {
+            IHiveTile hive = (IHiveTile) tile;
+            hive.onAttack(world, pos, player);
+        }
+    }
 
-	@Nonnull
-	public String getUnlocalizedName(ItemStack stack) {
-		return getUnlocalizedName() + "." + EnumBeeHives.values()[stack.getItemDamage()].getName();
-	}
+    @Nonnull
+    public String getUnlocalizedName(ItemStack stack) {
+        return getUnlocalizedName() + "." + EnumBeeHives.values()[stack.getItemDamage()].getName();
+    }
 
-	@Override
-	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile instanceof IHiveTile) {
-			IHiveTile hive = (IHiveTile) tile;
-			hive.onBroken(world, pos, player, canHarvestBlock(world, pos, player));
-		}
-	}
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IHiveTile) {
+            IHiveTile hive = (IHiveTile) tile;
+            hive.onBroken(world, pos, player, canHarvestBlock(world, pos, player));
+        }
+    }
 
-	@Override //Fixes picking block returning wrong block
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
-	}
+    @Override //Fixes picking block returning wrong block
+    public int damageDropped(IBlockState state) {
+        return getMetaFromState(state);
+    }
 
-	@Nullable
-	@Override
-	public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-		return new TileHive();
-	}
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
+        return new TileHive();
+    }
 
 }

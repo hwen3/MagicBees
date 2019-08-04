@@ -28,7 +28,7 @@ public enum EnumResourceType implements IEnumItem {
     DIMENSIONAL_SINGULARITY("dimensionalSingularity", true),
     ;
 
-    EnumResourceType(String name, boolean show){
+    EnumResourceType(String name, boolean show) {
         this.name = name;
         this.show = show;
     }
@@ -48,12 +48,12 @@ public enum EnumResourceType implements IEnumItem {
 
     @Override
     public ResourceLocation getTextureLocation() {
-        return new MagicBeesResourceLocation("items/"+name.toLowerCase());
+        return new MagicBeesResourceLocation("items/" + name.toLowerCase());
     }
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return stack.getItem().getUnlocalizedName(null)+"."+name;
+        return stack.getItem().getUnlocalizedName(null) + "." + name;
     }
 
 }

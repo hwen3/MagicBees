@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * Created by Elec332 on 19-12-2016.
  */
-public enum EnumPropolisType implements IEnumItem{
+public enum EnumPropolisType implements IEnumItem {
 
     UNSTABLE(new Color(0xEFB492)),
 
@@ -20,11 +20,9 @@ public enum EnumPropolisType implements IEnumItem{
     WATER(new Color(0x1054A1)),
     EARTH(new Color(0x00a000)),
     ORDER(new Color(0xDDDDFF)),
-    CHAOS(new Color(0x555577))
+    CHAOS(new Color(0x555577));
 
-    ;
-
-    EnumPropolisType(Color color){
+    EnumPropolisType(Color color) {
         this.color = color.getRGB();
     }
 

@@ -58,7 +58,7 @@ public class ItemMysteriousMagnet extends Item {
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5) {
         if (entity instanceof EntityLivingBase) {
             if (isMagnetActive(itemStack) && entity instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer)entity;
+                EntityPlayer player = (EntityPlayer) entity;
                 float radius = getRadius(itemStack) - FUDGE_FACTOR;
                 AxisAlignedBB bounds = player.getEntityBoundingBox().expand(radius, radius, radius).expand(-radius, -radius, -radius);
 
@@ -103,7 +103,7 @@ public class ItemMysteriousMagnet extends Item {
 
                         if (world.rand.nextFloat() < 0.2f) {
                             float pitch = 0.85f - world.rand.nextFloat() * 3f / 10f;
-                            if(Config.magnetSound) {
+                            if (Config.magnetSound) {
                                 world.playSound(e.posX, e.posY, e.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.MASTER, 0.6f, pitch, false);
                             }
                         }
@@ -115,7 +115,7 @@ public class ItemMysteriousMagnet extends Item {
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-        if (!isInCreativeTab(tab)){
+        if (!isInCreativeTab(tab)) {
             return;
         }
         for (int i = 0; i <= getMaximumLevel(); i++) {

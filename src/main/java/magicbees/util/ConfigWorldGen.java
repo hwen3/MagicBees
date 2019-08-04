@@ -37,7 +37,7 @@ public class ConfigWorldGen implements IConfiguration {
         postGenEndstone = config.getBoolean("postGenEndstone", CATEGORY_WORLDGEN, postGenEndstone, getPostGenDesc("redstone", EnumHiveGen.OBLIVION_OVERWORLD, "Overworld"));
     }
 
-    private static String getPostGenDesc(String resource, EnumHiveGen hive, String where){
+    private static String getPostGenDesc(String resource, EnumHiveGen hive, String where) {
         return "Enables/Disables the generation of " + resource + " pockets around " + WordUtils.capitalize(hive.toString().split("_")[0].toLowerCase()) + " hives in the " + where + ".";
     }
 

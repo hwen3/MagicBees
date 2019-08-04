@@ -11,25 +11,25 @@ import vazkii.botania.api.lexicon.LexiconEntry;
  */
 public class BotaniaLexiconEntry extends LexiconEntry implements IAddonEntry {
 
-	public BotaniaLexiconEntry(String unlocalizedName, LexiconCategory category) {
-		super(unlocalizedName, category);
-		BotaniaAPI.addEntry(this, category);
-	}
+    public BotaniaLexiconEntry(String unlocalizedName, LexiconCategory category) {
+        super(unlocalizedName, category);
+        BotaniaAPI.addEntry(this, category);
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public String getSubtitle() {
-		return I18n.translateToLocal("magicbees.botania.lexicon.subtitle");
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public String getSubtitle() {
+        return I18n.translateToLocal("magicbees.botania.lexicon.subtitle");
+    }
 
-	@Override
-	public String getUnlocalizedName() {
-		return unlocalizedName;
-	}
+    @Override
+    public String getUnlocalizedName() {
+        return unlocalizedName;
+    }
 
-	@Override
-	public String getTagline() {
-		return unlocalizedName.replace(".name", ".lore");
-	}
+    @Override
+    public String getTagline() {
+        return unlocalizedName.replace(".name", ".lore");
+    }
 
 }

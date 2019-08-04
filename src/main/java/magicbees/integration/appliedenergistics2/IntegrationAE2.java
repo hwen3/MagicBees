@@ -13,9 +13,9 @@ import magicbees.util.ModNames;
 @MagicBeesModule(owner = MagicBees.modid, name = "AE2 Integration", modDependencies = ModNames.AE2)
 public class IntegrationAE2 implements IMagicBeesModule {
 
-	@Override
-	public void init(IMagicBeesInitialisationEvent event){
-		BeeIntegrationInterface.aeSkyStone = event.getBlock("sky_stone_block").getDefaultState();
-	}
+    @Override
+    public void init(IMagicBeesInitialisationEvent event) {
+        BeeIntegrationInterface.aeSkyStone = event.getBlock("sky_stone_block").getDefaultState();
+    }
 
 }

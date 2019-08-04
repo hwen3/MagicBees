@@ -41,10 +41,9 @@ public enum EnumCombType implements IEnumItem {
     TC_WATER(false, new Color(0x00B6FF), new Color(0x0F373D)),
     TC_EARTH(false, new Color(0x28D328), new Color(0x333004)),
     TC_ORDER(false, new Color(0xDDDDFF), new Color(0x9D9DB5)),
-    TC_ENTROPY(false, new Color(0x555577), new Color(0x2D2D56))
-    ;
+    TC_ENTROPY(false, new Color(0x555577), new Color(0x2D2D56));
 
-    EnumCombType(boolean shouldShow, Color firstColor, Color secondColor){
+    EnumCombType(boolean shouldShow, Color firstColor, Color secondColor) {
         this.shouldShow = shouldShow;
         this.firstColor = firstColor.getRGB();
         this.secondColor = secondColor.getRGB();
@@ -83,7 +82,7 @@ public enum EnumCombType implements IEnumItem {
     static {
         String comb = "bee_combs";
         textures = new ResourceLocation[]{
-            new ResourceLocation("forestry", "items/" + comb + ".0"), new ResourceLocation("forestry", "items/" + comb + ".1")
+                new ResourceLocation("forestry", "items/" + comb + ".0"), new ResourceLocation("forestry", "items/" + comb + ".1")
         };
     }
 

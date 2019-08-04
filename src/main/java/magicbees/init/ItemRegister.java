@@ -36,7 +36,7 @@ public final class ItemRegister {
 
     private static Map<EnumBeeModifiers, ItemMagicBeesFrame> frames;
 
-    public static void preInit(){
+    public static void preInit() {
         combItem = new ItemEnumBased<>(new MagicBeesResourceLocation("beeComb"), EnumCombType.class);
         dropItem = new ItemEnumBased<>(new MagicBeesResourceLocation("drop"), EnumDropType.class);
         pollenItem = new ItemEnumBased<>(new MagicBeesResourceLocation("pollen"), EnumPollenType.class);
@@ -65,21 +65,20 @@ public final class ItemRegister {
 
     }
 
-    public static void registerOreDictionary(){
-        for (EnumCombType comb : EnumCombType.values()){
+    public static void registerOreDictionary() {
+        for (EnumCombType comb : EnumCombType.values()) {
             OreDictionary.registerOre("beeComb", combItem.getStackFromType(comb));
         }
     }
 
     @SubscribeEvent
-    public void registerItems(RegistryEvent.Register<Item> event){
+    public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(combItem, dropItem, pollenItem, propolisItem, waxItem, resourceItem, orePartItem);
         event.getRegistry().registerAll(mysteriousMagnet, moonDial);
         event.getRegistry().registerAll(manasteelgrafter, manasteelScoop);
-        for (Item item : getBeeFrames().values()){
+        for (Item item : getBeeFrames().values()) {
             event.getRegistry().register(item);
         }
-
 
 
     }
@@ -88,7 +87,7 @@ public final class ItemRegister {
         return frames;
     }
 
-    private static void fixIronNuggetStuff(){
+    private static void fixIronNuggetStuff() {
         ironNugget = Preconditions.checkNotNull(Items.IRON_NUGGET);
     }
 

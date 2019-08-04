@@ -53,12 +53,12 @@ public enum EnumBeeModifiers implements IBeeModifier {
         return this.frameName;
     }
 
-    public int getMaxDamage(){
+    public int getMaxDamage() {
         return this.maxDamage;
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, boolean advanced){
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, boolean advanced) {
         getTooltip(tooltip, "territory", territoryMod, 1);
         getTooltip(tooltip, "mutation", mutationMod, 1);
         getTooltip(tooltip, "lifespan", lifespanMod, this == OBLIVION ? 4 : 1);
@@ -69,8 +69,8 @@ public enum EnumBeeModifiers implements IBeeModifier {
 
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("deprecation")
-    private void getTooltip(List<String> tooltip, String type, float value, int decimals){
-        if (value == 1.0f){
+    private void getTooltip(List<String> tooltip, String type, float value, int decimals) {
+        if (value == 1.0f) {
             return;
         }
         String translated = I18n.translateToLocal("magicbees.frame.modifier." + type);

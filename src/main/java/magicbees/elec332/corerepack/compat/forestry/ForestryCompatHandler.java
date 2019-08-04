@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 /**
  * Created by Elec332 on 14-8-2016.
  */
-public class ForestryCompatHandler  {
+public class ForestryCompatHandler {
 
     public static IBeeRoot beeRoot;
     private static CreativeTabs tabBees;
@@ -25,12 +25,12 @@ public class ForestryCompatHandler  {
         return tabBees;
     }
 
-    public void preInit(FMLPreInitializationEvent event){
+    public void preInit(FMLPreInitializationEvent event) {
         beeRoot = BeeManager.beeRoot;
         tabBees = Tabs.tabApiculture;
     }
 
-    public void init(FMLInitializationEvent event){
+    public void init(FMLInitializationEvent event) {
         if (ForestryAPI.enabledModules.contains(new ResourceLocation("forestry", "apiculture"))) {
             ForestryAlleles.dummyLoad();
             ForestryBeeEffects.init();
@@ -39,17 +39,17 @@ public class ForestryCompatHandler  {
         throw new RuntimeException("MagicBees requires the Apiculture plugin from forestry!");
     }
 
-    public void postInit(FMLPostInitializationEvent event){
+    public void postInit(FMLPostInitializationEvent event) {
         IndividualDefinitionRegistry.locked = true;
-        for (IIndividualTemplate iIndividualTemplate : IndividualDefinitionRegistry.templates){
+        for (IIndividualTemplate iIndividualTemplate : IndividualDefinitionRegistry.templates) {
             if (iIndividualTemplate.isActive()) {
                 iIndividualTemplate.registerMutations();
             } else {
                 IAlleleSpecies allele;
                 try {
-                    allele = ((IGenomeTemplate)iIndividualTemplate.getGenomeTemplateType().newInstance()).getSpecies(iIndividualTemplate.getAlleles());
-                } catch (Exception e){
-                    System.out.println("Error invocating class: "+iIndividualTemplate.getGenomeTemplateType().getCanonicalName());
+                    allele = ((IGenomeTemplate) iIndividualTemplate.getGenomeTemplateType().newInstance()).getSpecies(iIndividualTemplate.getAlleles());
+                } catch (Exception e) {
+                    System.out.println("Error invocating class: " + iIndividualTemplate.getGenomeTemplateType().getCanonicalName());
                     System.out.println("Attempting backup method to fetch species allele...");
                     allele = (IAlleleSpecies) iIndividualTemplate.getAlleles()[0];
                 }

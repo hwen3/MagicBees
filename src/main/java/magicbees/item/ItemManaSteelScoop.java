@@ -23,50 +23,50 @@ import vazkii.botania.api.mana.ManaItemHandler;
  */
 
 @Optional.InterfaceList({
-		@Optional.Interface(iface = "vazkii.botania.api.mana.IManaUsingItem", modid = ModNames.BOTANIA, striprefs = true)
+        @Optional.Interface(iface = "vazkii.botania.api.mana.IManaUsingItem", modid = ModNames.BOTANIA, striprefs = true)
 })
 public class ItemManaSteelScoop extends Item implements IManaUsingItem, IToolScoop {
 
-	public static final int MANA_PER_DAMAGE = 30;
+    public static final int MANA_PER_DAMAGE = 30;
 
-	public ItemManaSteelScoop() {
-		super();
-		setRegistryName(new MagicBeesResourceLocation("manasteelscoop"));
-		Utils.setUnlocalizedName(this);
-		this.maxStackSize = 1;
-		this.setMaxDamage(20);
-		this.setMaxStackSize(1);
-		this.setCreativeTab(MagicBees.creativeTab);
-		this.setHarvestLevel("scoop", 3);
-	}
+    public ItemManaSteelScoop() {
+        super();
+        setRegistryName(new MagicBeesResourceLocation("manasteelscoop"));
+        Utils.setUnlocalizedName(this);
+        this.maxStackSize = 1;
+        this.setMaxDamage(20);
+        this.setMaxStackSize(1);
+        this.setCreativeTab(MagicBees.creativeTab);
+        this.setHarvestLevel("scoop", 3);
+    }
 
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-		stack.damageItem(1, entityLiving);
-		return true;
-	}
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        stack.damageItem(1, entityLiving);
+        return true;
+    }
 
-	@Override
-	@Optional.Method(modid = ModNames.BOTANIA)
-	public boolean getIsRepairable(ItemStack toolStack, ItemStack material) {
-		return (material.getItem() == BeeIntegrationInterface.itemManaResource && material.getItemDamage() == 0) || super.getIsRepairable(toolStack, material);
-	}
+    @Override
+    @Optional.Method(modid = ModNames.BOTANIA)
+    public boolean getIsRepairable(ItemStack toolStack, ItemStack material) {
+        return (material.getItem() == BeeIntegrationInterface.itemManaResource && material.getItemDamage() == 0) || super.getIsRepairable(toolStack, material);
+    }
 
-	@Override
-	@Optional.Method(modid = ModNames.BOTANIA)
-	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		// Unsure if the server-side exclusion is necessary, but boy it looks disconcerting on the client if it's in.
-		if (/*!world.isRemote && */stack.getItemDamage() > 0 && player instanceof EntityPlayer) {
-			if (ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE, true)) {
-				stack.setItemDamage(stack.getItemDamage() - 1);
-			}
-		}
-	}
+    @Override
+    @Optional.Method(modid = ModNames.BOTANIA)
+    public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+        // Unsure if the server-side exclusion is necessary, but boy it looks disconcerting on the client if it's in.
+        if (/*!world.isRemote && */stack.getItemDamage() > 0 && player instanceof EntityPlayer) {
+            if (ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE, true)) {
+                stack.setItemDamage(stack.getItemDamage() - 1);
+            }
+        }
+    }
 
-	@Override
-	@Optional.Method(modid = ModNames.BOTANIA)
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
+    @Override
+    @Optional.Method(modid = ModNames.BOTANIA)
+    public boolean usesMana(ItemStack stack) {
+        return true;
+    }
 
 }

@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public abstract class BlockHive<T extends Enum<T> & IHiveEnum> extends Block {
 
-    public BlockHive(){
+    public BlockHive() {
         this(null);
     }
 
@@ -38,13 +38,13 @@ public abstract class BlockHive<T extends Enum<T> & IHiveEnum> extends Block {
         setLightLevel(0.4f);
         setHardness(2.5f);
         metaToObject = Maps.newHashMap();
-        for (T t : getHiveTypes().getEnumConstants()){
+        for (T t : getHiveTypes().getEnumConstants()) {
             metaToObject.put(t.getMeta(), t);
             for (IHiveDescription desc : t.getHiveDescriptions()) {
                 HiveManager.hiveRegistry.registerHive(t.getUid(desc), desc);
             }
         }
-        if (defaultT == null){
+        if (defaultT == null) {
             defaultT = getHiveTypes().getEnumConstants()[0];
         }
         this.defaultT = defaultT;
@@ -55,17 +55,17 @@ public abstract class BlockHive<T extends Enum<T> & IHiveEnum> extends Block {
         }
     }
 
-    public BlockHive<T> register(@Nonnull ResourceLocation rl){
+    public BlockHive<T> register(@Nonnull ResourceLocation rl) {
         setRegistryName(rl);
         ForgeRegistries.BLOCKS.register(this);
-        ForgeRegistries.ITEMS.register(new ItemBlock(this){
+        ForgeRegistries.ITEMS.register(new ItemBlock(this) {
 
             private final String unlName = "tile." + rl.toString().toLowerCase().replace(":", ".") + ".";
 
             @Override
             public int getMetadata(int damage) {
                 T t = metaToObject.get(damage);
-                if (t == null){
+                if (t == null) {
                     damage = defaultT.getMeta();
                 }
                 return damage;
@@ -85,8 +85,8 @@ public abstract class BlockHive<T extends Enum<T> & IHiveEnum> extends Block {
     public abstract Class<T> getHiveTypes();
 
     @Nonnull
-    public PropertyEnum<T> getProperty(){
-        if (PROPERTY == null){
+    public PropertyEnum<T> getProperty() {
+        if (PROPERTY == null) {
             PROPERTY = PropertyEnum.create("hivetype", getHiveTypes());
         }
         return PROPERTY;
@@ -114,14 +114,14 @@ public abstract class BlockHive<T extends Enum<T> & IHiveEnum> extends Block {
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
         T t = metaToObject.get(meta);
-        if (t == null){
+        if (t == null) {
             t = defaultT;
         }
         return getStateFromHive(t);
     }
 
     @Nonnull
-    public IBlockState getStateFromHive(@Nonnull T t){
+    public IBlockState getStateFromHive(@Nonnull T t) {
         return getDefaultState().withProperty(PROPERTY, t);
     }
 
@@ -133,7 +133,7 @@ public abstract class BlockHive<T extends Enum<T> & IHiveEnum> extends Block {
 
     @Override
     public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> subBlocks) {
-        for (T t : metaToObject.values()){
+        for (T t : metaToObject.values()) {
             if (t.showInTab()) {
                 subBlocks.add(new ItemStack(this, 1, t.getMeta()));
             }

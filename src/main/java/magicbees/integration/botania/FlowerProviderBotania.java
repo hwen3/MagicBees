@@ -16,21 +16,25 @@ import javax.annotation.Nonnull;
  */
 public class FlowerProviderBotania extends FlowerProvider implements IFlowerGrowthRule {
 
-	public FlowerProviderBotania(@Nonnull String flowerType, Block flower) {
-		super(flowerType);
-		this.flower = flower;
-		FlowerManager.flowerRegistry.registerGrowthRule(this, this.getFlowerType());
-	}
+    @SuppressWarnings("deprecation")
+    public FlowerProviderBotania(@Nonnull String flowerType, Block flower) {
+        super(flowerType);
+        this.flower = flower;
+        FlowerManager.flowerRegistry.registerGrowthRule(this, this.getFlowerType());
+        for (int i = 0; i < EnumDyeColor.values().length; i++) {
+            FlowerManager.flowerRegistry.registerAcceptableFlower(flower.getStateFromMeta(i));
+        }
+    }
 
-	private final Block flower;
+    private final Block flower;
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean growFlower(@Nonnull IFlowerGrowthHelper helper, @Nonnull String flowerType, @Nonnull World world, @Nonnull BlockPos pos) {
-		if (world.isAirBlock(pos) && flower.canPlaceBlockAt(world, pos)){
-			world.setBlockState( pos, flower.getStateFromMeta(world.rand.nextInt(EnumDyeColor.values().length)), 2);
-		}
-		return false;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean growFlower(@Nonnull IFlowerGrowthHelper helper, @Nonnull String flowerType, @Nonnull World world, @Nonnull BlockPos pos) {
+        if (world.isAirBlock(pos) && flower.canPlaceBlockAt(world, pos)) {
+            world.setBlockState(pos, flower.getStateFromMeta(world.rand.nextInt(EnumDyeColor.values().length)), 2);
+        }
+        return false;
+    }
 
 }

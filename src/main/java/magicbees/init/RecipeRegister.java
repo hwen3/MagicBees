@@ -38,13 +38,13 @@ public final class RecipeRegister {
 
     private static ItemStack beesWax, honeyDrop, honeyDew, magicWax, refractoryWax, pollen, royaljelly;
 
-    public static void init(){
+    public static void init() {
         getItems();
         registerForestryRecipes();
     }
 
-    private static void getItems(){
-        if (beesWax == null){
+    private static void getItems() {
+        if (beesWax == null) {
             ItemRegistryApiculture ai = Utils.getApicultureItems();
             beesWax = Utils.getCoreItems().beeswax.getItemStack();
             honeyDrop = ai.honeyDrop.getItemStack();
@@ -57,7 +57,7 @@ public final class RecipeRegister {
     }
 
     @SubscribeEvent
-    public void registerVanillaRecipes(RegistryEvent.Register<IRecipe> event){
+    public void registerVanillaRecipes(RegistryEvent.Register<IRecipe> event) {
         getItems();
 
         Ingredient input;
@@ -316,7 +316,7 @@ public final class RecipeRegister {
                 't', getResource(EnumResourceType.ESSENCE_LOST_TIME),
                 's', new ItemStack(Items.SKULL, 1, 1),
                 'E', Blocks.DRAGON_EGG);
-        event.getRegistry().register((new ShapedRecipes("", primer.width, primer.height, primer.input, getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION)){
+        event.getRegistry().register((new ShapedRecipes("", primer.width, primer.height, primer.input, getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION)) {
 
             @Override
             @Nonnull
@@ -339,7 +339,7 @@ public final class RecipeRegister {
         );
         for (int level = 1; level <= Config.magnetMaxLevel; level++) {
             output = new ItemStack(ItemRegister.mysteriousMagnet, 1, level * 2);
-            GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("mysteriousmagnet"+level), null, output,
+            GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("mysteriousmagnet" + level), null, output,
                     " d ", "mSm", " B ",
                     'd', Items.DIAMOND,
                     'm', new ItemStack(ItemRegister.mysteriousMagnet, 1, (level - 1) * 2),
@@ -351,12 +351,12 @@ public final class RecipeRegister {
         EnumOreResourceType.registerRecipes(event.getRegistry());
     }
 
-    private static void registerForestryRecipes(){
+    private static void registerForestryRecipes() {
         registerCentrifugeRecipes();
         registerCarpenterRecipes();
     }
 
-    private static void registerCentrifugeRecipes(){
+    private static void registerCentrifugeRecipes() {
         CombCentrifugeRecipe recipe;
 
         recipe = new CombCentrifugeRecipe(EnumCombType.MUNDANE);
@@ -463,7 +463,7 @@ public final class RecipeRegister {
         recipe.register(20);
     }
 
-    private static void registerCarpenterRecipes(){
+    private static void registerCarpenterRecipes() {
         ItemStack input;
         ItemStack output;
 
@@ -498,33 +498,33 @@ public final class RecipeRegister {
         );
     }
 
-    private static ItemStack getWax(EnumWaxType wax){
+    private static ItemStack getWax(EnumWaxType wax) {
         return waxItem.getStackFromType(wax);
     }
 
-    private static ItemStack getDrop(EnumDropType drop){
+    private static ItemStack getDrop(EnumDropType drop) {
         return dropItem.getStackFromType(drop);
     }
 
-    private static ItemStack getPollen(EnumPollenType pollen){
+    private static ItemStack getPollen(EnumPollenType pollen) {
         return pollenItem.getStackFromType(pollen);
     }
 
-    private static ItemStack getPropolis(EnumPropolisType propolis){
+    private static ItemStack getPropolis(EnumPropolisType propolis) {
         return propolisItem.getStackFromType(propolis);
     }
 
-    private static ItemStack getResource(EnumResourceType resource){
+    private static ItemStack getResource(EnumResourceType resource) {
         return resourceItem.getStackFromType(resource);
     }
 
-    private static ItemStack getPropolis(EnumPropolis propolis){
+    private static ItemStack getPropolis(EnumPropolis propolis) {
         return Utils.getApicultureItems().propolis.get(propolis, 1);
     }
 
     private static class CombCentrifugeRecipe {
 
-        private CombCentrifugeRecipe(EnumCombType comb){
+        private CombCentrifugeRecipe(EnumCombType comb) {
             this.comb = comb;
             this.products = Maps.newHashMap();
         }
@@ -532,11 +532,11 @@ public final class RecipeRegister {
         private EnumCombType comb;
         private final Map<ItemStack, Float> products;
 
-        protected void addProduct(ItemStack stack, float chance){
+        protected void addProduct(ItemStack stack, float chance) {
             products.put(stack.copy(), chance);
         }
 
-        protected void register(int time){
+        protected void register(int time) {
             RecipeManagers.centrifugeManager.addRecipe(time, combItem.getStackFromType(comb), products);
         }
 

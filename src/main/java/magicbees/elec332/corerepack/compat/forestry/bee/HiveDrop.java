@@ -15,11 +15,11 @@ import javax.annotation.Nonnull;
  */
 public class HiveDrop extends forestry.apiculture.genetics.HiveDrop {
 
-    public HiveDrop(IIndividualDefinition<IBeeGenome, ?, ?> individual, double chance, ItemStack... extraDrops){
+    public HiveDrop(IIndividualDefinition<IBeeGenome, ?, ?> individual, double chance, ItemStack... extraDrops) {
         this(individual.getGenome(), chance, extraDrops);
     }
 
-    public HiveDrop(IBeeGenome genome, double chance, ItemStack... extraDrops){
+    public HiveDrop(IBeeGenome genome, double chance, ItemStack... extraDrops) {
         super(chance, null, extraDrops);
         this.genome = genome;
     }

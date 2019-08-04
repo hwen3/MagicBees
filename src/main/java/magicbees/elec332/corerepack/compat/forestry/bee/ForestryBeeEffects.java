@@ -29,7 +29,7 @@ public class ForestryBeeEffects {
     public static IAlleleBeeEffect effectFertile;
     public static IAlleleBeeEffect effectMycophilic;
 
-    public static void init(){
+    public static void init() {
         effectNone = getEffect("none");
         effectAggressive = getEffect("aggressive");
         effectHeroic = getEffect("heroic");
@@ -51,8 +51,8 @@ public class ForestryBeeEffects {
         effectMycophilic = getEffect("mycophilic");
     }
 
-    private static IAlleleBeeEffect getEffect(String name){
-        return (IAlleleBeeEffect) AlleleManager.alleleRegistry.getAllele("forestry.effect"+WordUtils.capitalize(name));
+    private static IAlleleBeeEffect getEffect(String name) {
+        return (IAlleleBeeEffect) AlleleManager.alleleRegistry.getAllele("forestry.effect" + WordUtils.capitalize(name));
     }
 
 }

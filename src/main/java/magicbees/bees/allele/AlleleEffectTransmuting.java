@@ -33,9 +33,9 @@ public class AlleleEffectTransmuting extends AlleleEffectThrottled {
         World world = housing.getWorldObj();
         BlockPos coords = housing.getCoordinates();
         IBeeModifier beeModifier = BeeManager.beeRoot.createBeeHousingModifier(housing);
-        int xRange = (int)(beeModifier.getTerritoryModifier(genome, 1.0F) * (float)genome.getTerritory().getX());
-        int yRange = (int)(beeModifier.getTerritoryModifier(genome, 1.0F) * (float)genome.getTerritory().getY());
-        int zRange = (int)(beeModifier.getTerritoryModifier(genome, 1.0F) * (float)genome.getTerritory().getZ());
+        int xRange = (int) (beeModifier.getTerritoryModifier(genome, 1.0F) * (float) genome.getTerritory().getX());
+        int yRange = (int) (beeModifier.getTerritoryModifier(genome, 1.0F) * (float) genome.getTerritory().getY());
+        int zRange = (int) (beeModifier.getTerritoryModifier(genome, 1.0F) * (float) genome.getTerritory().getZ());
         int xCoord = coords.getX() + world.rand.nextInt(xRange) - xRange / 2;
         int yCoord = coords.getY() + world.rand.nextInt(yRange) - yRange / 2;
         int zCoord = coords.getZ() + world.rand.nextInt(zRange) - zRange / 2;

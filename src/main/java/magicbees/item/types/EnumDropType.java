@@ -18,7 +18,7 @@ public enum EnumDropType implements IEnumItem {
     LUX(0xF5F3A4, 0xC9C87D),
     ENDEARING(0x12E3D9, 0x069E97);
 
-    EnumDropType(int c1, int c2){
+    EnumDropType(int c1, int c2) {
         this.firstColor = c1;
         this.secondColor = c2;
     }

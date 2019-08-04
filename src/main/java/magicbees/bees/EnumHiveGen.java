@@ -28,45 +28,42 @@ public enum EnumHiveGen {
     CURIOUS(3.0f, HiveManager.genHelper.tree(), BiomeDictionary.Type.FOREST, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HILLS),
     UNUSUAL(1.0f, HiveManager.genHelper.ground(Blocks.DIRT, Blocks.GRASS), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.RIVER),
     RESONANT(0.9f, HiveManager.genHelper.ground(Blocks.SAND, Blocks.SANDSTONE), BiomeDictionary.Type.SANDY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.HOT, BiomeDictionary.Type.MAGICAL),
-    DEEP(5.0f, new HiveGenUnderground(10, 15, 5), BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.MAGICAL){
-
+    DEEP(5.0f, new HiveGenUnderground(10, 15, 5), BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.MAGICAL) {
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
-            if (!postGenRedstone){
+            if (!postGenRedstone) {
                 return;
             }
-            for (EnumFacing facing : EnumFacing.VALUES){
+            for (EnumFacing facing : EnumFacing.VALUES) {
                 EnumHiveGen.spawnVein(world, blockPos.offset(facing), 5, Blocks.REDSTONE_BLOCK.getDefaultState(), Blocks.STONE);
             }
         }
 
     },
-    INFERNAL(50.0f, new HiveGenNether(0, 175, 6), BiomeDictionary.Type.NETHER){
-
+    INFERNAL(50.0f, new HiveGenNether(0, 175, 6), BiomeDictionary.Type.NETHER) {
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
-            if (!postGenNetherQuartz){
+            if (!postGenNetherQuartz) {
                 return;
             }
-            for (EnumFacing facing : EnumFacing.VALUES){
+            for (EnumFacing facing : EnumFacing.VALUES) {
                 EnumHiveGen.spawnVein(world, blockPos.offset(facing), 4, Blocks.QUARTZ_BLOCK.getDefaultState(), Blocks.NETHERRACK);
             }
         }
 
     },
-    INFERNAL_OVERWORLD(0.95f, new HiveGenUnderground(5, 13, 6), BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.HOT){
-
+    INFERNAL_OVERWORLD(0.95f, new HiveGenUnderground(5, 13, 6), BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.HOT) {
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
-            if (!postGenGlowstone){
+            if (!postGenGlowstone) {
                 return;
             }
-            for (EnumFacing facing : EnumFacing.VALUES){
+            for (EnumFacing facing : EnumFacing.VALUES) {
                 if (facing.getAxis() != EnumFacing.Axis.Y) {
                     EnumHiveGen.spawnVein(world, blockPos.offset(facing), world.rand.nextInt(4) + 1, Blocks.GLOWSTONE.getDefaultState(), Blocks.STONE);
                 } else {
                     BlockPos pos = blockPos.offset(facing);
-                    if (HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos), world, pos, Blocks.STONE)){
+                    if (HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos), world, pos, Blocks.STONE)) {
                         world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState(), 2);
                     }
                 }
@@ -74,11 +71,10 @@ public enum EnumHiveGen {
         }
 
     },
-    OBLIVION(20.0f, new HiveGenOblivion(), BiomeDictionary.Type.END){
-
+    OBLIVION(20.0f, new HiveGenOblivion(), BiomeDictionary.Type.END) {
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
-            if (!postGenObsidianSpikes){
+            if (!postGenObsidianSpikes) {
                 return;
             }
             int obsidianSpikeHeight = world.rand.nextInt(8) + 3;
@@ -88,24 +84,20 @@ public enum EnumHiveGen {
         }
 
     },
-    OBLIVION_OVERWORLD(0.87f, new HiveGenUnderground(5, 5, 5), BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.COLD){
-
+    OBLIVION_OVERWORLD(0.87f, new HiveGenUnderground(5, 5, 5), BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.COLD) {
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
-            if (!postGenEndstone){
+            if (!postGenEndstone) {
                 return;
             }
-            for (EnumFacing facing : EnumFacing.VALUES){
+            for (EnumFacing facing : EnumFacing.VALUES) {
                 EnumHiveGen.spawnVein(world, blockPos.offset(facing), world.rand.nextInt(facing.getAxis() == EnumFacing.Axis.Y ? 3 : 6) + 1, Blocks.END_STONE.getDefaultState(), Blocks.STONE);
             }
         }
 
-    }
+    };
 
-
-    ;
-
-    EnumHiveGen(float chance, IHiveGen hiveGen, BiomeDictionary.Type... biomes){
+    EnumHiveGen(float chance, IHiveGen hiveGen, BiomeDictionary.Type... biomes) {
         this.chance = chance;
         this.hiveGen = hiveGen;
         this.biomes = Lists.newArrayList(Preconditions.checkNotNull(biomes));
@@ -118,7 +110,7 @@ public enum EnumHiveGen {
     void postGen(World world, Random random, BlockPos blockPos) {
     }
 
-    private static void spawnVein(World world, BlockPos pos, int maxSpawnCount, IBlockState replacement, Block toReplace){
+    private static void spawnVein(World world, BlockPos pos, int maxSpawnCount, IBlockState replacement, Block toReplace) {
         int spawnAttempts = 0;
         int spawnCount = 0;
 

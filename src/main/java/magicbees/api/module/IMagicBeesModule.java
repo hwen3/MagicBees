@@ -5,15 +5,15 @@ package magicbees.api.module;
  */
 public interface IMagicBeesModule {
 
-	default public void preInit(){
-	}
+    default void preInit() {
+    }
 
-	default public void registerConfig(IConfigRegistry registry){
-	}
+    default void registerConfig(IConfigRegistry registry) {
+    }
 
-	public void init(IMagicBeesInitialisationEvent event);
+    void init(IMagicBeesInitialisationEvent event);
 
-	default public void postInit(){
-	}
+    default void postInit() {
+    }
 
 }

@@ -21,253 +21,254 @@ import javax.annotation.Nonnull;
 
 /**
  * Created by Elec332 on 5-4-2017.
- *
+ * <p>
  * Simulates enough of a bee house to fire the bee effects. =D
  *
  * @author MysteriousAges, mezz
  */
 public class EffectJarHousing implements IBeeHousing {
 
-	public EffectJarHousing(TileEntityEffectJar entity) {
-		this.jarEntity = entity;
-		this.inventory = new JarBeeHousingInventory(entity);
-		this.beekeepingLogic = BeeManager.beeRoot.createBeekeepingLogic(this);
-		this.errorLogic = new ErrorLogic();
-	}
+    public EffectJarHousing(TileEntityEffectJar entity) {
+        this.jarEntity = entity;
+        this.inventory = new JarBeeHousingInventory(entity);
+        this.beekeepingLogic = BeeManager.beeRoot.createBeekeepingLogic(this);
+        this.errorLogic = new ErrorLogic();
+    }
 
-	private IErrorLogic errorLogic;// = new JarErrorLogic();
-	private static final Iterable<IBeeListener> beeListeners = ImmutableSet.of(new DefaultBeeListener());
-	private static final Iterable<IBeeModifier> beeModifiers = ImmutableSet.of(new JarHousingModifier());
+    private IErrorLogic errorLogic;// = new JarErrorLogic();
+    private static final Iterable<IBeeListener> beeListeners = ImmutableSet.of(new DefaultBeeListener());
+    private static final Iterable<IBeeModifier> beeModifiers = ImmutableSet.of(new JarHousingModifier());
 
-	private final IBeekeepingLogic beekeepingLogic;
-	private final TileEntityEffectJar jarEntity;
-	private Biome biome;
-	private final IBeeHousingInventory inventory;
+    private final IBeekeepingLogic beekeepingLogic;
+    private final TileEntityEffectJar jarEntity;
+    private Biome biome;
+    private final IBeeHousingInventory inventory;
 
-	public boolean canWork(){
-		return beekeepingLogic.canWork();
-	}
+    public boolean canWork() {
+        return beekeepingLogic.canWork();
+    }
 
-	@Override
-	@Nonnull
-	public World getWorldObj() {
-		return jarEntity.getWorld();
-	}
+    @Override
+    @Nonnull
+    public World getWorldObj() {
+        return jarEntity.getWorld();
+    }
 
-	@Override
-	@Nonnull
-	public BlockPos getCoordinates() {
-		return jarEntity.getPos();
-	}
+    @Override
+    @Nonnull
+    public BlockPos getCoordinates() {
+        return jarEntity.getPos();
+    }
 
-	@Override
-	@Nonnull
-	public Biome getBiome() {
-		if (biome == null){
-			biome = jarEntity.getWorld().getBiome(jarEntity.getPos());
-		}
-		return biome;
-	}
+    @Override
+    @Nonnull
+    public Biome getBiome() {
+        if (biome == null) {
+            biome = jarEntity.getWorld().getBiome(jarEntity.getPos());
+        }
+        return biome;
+    }
 
-	@Override
-	@Nonnull
-	public EnumTemperature getTemperature() {
-		return EnumTemperature.getFromBiome(getBiome(), getWorldObj(), getCoordinates());
-	}
+    @Override
+    @Nonnull
+    public EnumTemperature getTemperature() {
+        return EnumTemperature.getFromBiome(getBiome(), getWorldObj(), getCoordinates());
+    }
 
-	@Override
-	@Nonnull
-	public EnumHumidity getHumidity() {
-		return EnumHumidity.getFromValue(getBiome().getRainfall());
-	}
+    @Override
+    @Nonnull
+    public EnumHumidity getHumidity() {
+        return EnumHumidity.getFromValue(getBiome().getRainfall());
+    }
 
-	@Override
-	public int getBlockLightValue() {
-		return getWorldObj().getLight(getCoordinates().up());
-	}
+    @Override
+    public int getBlockLightValue() {
+        return getWorldObj().getLight(getCoordinates().up());
+    }
 
-	@Override
-	public boolean canBlockSeeTheSky() {
-		return getWorldObj().canBlockSeeSky(getCoordinates().up());
-	}
+    @Override
+    public boolean canBlockSeeTheSky() {
+        return getWorldObj().canBlockSeeSky(getCoordinates().up());
+    }
 
-	@Override
-	public boolean isRaining() {
-		return getWorldObj().isRainingAt(getCoordinates());
-	}
+    @Override
+    public boolean isRaining() {
+        return getWorldObj().isRainingAt(getCoordinates());
+    }
 
-	@Override
-	public GameProfile getOwner() {
-		return jarEntity.getOwner();
-	}
+    @Override
+    public GameProfile getOwner() {
+        return jarEntity.getOwner();
+    }
 
-	@Override
-	@Nonnull
-	public Vec3d getBeeFXCoordinates() {
-		BlockPos pos = getCoordinates();
-		return new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f);
-	}
+    @Override
+    @Nonnull
+    public Vec3d getBeeFXCoordinates() {
+        BlockPos pos = getCoordinates();
+        return new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f);
+    }
 
-	@Override
-	@Nonnull
-	public IErrorLogic getErrorLogic() {
-		return errorLogic;
-	}
+    @Override
+    @Nonnull
+    public IErrorLogic getErrorLogic() {
+        return errorLogic;
+    }
 
-	@Override
-	@Nonnull
-	public IBeeHousingInventory getBeeInventory() {
-		return inventory;
-	}
+    @Override
+    @Nonnull
+    public IBeeHousingInventory getBeeInventory() {
+        return inventory;
+    }
 
-	@Override
-	@Nonnull
-	public IBeekeepingLogic getBeekeepingLogic() {
-		return beekeepingLogic;
-	}
+    @Override
+    @Nonnull
+    public IBeekeepingLogic getBeekeepingLogic() {
+        return beekeepingLogic;
+    }
 
-	@Override
-	@Nonnull
-	public Iterable<IBeeModifier> getBeeModifiers() {
-		return beeModifiers;
-	}
+    @Override
+    @Nonnull
+    public Iterable<IBeeModifier> getBeeModifiers() {
+        return beeModifiers;
+    }
 
-	@Override
-	@Nonnull
-	public Iterable<IBeeListener> getBeeListeners() {
-		return beeListeners;
-	}
+    @Override
+    @Nonnull
+    public Iterable<IBeeListener> getBeeListeners() {
+        return beeListeners;
+    }
 
-	@SuppressWarnings("all")
-	private static class JarBeeHousingInventory implements IBeeHousingInventory {
+    @SuppressWarnings("all")
+    private static class JarBeeHousingInventory implements IBeeHousingInventory {
 
-		private final TileEntityEffectJar jarEntity;
+        private final TileEntityEffectJar jarEntity;
 
-		public JarBeeHousingInventory(TileEntityEffectJar jarEntity) {
-			this.jarEntity = jarEntity;
-		}
+        public JarBeeHousingInventory(TileEntityEffectJar jarEntity) {
+            this.jarEntity = jarEntity;
+        }
 
-		@Override
-		public ItemStack getQueen() {
-			return jarEntity.getQueenStack();
-		}
+        @Override
+        public ItemStack getQueen() {
+            return jarEntity.getQueenStack();
+        }
 
-		@Override
-		public ItemStack getDrone() {
-			return ItemStack.EMPTY;
-		}
+        @Override
+        public ItemStack getDrone() {
+            return ItemStack.EMPTY;
+        }
 
-		@Override
-		public void setQueen(ItemStack itemStack) {
-			jarEntity.setQueenStack(itemStack);
-		}
+        @Override
+        public void setQueen(ItemStack itemStack) {
+            jarEntity.setQueenStack(itemStack);
+        }
 
-		@Override
-		public void setDrone(ItemStack itemstack) {
-		}
+        @Override
+        public void setDrone(ItemStack itemstack) {
+        }
 
-		@Override
-		public boolean addProduct(ItemStack product, boolean all) {
-			return true;
-		}
+        @Override
+        public boolean addProduct(ItemStack product, boolean all) {
+            return true;
+        }
 
-	}
+    }
 
-	@SuppressWarnings("all")
-	private static class JarErrorLogic implements IErrorLogic {
+    @SuppressWarnings("all")
+    private static class JarErrorLogic implements IErrorLogic {
 
-		@Override
-		public boolean setCondition(boolean condition, IErrorState errorState) {
-			if (errorState == EnumErrorCode.NO_FLOWER){
-				System.out.println("flowers: "+!condition);
-			}
-			return condition;
-		}
+        @Override
+        public boolean setCondition(boolean condition, IErrorState errorState) {
+            if (errorState == EnumErrorCode.NO_FLOWER) {
+                System.out.println("flowers: " + !condition);
+            }
+            return condition;
+        }
 
-		@Override
-		public boolean contains(IErrorState state) {
-			return false;
-		}
+        @Override
+        public boolean contains(IErrorState state) {
+            return false;
+        }
 
-		@Override
-		public boolean hasErrors() {
-			return false;
-		}
+        @Override
+        public boolean hasErrors() {
+            return false;
+        }
 
-		@Override
-		public void clearErrors() {
+        @Override
+        public void clearErrors() {
 
-		}
+        }
 
-		@Override
-		public void writeData(PacketBuffer data) {
+        @Override
+        public void writeData(PacketBuffer data) {
 
-		}
+        }
 
-		@Override
-		public void readData(PacketBuffer data) {
+        @Override
+        public void readData(PacketBuffer data) {
 
-		}
+        }
 
-		@Override
-		public ImmutableSet<IErrorState> getErrorStates() {
-			return ImmutableSet.of();
-		}
+        @Override
+        public ImmutableSet<IErrorState> getErrorStates() {
+            return ImmutableSet.of();
+        }
 
-	}
+    }
 
-	@SuppressWarnings("all")
-	private static class JarHousingModifier implements IBeeModifier {
+    @SuppressWarnings("all")
+    private static class JarHousingModifier implements IBeeModifier {
 
-		@Override
-		public float getTerritoryModifier(IBeeGenome genome, float currentModifier) {
-			return 0.9f;
-		}
+        @Override
+        public float getTerritoryModifier(IBeeGenome genome, float currentModifier) {
+            return 0.9f;
+        }
 
-		@Override
-		public float getMutationModifier(IBeeGenome genome, IBeeGenome mate, float currentModifier) {
-			return 0f;
-		}
+        @Override
+        public float getMutationModifier(IBeeGenome genome, IBeeGenome mate, float currentModifier) {
+            return 0f;
+        }
 
-		@Override
-		public float getLifespanModifier(IBeeGenome genome, IBeeGenome mate, float currentModifier) {
-			return 0f;
-		}
+        @Override
+        public float getLifespanModifier(IBeeGenome genome, IBeeGenome mate, float currentModifier) {
+            return 0f;
+        }
 
-		@Override
-		public float getProductionModifier(IBeeGenome genome, float currentModifier) {
-			return 0f;
-		}
+        @Override
+        public float getProductionModifier(IBeeGenome genome, float currentModifier) {
+            return 0f;
+        }
 
-		@Override
-		public float getFloweringModifier(IBeeGenome genome, float currentModifier) {
-			return 0f;
-		}
+        @Override
+        public float getFloweringModifier(IBeeGenome genome, float currentModifier) {
+            return 0f;
+        }
 
-		@Override
-		public float getGeneticDecay(IBeeGenome genome, float currentModifier) {
-			return 0f;
-		}
+        @Override
+        public float getGeneticDecay(IBeeGenome genome, float currentModifier) {
+            return 0f;
+        }
 
-		@Override
-		public boolean isSealed() {
-			return true;
-		}
+        @Override
+        public boolean isSealed() {
+            return true;
+        }
 
-		@Override
-		public boolean isSelfLighted() {
-			return true;
-		}
+        @Override
+        public boolean isSelfLighted() {
+            return true;
+        }
 
-		@Override
-		public boolean isSunlightSimulated() {
-			return true;
-		}
+        @Override
+        public boolean isSunlightSimulated() {
+            return true;
+        }
 
-		@Override
-		public boolean isHellish() {
-			return false;
-		}
+        @Override
+        public boolean isHellish() {
+            return false;
+        }
 
-	}
+    }
+
 }

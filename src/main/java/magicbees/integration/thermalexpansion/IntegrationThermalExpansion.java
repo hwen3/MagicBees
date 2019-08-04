@@ -25,28 +25,29 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 @MagicBeesModule(owner = MagicBees.modid, name = "ThermalExpansion Integration", modDependencies = ModNames.THERMALEXPANSION)
 public class IntegrationThermalExpansion implements IMagicBeesModule {
 
-	@Override
-	public void init(IMagicBeesInitialisationEvent event){
-		ItemEnumBased<EnumDropType> drops = Preconditions.checkNotNull(ItemRegister.dropItem);
-		addCrucibleRecipe(drops.getStackFromType(EnumDropType.CARBON), FluidRegistry.getFluid("coal"));
-		addCrucibleRecipe(drops.getStackFromType(EnumDropType.DESTABILIZED), FluidRegistry.getFluid("redstone"));
-		addCrucibleRecipe(drops.getStackFromType(EnumDropType.ENDEARING), FluidRegistry.getFluid("ender"));
-		addCrucibleRecipe(drops.getStackFromType(EnumDropType.LUX), FluidRegistry.getFluid("glowstone"));
-		BeeIntegrationInterface.effectSpawnBasalz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBasalz_name, new ResourceLocation("thermalfoundation:basalz")).setThrottle(100).setSpawnChance(80);
-		BeeIntegrationInterface.effectSpawnBlitz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlitz_name, new ResourceLocation("thermalfoundation:blitz")).setThrottle(100).setSpawnChance(80);
-		BeeIntegrationInterface.effectSpawnBlizz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlizz_name, new ResourceLocation("thermalfoundation:blizz")).setThrottle(100).setSpawnChance(80);
-	}
+    @Override
+    public void init(IMagicBeesInitialisationEvent event) {
+        ItemEnumBased<EnumDropType> drops = Preconditions.checkNotNull(ItemRegister.dropItem);
+        addCrucibleRecipe(drops.getStackFromType(EnumDropType.CARBON), FluidRegistry.getFluid("coal"));
+        addCrucibleRecipe(drops.getStackFromType(EnumDropType.DESTABILIZED), FluidRegistry.getFluid("redstone"));
+        addCrucibleRecipe(drops.getStackFromType(EnumDropType.ENDEARING), FluidRegistry.getFluid("ender"));
+        addCrucibleRecipe(drops.getStackFromType(EnumDropType.LUX), FluidRegistry.getFluid("glowstone"));
+        BeeIntegrationInterface.effectSpawnBasalz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBasalz_name, new ResourceLocation("thermalfoundation:basalz")).setThrottle(100).setSpawnChance(80);
+        BeeIntegrationInterface.effectSpawnBlitz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlitz_name, new ResourceLocation("thermalfoundation:blitz")).setThrottle(100).setSpawnChance(80);
+        BeeIntegrationInterface.effectSpawnBlizz = new AlleleEffectSpawnMob(BeeIntegrationInterface.te_spawnBlizz_name, new ResourceLocation("thermalfoundation:blizz")).setThrottle(100).setSpawnChance(80);
+    }
 
-	private static void addCrucibleRecipe(ItemStack in, Fluid out){
-		addCrucibleRecipe(in, new FluidStack(Preconditions.checkNotNull(out), 50));
-	}
+    private static void addCrucibleRecipe(ItemStack in, Fluid out) {
+        addCrucibleRecipe(in, new FluidStack(Preconditions.checkNotNull(out), 50));
+    }
 
-	private static void addCrucibleRecipe(ItemStack in, FluidStack out){
-		NBTTagCompound main = new NBTTagCompound();
-		main.setInteger("energy", 4000);
-		main.setTag("input", Preconditions.checkNotNull(in).writeToNBT(new NBTTagCompound()));
-		main.setTag("output", Preconditions.checkNotNull(out).writeToNBT(new NBTTagCompound()));
-		FMLInterModComms.sendMessage(ModNames.THERMALEXPANSION, "addcruciblerecipe", main);
-	}
+    private static void addCrucibleRecipe(ItemStack in, FluidStack out) {
+        NBTTagCompound main = new NBTTagCompound();
+        main.setInteger("energy", 4000);
+        main.setTag("input", Preconditions.checkNotNull(in).writeToNBT(new NBTTagCompound()));
+        out.amount = 100;
+        main.setTag("output", Preconditions.checkNotNull(out).writeToNBT(new NBTTagCompound()));
+        FMLInterModComms.sendMessage(ModNames.THERMALEXPANSION, "addcruciblerecipe", main);
+    }
 
 }

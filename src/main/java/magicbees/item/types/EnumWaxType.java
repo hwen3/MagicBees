@@ -12,22 +12,19 @@ import java.awt.*;
 /**
  * Created by Elec332 on 13-2-2017.
  */
-public enum EnumWaxType implements IEnumItem{
+public enum EnumWaxType implements IEnumItem {
 
     MAGIC(new Color(0xd242df)),
-    SOUL(new Color(0x967C63)){
-
+    SOUL(new Color(0x967C63)) {
         @Override
         public ResourceLocation getTextureLocation() {
             return TEXTURE;
         }
 
     },
-    AMNESIC(new Color(0x856DFF))
+    AMNESIC(new Color(0x856DFF));
 
-    ;
-
-    EnumWaxType(Color color){
+    EnumWaxType(Color color) {
         this.color = color.getRGB();
     }
 

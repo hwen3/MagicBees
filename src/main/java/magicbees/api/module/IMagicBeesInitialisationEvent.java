@@ -10,16 +10,16 @@ import javax.annotation.Nonnull;
  */
 public interface IMagicBeesInitialisationEvent {
 
-	@Nonnull
-	public Block getBlock(String name);
+    @Nonnull
+    Block getBlock(String name);
 
-	@Nonnull
-	public Item getItem(String name);
+    @Nonnull
+    Item getItem(String name);
 
-	@Nonnull
-	public Block getBlock(String mod, String name);
+    @Nonnull
+    Block getBlock(String mod, String name);
 
-	@Nonnull
-	public Item getItem(String mod, String name);
+    @Nonnull
+    Item getItem(String mod, String name);
 
 }

@@ -30,71 +30,71 @@ import java.util.List;
  * Created by Elec332 on 18-5-2017.
  */
 @Optional.InterfaceList({
-		@Optional.Interface(iface = "vazkii.botania.api.mana.IManaUsingItem", modid = ModNames.BOTANIA, striprefs = true)
+        @Optional.Interface(iface = "vazkii.botania.api.mana.IManaUsingItem", modid = ModNames.BOTANIA, striprefs = true)
 })
 public class ItemManaSteelGrafter extends Item implements IToolGrafter, IManaUsingItem {
 
-	public static final int MANA_PER_DAMAGE = 90;
+    public static final int MANA_PER_DAMAGE = 90;
 
-	public ItemManaSteelGrafter() {
-		super();
-		setRegistryName(new MagicBeesResourceLocation("manasteelgrafter"));
-		Utils.setUnlocalizedName(this);
-		setCreativeTab(MagicBees.creativeTab);
-		setMaxDamage(15);
-		setMaxStackSize(1);
-		setHarvestLevel("grafter", 3);
-	}
+    public ItemManaSteelGrafter() {
+        super();
+        setRegistryName(new MagicBeesResourceLocation("manasteelgrafter"));
+        Utils.setUnlocalizedName(this);
+        setCreativeTab(MagicBees.creativeTab);
+        setMaxDamage(15);
+        setMaxStackSize(1);
+        setHarvestLevel("grafter", 3);
+    }
 
-	@Override
-	@Optional.Method(modid = ModNames.BOTANIA)
-	public boolean getIsRepairable(ItemStack toolStack, ItemStack material) {
-		return (material.getItem() == BeeIntegrationInterface.itemManaResource && material.getItemDamage() == 0) || super.getIsRepairable(toolStack, material);
-	}
+    @Override
+    @Optional.Method(modid = ModNames.BOTANIA)
+    public boolean getIsRepairable(ItemStack toolStack, ItemStack material) {
+        return (material.getItem() == BeeIntegrationInterface.itemManaResource && material.getItemDamage() == 0) || super.getIsRepairable(toolStack, material);
+    }
 
-	@Override
-	@Optional.Method(modid = ModNames.BOTANIA)
-	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		// Unsure if the server-side exclusion is necessary, but boy it looks disconcerting on the client if it's in.
-		if (/*!world.isRemote && */stack.getItemDamage() > 0 && player instanceof EntityPlayer) {
-			if (ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE, true)) {
-				stack.setItemDamage(stack.getItemDamage() - 1);
-			}
-		}
-	}
+    @Override
+    @Optional.Method(modid = ModNames.BOTANIA)
+    public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+        // Unsure if the server-side exclusion is necessary, but boy it looks disconcerting on the client if it's in.
+        if (/*!world.isRemote && */stack.getItemDamage() > 0 && player instanceof EntityPlayer) {
+            if (ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE, true)) {
+                stack.setItemDamage(stack.getItemDamage() - 1);
+            }
+        }
+    }
 
-	@Override
-	@Optional.Method(modid = ModNames.BOTANIA)
-	public boolean usesMana(ItemStack arg0) {
-		return true;
-	}
+    @Override
+    @Optional.Method(modid = ModNames.BOTANIA)
+    public boolean usesMana(ItemStack arg0) {
+        return true;
+    }
 
-	@Override
-	public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced) {
-		super.addInformation(stack, playerIn, tooltip, advanced);
-		if (!stack.isItemDamaged()) {
-			tooltip.add(Translator.translateToLocalFormatted("item.for.uses", stack.getMaxDamage() + 1));
-		}
-	}
+    @Override
+    public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced) {
+        super.addInformation(stack, playerIn, tooltip, advanced);
+        if (!stack.isItemDamaged()) {
+            tooltip.add(Translator.translateToLocalFormatted("item.for.uses", stack.getMaxDamage() + 1));
+        }
+    }
 
-	@Override
-	public boolean canHarvestBlock(@Nonnull IBlockState state, ItemStack stack) {
-		Block block = state.getBlock();
-		return block instanceof BlockLeaves || state.getMaterial() == Material.LEAVES || super.canHarvestBlock(state, stack);
-	}
+    @Override
+    public boolean canHarvestBlock(@Nonnull IBlockState state, ItemStack stack) {
+        Block block = state.getBlock();
+        return block instanceof BlockLeaves || state.getMaterial() == Material.LEAVES || super.canHarvestBlock(state, stack);
+    }
 
-	/**
-	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
-	 */
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-		return true;
-	}
+    /**
+     * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
+     */
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        return true;
+    }
 
-	@Override
-	public float getSaplingModifier(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull EntityPlayer player, @Nonnull BlockPos pos) {
-		return 100.0f;
-	}
+    @Override
+    public float getSaplingModifier(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull EntityPlayer player, @Nonnull BlockPos pos) {
+        return 100.0f;
+    }
 
 }
 

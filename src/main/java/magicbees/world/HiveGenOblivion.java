@@ -43,8 +43,8 @@ public class HiveGenOblivion implements IHiveGen {
     @Override
     public boolean isValidLocation(@Nonnull World world, @Nonnull BlockPos pos) {
 
-        for (EnumFacing f : EnumFacing.VALUES){
-            if (!HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos.offset(f)), world, pos,Blocks.END_STONE)){
+        for (EnumFacing f : EnumFacing.VALUES) {
+            if (!HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos.offset(f)), world, pos, Blocks.END_STONE)) {
                 return false;
             }
         }

@@ -13,7 +13,7 @@ public interface IIndividualBranch<T extends IGenomeTemplate> {
     public void setBranchProperties(T genomeTemplate);
 
     //You'll have to cast this one yourself
-    default public void setIndividualProperties(IAlleleSpeciesBuilder speciesBuilder){
+    default public void setIndividualProperties(IAlleleSpeciesBuilder speciesBuilder) {
     }
 
     @Nonnull

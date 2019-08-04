@@ -23,7 +23,10 @@ import magicbees.elec332.corerepack.util.MoonPhase;
 import magicbees.init.AlleleRegister;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.*;
-import magicbees.util.*;
+import magicbees.util.EnumOreResourceType;
+import magicbees.util.IMagicBeesBranch;
+import magicbees.util.ModNames;
+import magicbees.util.Utils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -46,7 +49,6 @@ import static magicbees.elec332.corerepack.compat.forestry.ForestryAlleles.*;
 public enum EnumBeeSpecies implements IBeeTemplate {
 
     MYSTICAL("mysticum", EnumBeeBranches.VEILED, true, new Color(0xAFFFB7)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -63,7 +65,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SORCEROUS("fascinatio", EnumBeeBranches.VEILED, true, new Color(0xEA9A9A)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_HIGH);
@@ -85,7 +86,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     UNUSUAL("inusitatus", EnumBeeBranches.VEILED, true, new Color(0x72D361)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_2);
@@ -103,7 +103,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     ATTUNED("similis", EnumBeeBranches.VEILED, true, new Color(0x0086A8)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_HIGH);
@@ -121,7 +120,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     ELDRITCH("prodigiosus", EnumBeeBranches.VEILED, true, new Color(0x8D75A0)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOWER);
@@ -139,7 +137,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     ESOTERIC("secretiore", EnumBeeBranches.ARCANE, true, new Color(0x001099)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             //Nope
@@ -157,7 +154,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     MYSTERIOUS("mysticus", EnumBeeBranches.ARCANE, true, new Color(0x762bc2)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_2);
@@ -175,7 +171,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     ARCANE("arcanus", EnumBeeBranches.ARCANE, true, new Color(0xd242df)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_2);
@@ -198,7 +193,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     CHARMED("larvatus", EnumBeeBranches.SUPERNATURAL, true, new Color(0x48EEEC)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -215,7 +209,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     ENCHANTED("cantatus", EnumBeeBranches.SUPERNATURAL, true, new Color(0x18e726)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_1);
@@ -233,7 +226,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SUPERNATURAL("coeleste", EnumBeeBranches.SUPERNATURAL, true, new Color(0x005614)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_2);
@@ -255,7 +247,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     ETHEREAL("diaphanum", EnumBeeBranches.MAGICAL, true, new Color(0xBA3B3B), new Color(0xEFF8FF)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setLifeSpan(LIFESPAN_SHORTENED);
@@ -275,7 +266,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     WATERY("aquatilis", EnumBeeBranches.MAGICAL, true, new Color(0x313C5E)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setHumidityTolerance(TOLERANCE_UP_1);
@@ -296,7 +286,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     EARTHY("fictili", EnumBeeBranches.MAGICAL, true, new Color(0x78822D)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setHumidityTolerance(TOLERANCE_BOTH_1);
@@ -315,7 +304,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     FIREY("ardens", EnumBeeBranches.MAGICAL, true, new Color(0xD35119)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setHumidityTolerance(TOLERANCE_DOWN_1);
@@ -335,7 +323,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     WINDY("ventosum", EnumBeeBranches.MAGICAL, true, new Color(0xFFFDBA)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_2);
@@ -356,7 +343,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     PUPIL("disciplina", EnumBeeBranches.SCHOLARLY, true, new Color(0xFFFF00)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOWER);
@@ -374,7 +360,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SCHOLARLY("studiosis", EnumBeeBranches.SCHOLARLY, false, new Color(0x6E0000)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_LOW);
@@ -383,7 +368,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         @Override
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.PAPERY), 0.25f);
-            if (Loader.isModLoaded(ModNames.THAUMCRAFT)){
+            if (Loader.isModLoaded(ModNames.THAUMCRAFT)) {
                 speciesBuilder.addSpecialty(ItemRegister.resourceItem.getStackFromType(EnumResourceType.LORE_FRAGMENT), 0.15f); //0.2
             }
         }
@@ -395,7 +380,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SAVANT("philologus", EnumBeeBranches.SCHOLARLY, false, new Color(0xFFA042)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_NORMAL);
@@ -406,7 +390,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.setHasEffect();
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.PAPERY), 0.40f);
-            if (Loader.isModLoaded(ModNames.THAUMCRAFT)){
+            if (Loader.isModLoaded(ModNames.THAUMCRAFT)) {
                 speciesBuilder.addSpecialty(ItemRegister.resourceItem.getStackFromType(EnumResourceType.LORE_FRAGMENT), 0.4f); //0.5
             }
         }
@@ -419,7 +403,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     AWARE("sensibilis", EnumBeeBranches.SOUL, false, new Color(0x5E95B5)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -436,7 +419,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SPIRIT("larva", EnumBeeBranches.SOUL, true, new Color(0xb2964b)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setLifeSpan(LIFESPAN_SHORTENED);
@@ -456,7 +438,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SOUL("anima", EnumBeeBranches.SOUL, false, new Color(0x7d591b)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_DOWN_2);
@@ -478,7 +459,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     SKULKING("malevolens", EnumBeeBranches.SKULKING, true, new Color(0x524827)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -497,7 +477,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     GHASTLY("pallens", EnumBeeBranches.SKULKING, false, new Color(0xccccee), new Color(0xbf877c)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -521,7 +500,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SPIDERY("araneolus", EnumBeeBranches.SKULKING, true, new Color(0x0888888), new Color(0x222222)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -544,7 +522,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SMOULDERING("flagrantia", EnumBeeBranches.SKULKING, false, new Color(0xFFC747), new Color(0xEA8344)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -579,7 +556,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
             speciesBuilder.setIsSecret();
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.FURTIVE), 0.10f);
             speciesBuilder.addProduct(new ItemStack(Items.ROTTEN_FLESH), 0.06f);
-            if (Loader.isModLoaded(ModNames.THAUMCRAFT)){
+            if (Loader.isModLoaded(ModNames.THAUMCRAFT)) {
                 speciesBuilder.addSpecialty(BeeIntegrationInterface.zombieBrain, 0.2f);
             }
         }
@@ -588,7 +565,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void registerMutations() {
             EnumBeeSpecies second;
             int chance;
-            if (EnumBeeBranches.THAUMIC.enabled()){
+            if (EnumBeeBranches.THAUMIC.enabled()) {
                 //todo
                 second = MUTABLE;
                 chance = 9;
@@ -607,7 +584,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     BIGBAD("magnumalum", EnumBeeBranches.SKULKING, true, new Color(0xA9344B), new Color(0x453536)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -631,7 +607,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     CHICKEN("pullus", EnumBeeBranches.FLESHY, true, new Color(0xFF0000), new Color(0xD3D3D3)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setEffect(AlleleRegister.spawnChicken);
@@ -642,7 +617,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.FURTIVE), 0.23f);
             speciesBuilder.addSpecialty(new ItemStack(Items.FEATHER), 0.08f);
             speciesBuilder.addProduct(new ItemStack(Items.EGG), 0.08f);
-            if (Loader.isModLoaded(ModNames.THAUMCRAFT)){
+            if (Loader.isModLoaded(ModNames.THAUMCRAFT)) {
                 speciesBuilder.addSpecialty(BeeIntegrationInterface.nuggetChicken, 0.7f); //0.9
             }
         }
@@ -654,7 +629,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BEEF("bubulae", EnumBeeBranches.FLESHY, true, new Color(0xB7B7B7), new Color(0x3F3024)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setEffect(AlleleRegister.spawnCow);
@@ -664,7 +638,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.FURTIVE), 0.25f);
             speciesBuilder.addSpecialty(new ItemStack(Items.LEATHER), 0.165f);
-            if (Loader.isModLoaded(ModNames.THAUMCRAFT)){
+            if (Loader.isModLoaded(ModNames.THAUMCRAFT)) {
                 speciesBuilder.addSpecialty(BeeIntegrationInterface.nuggetBeef, 0.7f); //0.9
             }
         }
@@ -676,7 +650,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     PORK("porcina", EnumBeeBranches.FLESHY, true, new Color(0xF1AEAC), new Color(0xDF847B)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setEffect(AlleleRegister.spawnPig);
@@ -686,7 +659,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.FURTIVE), 0.10f);
             speciesBuilder.addSpecialty(new ItemStack(Items.CARROT), 0.165f);
-            if (Loader.isModLoaded(ModNames.THAUMCRAFT)){
+            if (Loader.isModLoaded(ModNames.THAUMCRAFT)) {
                 speciesBuilder.addSpecialty(BeeIntegrationInterface.nuggetPork, 0.7f); //0.9
             }
         }
@@ -698,7 +671,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BATTY("chiroptera", EnumBeeBranches.FLESHY, true, new Color(0x5B482B), new Color(0x271B0F)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTerritory(TERRITORY_LARGE);
@@ -709,7 +681,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.FURTIVE), 0.10f);
             speciesBuilder.addSpecialty(new ItemStack(Items.STRING), 0.00001f);
-            if (Loader.isModLoaded(ModNames.THAUMCRAFT)){
+            if (Loader.isModLoaded(ModNames.THAUMCRAFT)) {
                 speciesBuilder.addSpecialty(new ItemStack(Items.GUNPOWDER), 0.33f); //0.4
             }
         }
@@ -721,7 +693,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SHEEPISH("balans", EnumBeeBranches.FLESHY, true, new Color(0xF7F7F7), new Color(0xCACACA)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -744,7 +715,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     HORSE("equus", EnumBeeBranches.FLESHY, true, new Color(0x906330), new Color(0x7B4E1B)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_FASTEST);
@@ -765,7 +735,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     CATTY("feline", EnumBeeBranches.FLESHY, true, new Color(0xECE684), new Color(0x563C24)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -786,8 +755,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    TIMELY("gallifreis", EnumBeeBranches.TIME, true, new Color(0xC6AF86)){
-
+    TIMELY("gallifreis", EnumBeeBranches.TIME, true, new Color(0xC6AF86)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setLifeSpan(LIFESPAN_ELONGATED);
@@ -805,8 +773,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    LORDLY("rassilonis", EnumBeeBranches.TIME, false, new Color(0xC6AF86), new Color(0x8E0213)){
-
+    LORDLY("rassilonis", EnumBeeBranches.TIME, false, new Color(0xC6AF86), new Color(0x8E0213)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setLifeSpan(LIFESPAN_LONG);
@@ -825,8 +792,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    DOCTORAL("medicus qui", EnumBeeBranches.TIME, false, new Color(0xDDE5FC), new Color(0x4B6E8C)){
-
+    DOCTORAL("medicus qui", EnumBeeBranches.TIME, false, new Color(0xDDE5FC), new Color(0x4B6E8C)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_3);
@@ -849,7 +815,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     INFERNAL("infernales", EnumBeeBranches.ABOMINABLE, true, new Color(0xFF1C1C)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOW);
@@ -867,7 +832,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     HATEFUL("odibilis", EnumBeeBranches.ABOMINABLE, false, new Color(0xDB00DB)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOW);
@@ -888,7 +852,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SPITEFUL("maligna", EnumBeeBranches.ABOMINABLE, false, new Color(0x5FCC00)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setLifeSpan(LIFESPAN_LONG);
@@ -910,7 +873,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     WITHERING("vietus", EnumBeeBranches.ABOMINABLE, false, new Color(0x5B5B5B)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTerritory(TERRITORY_LARGEST);
@@ -931,7 +893,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     OBLIVION("oblivioni", EnumBeeBranches.EXTRINSIC, false, new Color(0xD5C3E5)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_MAXIMUM);
@@ -949,7 +910,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     NAMELESS("sine nomine", EnumBeeBranches.EXTRINSIC, true, new Color(0x8ca7cb)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_HIGH);
@@ -968,7 +928,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     ABANDONED("reliquit", EnumBeeBranches.EXTRINSIC, true, new Color(0xc5cb8c)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setHumidityTolerance(TOLERANCE_BOTH_1);
@@ -990,7 +949,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     FORLORN("perditus", EnumBeeBranches.EXTRINSIC, false, new Color(0xcba88c)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_LOW);
@@ -1013,7 +971,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     DRACONIC("draconic", EnumBeeBranches.EXTRINSIC, false, new Color(0x9f56ad), new Color(0x5a3b62)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_LOW);
@@ -1035,7 +992,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     MUTABLE("mutable", EnumBeeBranches.TRANSMUTING, false, new Color(0xDBB24C), new Color(0xE0D5A6)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1053,7 +1009,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TRANSMUTING("effectTransmuting", EnumBeeBranches.TRANSMUTING, false, new Color(0xDBB24C), new Color(0xA2D2D8)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setEffect(AlleleRegister.effectTransmuting);
@@ -1074,7 +1029,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     CRUMBLING("crumbling", EnumBeeBranches.TRANSMUTING, false, new Color(0xDBB24C), new Color(0xDBA4A4)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setEffect(AlleleRegister.effectCrumbling);
@@ -1096,8 +1050,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    INVISIBLE("invisible", EnumBeeBranches.VEILED, false, new Color(0xffccff), new Color(0xffccff)){
-
+    INVISIBLE("invisible", EnumBeeBranches.VEILED, false, new Color(0xffccff), new Color(0xffccff)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setLifeSpan(LIFESPAN_SHORTEST);
@@ -1121,7 +1074,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     //Resource bees, gems and ores
 
     IRON("ferrus", EnumBeeBranches.METALLIC, true, new Color(0x686868), new Color(0xE9E9E9)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1138,7 +1090,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     GOLD("aurum", EnumBeeBranches.METALLIC, false, new Color(0x684B01), new Color(0xFFFF0B)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1158,7 +1109,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     COPPER("aercus", EnumBeeBranches.METALLIC, true, new Color(0x684B01), new Color(0xFFC81A)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1175,7 +1125,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TIN("stannum", EnumBeeBranches.METALLIC, true, new Color(0x3E596D), new Color(0xA6BACB)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1192,7 +1141,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SILVER("argenteus", EnumBeeBranches.METALLIC, false, new Color(0x747C81), new Color(0x96BFC4)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1209,7 +1157,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     LEAD("plumbeus", EnumBeeBranches.METALLIC, true, new Color(0x96BFC4), new Color(0x91A9F3)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1227,7 +1174,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     ALUMINIUM("aluminium", EnumBeeBranches.METALLIC, true, new Color(0xEDEDED), new Color(0x767676)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1244,7 +1190,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     ARDITE("aurantiaco", EnumBeeBranches.METALLIC, false, new Color(0x720000), new Color(0xFF9E00)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1263,7 +1208,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     COBALT("caeruleo", EnumBeeBranches.METALLIC, false, new Color(0x03265F), new Color(0x59AAEF)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1282,7 +1226,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     MANYULLYN("manahmanah", EnumBeeBranches.METALLIC, false, new Color(0x481D6D), new Color(0xBD92F1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1302,7 +1245,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     OSMIUM("hyacintho", EnumBeeBranches.METALLIC, false, new Color(0x374B5B), new Color(0x6C7B89)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setLifeSpan(LIFESPAN_LONGER);
@@ -1321,8 +1263,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    ELECTRUM("electrum", EnumBeeBranches.METALLIC, false, new Color(0xEAF79)){
-
+    ELECTRUM("electrum", EnumBeeBranches.METALLIC, false, new Color(0xEAF79)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1340,8 +1281,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    PLATINUM("platinum", EnumBeeBranches.METALLIC, false, new Color(0x9EE7F7)){
-
+    PLATINUM("platinum", EnumBeeBranches.METALLIC, false, new Color(0x9EE7F7)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTENether(template);
@@ -1358,8 +1298,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    NICKEL("nickel", EnumBeeBranches.METALLIC, false, new Color(0xB4C989)){
-
+    NICKEL("nickel", EnumBeeBranches.METALLIC, false, new Color(0xB4C989)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1375,8 +1314,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    INVAR("invar", EnumBeeBranches.METALLIC, false, new Color(0xCDE3A1)){
-
+    INVAR("invar", EnumBeeBranches.METALLIC, false, new Color(0xCDE3A1)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTENether(template);
@@ -1395,8 +1333,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    BRONZE("bronze", EnumBeeBranches.METALLIC, false, new Color(0xB56D07)){
-
+    BRONZE("bronze", EnumBeeBranches.METALLIC, false, new Color(0xB56D07)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1413,7 +1350,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     DIAMOND("diamond", EnumBeeBranches.GEM, false, new Color(0x209581), new Color(0x8DF5E3)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1430,7 +1366,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     EMERALD("prasinus", EnumBeeBranches.GEM, false, new Color(0x005300), new Color(0x17DD62)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1447,7 +1382,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     APATITE("apatite", EnumBeeBranches.GEM, false, new Color(0x2EA7EC), new Color(0x001D51)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_NORMAL);
@@ -1466,7 +1400,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     SILICON("siliconisque", EnumBeeBranches.GEM, false, new Color(0xADA2A7), new Color(0x736675)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOW);
@@ -1486,7 +1419,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     CERTUS("alia cristallum", EnumBeeBranches.GEM, true, new Color(0x93C7FF), new Color(0xA6B8C7)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOWER);
@@ -1504,7 +1436,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     FLUIX("alia cristallum", EnumBeeBranches.GEM, true, new Color(0xFC639E), new Color(0x534797)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOWEST);
@@ -1527,7 +1458,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     //Thermal Expansion
     TE_BLIZZY("blizzard", EnumBeeBranches.ABOMINABLE, false, new Color(0x0073C4), new Color(0xFF7C26)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTEEnd(template);
@@ -1555,7 +1485,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_GELID("cyro", EnumBeeBranches.ABOMINABLE, true, new Color(0x4AAFF7), new Color(0xFF7C26)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             TE_BLIZZY.modifyGenomeTemplate(template);
@@ -1583,7 +1512,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_DANTE("inferno", EnumBeeBranches.ABOMINABLE, false, new Color(0xF7AC4A), new Color(0xFF7C26)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTENether(template);
@@ -1611,7 +1539,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_PYRO("pyromania", EnumBeeBranches.ABOMINABLE, true, new Color(0xFA930C), new Color(0xFF7C26)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTEEnd(template);
@@ -1641,7 +1568,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_SHOCKING("horrendum", EnumBeeBranches.ABOMINABLE, false, new Color(0xC5FF26), new Color(0xF8EE00)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTEEnd(template);
@@ -1668,7 +1594,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_AMPED("concitatus", EnumBeeBranches.ABOMINABLE, false, new Color(0x8AFFFF), new Color(0xECE670)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             TE_SHOCKING.modifyGenomeTemplate(template);
@@ -1697,7 +1622,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_GROUNDED("tellus", EnumBeeBranches.ABOMINABLE, true, new Color(0xCEC1C1), new Color(0x826767)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTEEnd(template);
@@ -1723,7 +1647,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_ROCKING("saxsous", EnumBeeBranches.ABOMINABLE, true, new Color(0x980000), new Color(0xAB9D9B)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             TE_GROUNDED.modifyGenomeTemplate(template);
@@ -1752,7 +1675,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_COAL("carbonis", EnumBeeBranches.THERMAL, false, new Color(0x2E2D2D)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1771,7 +1693,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_DESTABILIZED("electric", EnumBeeBranches.THERMAL, false, new Color(0x5E0203)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1790,7 +1711,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_LUX("lux", EnumBeeBranches.THERMAL, false, new Color(0xF1FA89)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTENether(template);
@@ -1810,7 +1730,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_WINSOME("cuniculus", EnumBeeBranches.THERMAL, false, new Color(0x096B67)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1829,7 +1748,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TE_ENDEARING("cognito", EnumBeeBranches.THERMAL, true, new Color(0x069E97)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTEEnd(template);
@@ -1852,8 +1770,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     },
 
     //Redstone Arsenal
-    RSA_FLUXED("Thermametallic electroflux", EnumBeeBranches.THERMAL, false, new Color(0x9E060D)){
-
+    RSA_FLUXED("Thermametallic electroflux", EnumBeeBranches.THERMAL, false, new Color(0x9E060D)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTENether(template);
@@ -1879,7 +1796,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     //Botania
     BOT_ROOTED("truncus", EnumBeeBranches.BOTANICAL, true, new Color(0x00A800)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
         }
@@ -1897,7 +1813,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BOT_BOTANIC("botanica", EnumBeeBranches.BOTANICAL, true, new Color(0x94C661)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFlowerProvider(BeeIntegrationInterface.flowersBotania);
@@ -1918,7 +1833,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BOT_BLOSSOM("viridis", EnumBeeBranches.BOTANICAL, false, new Color(0xA4C193)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BOT_BOTANIC.modifyGenomeTemplate(template);
@@ -1941,7 +1855,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BOT_FLORAL("florens", EnumBeeBranches.BOTANICAL, true, new Color(0x29D81A)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BOT_BLOSSOM.modifyGenomeTemplate(template);
@@ -1964,7 +1877,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BOT_VAZBEE("vazbii", EnumBeeBranches.BOTANICAL, false, new Color(0xff6b9c)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BOT_FLORAL.modifyGenomeTemplate(template);
@@ -1979,7 +1891,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
             speciesBuilder.addProduct(new ItemStack(Blocks.WOOL, 1, 9), 0.02f);
             speciesBuilder.addProduct(new ItemStack(Blocks.RED_FLOWER), 0.06f);
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.TRANSMUTED), 0.15f);
-            if (BeeIntegrationInterface.itemPastureSeed == null){
+            if (BeeIntegrationInterface.itemPastureSeed == null) {
                 return;
             }
             for (int i = 0; i < BeeIntegrationInterface.seedTypes; i++) {
@@ -1993,7 +1905,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BOT_SOMNOLENT("soporatus", EnumBeeBranches.BOTANICAL, true, new Color(0x2978C6)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFlowerProvider(BeeIntegrationInterface.flowersBotania);
@@ -2018,7 +1929,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BOT_DREAMING("somnior", EnumBeeBranches.BOTANICAL, true, new Color(0x123456)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BOT_SOMNOLENT.modifyGenomeTemplate(template);
@@ -2040,7 +1950,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     BOT_ALFHEIM("alfheimis", EnumBeeBranches.BOTANICAL, false, new Color(-1), new Color(-1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             BOT_DREAMING.modifyGenomeTemplate(template);
@@ -2062,7 +1971,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     //TC6
     TC_AIR("aether", EnumBeeBranches.THAUMIC, true, new Color(0xD9D636)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_FASTEST);
@@ -2087,7 +1995,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_FIRE("praefervidus", EnumBeeBranches.THAUMIC, true, new Color(0xE50B0B)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_FASTER);
@@ -2114,7 +2021,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_WATER("umidus", EnumBeeBranches.THAUMIC, true, new Color(0x36CFD9)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_FAST);
@@ -2140,7 +2046,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_EARTH("sordida", EnumBeeBranches.THAUMIC, true, new Color(0x005100)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOW);
@@ -2166,7 +2071,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_ORDER("ordinatus", EnumBeeBranches.THAUMIC, true, new Color(0xaa32fc)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_NORMAL);
@@ -2187,7 +2091,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_CHAOS("tenebrarum", EnumBeeBranches.THAUMIC, false, new Color(0xCCCCCC)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_NORMAL);
@@ -2207,7 +2110,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_VIS("arcanus saecula", EnumBeeBranches.THAUMIC, false, new Color(0x004c99), new Color(0x675ED1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setHumidityTolerance(TOLERANCE_BOTH_1);
@@ -2230,7 +2132,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_REJUVENATING("arcanus vitae", EnumBeeBranches.THAUMIC, false, new Color(0x91D0D9), new Color(0x675ED1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setTemperatureTolerance(TOLERANCE_BOTH_1);
@@ -2251,7 +2152,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_EMPOWERING("tractus", EnumBeeBranches.THAUMIC, true, new Color(0x96FFBC), new Color(0x675ED1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setHumidityTolerance(TOLERANCE_BOTH_1);
@@ -2269,12 +2169,11 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(TC_VIS, TC_REJUVENATING, 5).addMutationCondition(new MoonPhaseMutationBonus(MoonPhase.FULL, MoonPhase.FULL,1.322f));
+            registerMutation(TC_VIS, TC_REJUVENATING, 5).addMutationCondition(new MoonPhaseMutationBonus(MoonPhase.FULL, MoonPhase.FULL, 1.322f));
         }
 
     },
     TC_NEXUS("nexi", EnumBeeBranches.THAUMIC, false, new Color(0x15AFAF), new Color(0x675ED1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setHumidityTolerance(TOLERANCE_BOTH_1);
@@ -2300,7 +2199,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_TAINT("arcanus labe", EnumBeeBranches.THAUMIC, false, new Color(0x91376A), new Color(0x675ED1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFlowerProvider(BeeIntegrationInterface.flowerAuraNode);
@@ -2321,7 +2219,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_PURE("arcanus puritatem", EnumBeeBranches.THAUMIC, false, new Color(0xE23F65), new Color(0x675ED1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFlowerProvider(BeeIntegrationInterface.flowerAuraNode);
@@ -2343,7 +2240,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_HUNGRY("omnique", EnumBeeBranches.THAUMIC, false, new Color(0xDCA5E2), new Color(0x675ED1)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFlowerProvider(BeeIntegrationInterface.flowerAuraNode);
@@ -2360,12 +2256,12 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(BIGBAD, TC_VIS, 15);
+            //registerMutation(BIGBAD, TC_VIS, 15); Original
+            registerMutation(BIGBAD, TC_TAINT, 15);
         }
 
     },
     TC_WISPY("umbrabilis", EnumBeeBranches.THAUMIC, false, new Color(0x9cb8d5), new Color(0xe15236)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_FAST);
@@ -2389,7 +2285,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     },
     TC_VOID("obscurus", EnumBeeBranches.METALLIC, false, new Color(0x180A29), new Color(0x4B2A74)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setSpeed(SPEED_SLOWEST);
@@ -2420,7 +2315,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     //AE2
     AE_SKYSTONE("terra astris", EnumBeeBranches.TRANSMUTING, true, new Color(0x4B8381), new Color(0x252929)) {
-
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setCaveDwelling(TRUE_RECESSIVE);
@@ -2451,11 +2345,11 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
     };
 
-    EnumBeeSpecies(String binominalName, IMagicBeesBranch branch, boolean dominant, Color primaryColor){
+    EnumBeeSpecies(String binominalName, IMagicBeesBranch branch, boolean dominant, Color primaryColor) {
         this(binominalName, branch, dominant, primaryColor, branch.getSecondaryColor());
     }
 
-    EnumBeeSpecies(String binomialName, IMagicBeesBranch branch, boolean dominant, Color primaryColor, Color secondaryColor){
+    EnumBeeSpecies(String binomialName, IMagicBeesBranch branch, boolean dominant, Color primaryColor, Color secondaryColor) {
         this.branch = branch;
         this.primaryColor = primaryColor.getRGB();
         this.secondaryColor = secondaryColor.getRGB();
@@ -2463,9 +2357,9 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         this.dominant = dominant;
         String nme;
         String[] spl = name().split("_");
-        if (spl.length == 1){
+        if (spl.length == 1) {
             nme = WordUtils.capitalize(spl[0].toLowerCase(Locale.ENGLISH));
-        } else if (spl.length == 2){
+        } else if (spl.length == 2) {
             nme = spl[0] + WordUtils.capitalize(spl[1].toLowerCase(Locale.ENGLISH));
         } else {
             throw new RuntimeException();
@@ -2531,26 +2425,26 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     @Override
     public abstract void registerMutations();
 
-    private static ItemStack getComb(EnumCombType combType){
+    private static ItemStack getComb(EnumCombType combType) {
         return ItemRegister.combItem.getStackFromType(combType);
     }
 
-    private static ItemStack getDrop(EnumDropType drop){
+    private static ItemStack getDrop(EnumDropType drop) {
         return ItemRegister.dropItem.getStackFromType(drop);
     }
 
-    private static ItemStack getPollen(EnumPollenType pollen){
+    private static ItemStack getPollen(EnumPollenType pollen) {
         return ItemRegister.pollenItem.getStackFromType(pollen);
     }
 
-    private static ItemStack getForestryComb(EnumHoneyComb type){
+    private static ItemStack getForestryComb(EnumHoneyComb type) {
         return new ItemStack(Utils.getApicultureItems().beeComb, 1, type.ordinal());
     }
 
-    protected final void addRequiredOreDictSpeciality(String resource, IAlleleBeeSpeciesBuilder speciesBuilder, float speciality){
+    protected final void addRequiredOreDictSpeciality(String resource, IAlleleBeeSpeciesBuilder speciesBuilder, float speciality) {
         List<ItemStack> l = OreDictionary.getOres(resource);
-        for (ItemStack stack : l){
-            if (!stack.isEmpty()){
+        for (ItemStack stack : l) {
+            if (!stack.isEmpty()) {
                 speciesBuilder.addSpecialty(stack, speciality);
                 return;
             }
@@ -2558,7 +2452,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         this.enabledOverride = false;
     }
 
-    protected final void addOreProduct(EnumOreResourceType resource, IAlleleBeeSpeciesBuilder speciesBuilder, float speciality){
+    protected final void addOreProduct(EnumOreResourceType resource, IAlleleBeeSpeciesBuilder speciesBuilder, float speciality) {
         speciesBuilder.addProduct(getForestryComb(EnumHoneyComb.HONEY), 0.10f);
         if (this.enabledOverride = resource.enabled()) {
             speciesBuilder.addSpecialty(resource.getStack(), speciality);
@@ -2566,15 +2460,15 @@ public enum EnumBeeSpecies implements IBeeTemplate {
     }
 
     protected final IBeeMutationBuilder registerMutation(EnumBeeSpecies bee1, EnumBeeSpecies bee2, int chance) {
-        if (!bee1.isActive()){
-            MagicBees.logger.info("Species "+bee1+" is not active, not registering mutation for bee: "+this);
+        if (!bee1.isActive()) {
+            MagicBees.logger.info("Species " + bee1 + " is not active, not registering mutation for bee: " + this);
         }
         return registerMutation(bee1.getSpecies(), bee2, chance);
     }
 
     protected final IBeeMutationBuilder registerMutation(IAlleleBeeSpecies bee1, EnumBeeSpecies bee2, int chance) {
-        if (!bee2.isActive()){
-            MagicBees.logger.info("Species "+bee2+" is not active, not registering mutation for bee: "+this);
+        if (!bee2.isActive()) {
+            MagicBees.logger.info("Species " + bee2 + " is not active, not registering mutation for bee: " + this);
         }
         return registerMutation(bee1, bee2.getSpecies(), chance);
     }
@@ -2585,7 +2479,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         return forestry.api.apiculture.BeeManager.beeMutationFactory.createMutation(bee1, bee2, this.getIndividualDefinition().getAlleles(), chance);
     }
 
-    public IAlleleBeeSpecies getSpecies(){
+    public IAlleleBeeSpecies getSpecies() {
         return (IAlleleBeeSpecies) getIndividualDefinition().getAlleles()[EnumBeeChromosome.SPECIES.ordinal()];
     }
 
@@ -2604,9 +2498,9 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         return individual;
     }
 
-    protected void registerMundaneMutations(){
+    protected void registerMundaneMutations() {
         String[] forestryMundane = new String[]{"Forest", "Meadows", "Modest", "Wintry", "Tropical", "Marshy"};
-        for (String s : forestryMundane){
+        for (String s : forestryMundane) {
             forestry.api.apiculture.BeeManager.beeMutationFactory.createMutation(getSpecies(), getForestrySpecies(s), getForestrySpeciesTemplate("Common"), 15);
         }
         forestry.api.apiculture.BeeManager.beeMutationFactory.createMutation(getSpecies(), getForestrySpecies("Common"), getForestrySpeciesTemplate("Cultivated"), 12);

@@ -17,29 +17,29 @@ import java.util.Set;
 public class IndividualDefinitionRegistry {
 
     public static <O extends Enum<O> & IIndividualTemplate<T, B, ?, ?, ?, ?>, T extends IGenomeTemplate<S>, S extends IAlleleSpecies, B extends IAlleleSpeciesBuilder> void registerBees(Class<O> clazz) {
-        if (!registeredClasses.add(clazz)){
-            throw new IllegalArgumentException("BeeEnum "+clazz.toString()+" has already been registered!");
+        if (!registeredClasses.add(clazz)) {
+            throw new IllegalArgumentException("BeeEnum " + clazz.toString() + " has already been registered!");
         }
-        for (O o : clazz.getEnumConstants()){
+        for (O o : clazz.getEnumConstants()) {
             registerBee(o);
         }
     }
 
     public static <T extends IGenomeTemplate<S>, S extends IAlleleSpecies, B extends IAlleleSpeciesBuilder> void registerBee(IIndividualTemplate<T, B, ?, ?, ?, ?> template) {
-        if (locked){
+        if (locked) {
             throw new IllegalStateException("You cannot register bees in postInit!");
         }
-        if (!registeredTemplates.add(template)){
-            throw new IllegalArgumentException("You cannot register a bee twice! Type: "+template.getUid());
+        if (!registeredTemplates.add(template)) {
+            throw new IllegalArgumentException("You cannot register a bee twice! Type: " + template.getUid());
         }
-        if (Config.removeUnneededBees && !template.isActive()){
+        if (Config.removeUnneededBees && !template.isActive()) {
             return;
         }
         T genomeTemplate;
         try {
             genomeTemplate = template.getGenomeTemplateType().newInstance();
-        } catch (Exception e){
-            System.out.println("Error creating Genome-Template of type: "+template.getGenomeTemplateType().getCanonicalName());
+        } catch (Exception e) {
+            System.out.println("Error creating Genome-Template of type: " + template.getGenomeTemplateType().getCanonicalName());
             return;
         }
         template.getIndividualBranch().setBranchProperties(genomeTemplate);

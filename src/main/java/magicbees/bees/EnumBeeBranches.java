@@ -27,7 +27,6 @@ import static magicbees.elec332.corerepack.compat.forestry.ForestryAlleles.*;
 public enum EnumBeeBranches implements IMagicBeesBranch {
 
     VEILED("Velatapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             //Nope
@@ -40,7 +39,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     ARCANE("Arcanapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setTemperatureTolerance(TOLERANCE_BOTH_1);
@@ -55,7 +53,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     SUPERNATURAL("Occultapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setNeverSleeps(TRUE_RECESSIVE);
@@ -70,7 +67,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     SCHOLARLY("Doctapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setSpeed(SPEED_SLOW);
@@ -89,7 +85,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     SKULKING("Malevolenapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setSpeed(SPEED_FAST);
@@ -109,7 +104,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     MAGICAL("Magicapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setSpeed(SPEED_NORMAL);
@@ -118,7 +112,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     TIME("Tempestivapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setHumidityTolerance(TOLERANCE_BOTH_1);
@@ -129,7 +122,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     SOUL("Animapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setHumidityTolerance(TOLERANCE_BOTH_1);
@@ -138,7 +130,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     ABOMINABLE("Detestabilapis") {
-
         @Override
         public void setIndividualProperties(IAlleleSpeciesBuilder speciesBuilder) {
             super.setIndividualProperties(speciesBuilder);
@@ -163,7 +154,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     EXTRINSIC("Extrarapis") {
-
         @Override
         public void setIndividualProperties(IAlleleSpeciesBuilder speciesBuilder) {
             super.setIndividualProperties(speciesBuilder);
@@ -185,8 +175,7 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
         }
 
     },
-    METALLIC("Metalliapis"){
-
+    METALLIC("Metalliapis") {
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setSpeed(SPEED_SLOWEST);
@@ -201,8 +190,7 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
         }
 
     },
-    GEM("Lapidapis"){
-
+    GEM("Lapidapis") {
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             METALLIC.setBranchProperties(genomeTemplate);
@@ -215,7 +203,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     TRANSMUTING("Transmutapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setLifeSpan(LIFESPAN_SHORTEST);
@@ -225,7 +212,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     THAUMIC("Thaumiapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setFertility(FERTILITY_LOW);
@@ -244,7 +230,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     FLESHY("Carnosapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             SKULKING.setBranchProperties(genomeTemplate);
@@ -252,7 +237,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     ALCHEMICAL("Alchimiapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             throw new IllegalStateException();
@@ -260,7 +244,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     ESSENTIAL("Essentiapis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             throw new IllegalStateException();
@@ -268,7 +251,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     THERMAL("Thermametallic") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate template) {
             BeeIntegrationInterface.getTemplateTE(template);
@@ -281,7 +263,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     ADORABLE("Amabilis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             throw new IllegalStateException();
@@ -289,7 +270,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     BLOODY("Sanguis") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             throw new IllegalStateException();
@@ -297,7 +277,6 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     },
     BOTANICAL("Botanica") {
-
         @Override
         public void setBranchProperties(BeeGenomeTemplate genomeTemplate) {
             genomeTemplate.setTemperatureTolerance(TOLERANCE_BOTH_1);
@@ -321,7 +300,7 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
 
     };
 
-    EnumBeeBranches(String scientificName){
+    EnumBeeBranches(String scientificName) {
         this.classification = BeeManager.beeFactory.createBranch(MagicBees.modid + ".branch." + name().toLowerCase(), scientificName);
 
     }
@@ -352,9 +331,9 @@ public enum EnumBeeBranches implements IMagicBeesBranch {
         return new Color(0xFF7C26);
     }
 
-    public static void registerClassifications(){
+    public static void registerClassifications() {
         IClassification bees = AlleleManager.alleleRegistry.getClassification("family.apidae");
-        for (EnumBeeBranches classification : values()){
+        for (EnumBeeBranches classification : values()) {
             bees.addMemberGroup(classification.getClassification());
         }
     }

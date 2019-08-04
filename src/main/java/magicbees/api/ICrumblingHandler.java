@@ -12,10 +12,10 @@ import javax.annotation.Nonnull;
  */
 public interface ICrumblingHandler {
 
-    public void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull ItemStack after);
+    void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull ItemStack after);
 
-    public void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull IBlockState after);
+    void addCrumblingHandler(@Nonnull ItemStack before, @Nonnull IBlockState after);
 
-    public boolean crumble(World world, BlockPos pos);
+    boolean crumble(World world, BlockPos pos);
 
 }

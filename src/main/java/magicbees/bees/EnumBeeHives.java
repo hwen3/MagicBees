@@ -40,8 +40,7 @@ import java.util.stream.Collectors;
  */
 public enum EnumBeeHives implements IHiveEnum {
 
-    CURIOUS(EnumBeeSpecies.MYSTICAL, 12, false, EnumHiveGen.CURIOUS){
-
+    CURIOUS(EnumBeeSpecies.MYSTICAL, 12, false, EnumHiveGen.CURIOUS) {
         @Override
         public void registerDrops() {
             addDefaultDrops(15);
@@ -49,7 +48,6 @@ public enum EnumBeeHives implements IHiveEnum {
 
     },
     UNUSUAL(EnumBeeSpecies.UNUSUAL, 12, false, EnumHiveGen.UNUSUAL) {
-
         @Override
         public void registerDrops() {
             addDefaultDrops(15);
@@ -57,23 +55,20 @@ public enum EnumBeeHives implements IHiveEnum {
 
     },
     RESONANT(EnumBeeSpecies.SORCEROUS, 12, false, EnumHiveGen.RESONANT) {
-
         @Override
         public void registerDrops() {
             addDefaultDrops(20);
         }
 
     },
-    DEEP(EnumBeeSpecies.ATTUNED, 4, true, EnumHiveGen.DEEP){
-
+    DEEP(EnumBeeSpecies.ATTUNED, 4, true, EnumHiveGen.DEEP) {
         @Override
         public void registerDrops() {
             addDefaultDrops(20);
         }
 
     },
-    INFERNAL(EnumBeeSpecies.INFERNAL, 15, true, EnumHiveGen.INFERNAL, EnumHiveGen.INFERNAL_OVERWORLD){
-
+    INFERNAL(EnumBeeSpecies.INFERNAL, 15, true, EnumHiveGen.INFERNAL, EnumHiveGen.INFERNAL_OVERWORLD) {
         @Override
         public void registerDrops() {
             ItemStack[] combs = new ItemStack[]{
@@ -84,8 +79,7 @@ public enum EnumBeeHives implements IHiveEnum {
         }
 
     },
-    OBLIVION(EnumBeeSpecies.OBLIVION, 7, true, EnumHiveGen.OBLIVION, EnumHiveGen.OBLIVION_OVERWORLD){
-
+    OBLIVION(EnumBeeSpecies.OBLIVION, 7, true, EnumHiveGen.OBLIVION, EnumHiveGen.OBLIVION_OVERWORLD) {
         @Override
         public void registerDrops() {
             ItemStack[] combs = new ItemStack[]{
@@ -95,10 +89,9 @@ public enum EnumBeeHives implements IHiveEnum {
             addDrop(new HiveDrop(BeeManager.beeRoot.templateAsGenome(EnumBeeSpecies.getForestrySpeciesTemplate("Steadfast")), 0.09f, combs));
         }
 
-    }
-    ;
+    };
 
-    EnumBeeHives(EnumBeeSpecies beeType, int light, boolean ignoreClimate, EnumHiveGen... genTypes){
+    EnumBeeHives(EnumBeeSpecies beeType, int light, boolean ignoreClimate, EnumHiveGen... genTypes) {
         this.bee = beeType;
         this.ignoreClimate = ignoreClimate;
         this.light = light;
@@ -140,22 +133,22 @@ public enum EnumBeeHives implements IHiveEnum {
     }
 
     @Override
-    public boolean showInTab(){
+    public boolean showInTab() {
         return true;
     }
 
     @Override
-    public int getLight(){
+    public int getLight() {
         return light;
     }
 
     public abstract void registerDrops();
 
-    protected final EnumBeeSpecies getBeeType(){
+    protected final EnumBeeSpecies getBeeType() {
         return bee;
     }
 
-    protected void addDefaultDrops(int rr){
+    protected void addDefaultDrops(int rr) {
         addDrop(new HiveDrop(bee, 0.8f, getComb()).setIgnobleChance(0.7f));
         addDrop(new HiveDrop(addRainResist(bee), rr / 100f, getComb()));
         addDrop(getValiantDrop());
@@ -163,7 +156,7 @@ public enum EnumBeeHives implements IHiveEnum {
 
     private class Desc implements IHiveDescription {
 
-        private Desc(EnumHiveGen gen){
+        private Desc(EnumHiveGen gen) {
             this.gen = gen;
         }
 
@@ -184,8 +177,8 @@ public enum EnumBeeHives implements IHiveEnum {
         @Override
         public boolean isGoodBiome(@Nonnull Biome biome) {
             Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
-            for (BiomeDictionary.Type type : gen.biomes){
-                if (types.contains(type)){
+            for (BiomeDictionary.Type type : gen.biomes) {
+                if (types.contains(type)) {
                     return true;
                 }
             }
@@ -194,7 +187,7 @@ public enum EnumBeeHives implements IHiveEnum {
 
         @Override
         public boolean isGoodHumidity(@Nonnull EnumHumidity humidity) {
-            if (ignoreClimate){
+            if (ignoreClimate) {
                 return true;
             }
             EnumHumidity idealHumidity = bee.getSpecies().getHumidity();
@@ -205,7 +198,7 @@ public enum EnumBeeHives implements IHiveEnum {
 
         @Override
         public boolean isGoodTemperature(@Nonnull EnumTemperature temperature) {
-            if (ignoreClimate){
+            if (ignoreClimate) {
                 return true;
             }
             EnumTemperature idealTemperature = bee.getSpecies().getTemperature();
@@ -226,15 +219,15 @@ public enum EnumBeeHives implements IHiveEnum {
 
     }
 
-    private static IHiveDrop getValiantDrop(){
-        if (valiantDrop == null){
+    private static IHiveDrop getValiantDrop() {
+        if (valiantDrop == null) {
             valiantDrop = new HiveDrop(addRainResist(EnumBeeSpecies.getForestrySpeciesTemplate("Valiant")), 0.05, comb);
         }
         return valiantDrop;
     }
 
-    private static ItemStack getComb(){
-        if (comb == null){
+    private static ItemStack getComb() {
+        if (comb == null) {
             comb = ItemRegister.combItem.getStackFromType(EnumCombType.MUNDANE);
         }
         return comb;
@@ -243,13 +236,13 @@ public enum EnumBeeHives implements IHiveEnum {
     private static ItemStack comb;
     private static IHiveDrop valiantDrop;
 
-    private static IBeeGenome addRainResist(IAllele[] alleles){
+    private static IBeeGenome addRainResist(IAllele[] alleles) {
         IAllele[] ret = alleles.clone();
         ret[EnumBeeChromosome.TOLERATES_RAIN.ordinal()] = ForestryAlleles.TRUE_RECESSIVE;
         return BeeManager.beeRoot.templateAsGenome(ret);
     }
 
-    private static IBeeGenome addRainResist(EnumBeeSpecies species){
+    private static IBeeGenome addRainResist(EnumBeeSpecies species) {
         return addRainResist(species.getAlleles());
     }
 

@@ -49,7 +49,7 @@ public class MagicBees {
     public static ITransmutationController transmutationController;
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event){
+    public void preInit(FMLPreInitializationEvent event) {
         logger = LogManager.getLogger(modName);
         loadTimer = new LoadTimer(logger, modName);
         loadTimer.startPhase(event);
@@ -73,7 +73,7 @@ public class MagicBees {
 
         config.registerConfig(new Config());
 
-        if (FMLCommonHandler.instance().getSide().isClient()){
+        if (FMLCommonHandler.instance().getSide().isClient()) {
             MinecraftForge.EVENT_BUS.register(new ModelHandler());
         }
 
@@ -81,7 +81,7 @@ public class MagicBees {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) throws Exception{
+    public void init(FMLInitializationEvent event) throws Exception {
         loadTimer.startPhase(event);
         forestryCompatHandler.init(event);
 
@@ -103,11 +103,11 @@ public class MagicBees {
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event){
+    public void postInit(FMLPostInitializationEvent event) {
         loadTimer.startPhase(event);
         forestryCompatHandler.postInit(event);
 
-        for (EnumBeeHives h : EnumBeeHives.values()){
+        for (EnumBeeHives h : EnumBeeHives.values()) {
             h.registerDrops();
         }
 

@@ -20,26 +20,26 @@ public class EffectData implements IEffectData {
     private float[] floatData;
 
     public void setInteger(int index, int i) {
-        if(index >= 0 && index < this.intData.length) {
+        if (index >= 0 && index < this.intData.length) {
             this.intData[index] = i;
         }
     }
 
     public void setFloat(int index, float f) {
-        if(index >= 0 && index < this.floatData.length) {
+        if (index >= 0 && index < this.floatData.length) {
             this.floatData[index] = f;
         }
     }
 
     public void setBoolean(int index, boolean b) {
-        if(index >= 0 && index < this.boolData.length) {
+        if (index >= 0 && index < this.boolData.length) {
             this.boolData[index] = b;
         }
     }
 
     public int getInteger(int index) {
         int i = 0;
-        if(index >= 0 && index < this.intData.length) {
+        if (index >= 0 && index < this.intData.length) {
             i = this.intData[index];
         }
         return i;
@@ -47,7 +47,7 @@ public class EffectData implements IEffectData {
 
     public float getFloat(int index) {
         float f = 0.0F;
-        if(index >= 0 && index < this.floatData.length) {
+        if (index >= 0 && index < this.floatData.length) {
             f = this.floatData[index];
         }
         return f;

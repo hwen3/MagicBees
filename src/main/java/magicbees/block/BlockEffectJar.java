@@ -20,26 +20,27 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+
 /**
  * Created by Elec332 on 5-4-2017.
  */
 public class BlockEffectJar extends Block implements ITileEntityProvider {
 
-	public BlockEffectJar() {
-		super(Material.GLASS);
-		setCreativeTab(MagicBees.creativeTab);
-		this.setHardness(0.1f);
-		this.setResistance(1.5f);
-	}
+    public BlockEffectJar() {
+        super(Material.GLASS);
+        setCreativeTab(MagicBees.creativeTab);
+        this.setHardness(0.1f);
+        this.setResistance(1.5f);
+    }
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25f, 0f, 0.25f, 0.75f, 0.875f, 0.75f);
+    private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25f, 0f, 0.25f, 0.75f, 0.875f, 0.75f);
 
-	@Override
-	@Nonnull
-	@SuppressWarnings("deprecation")
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return AABB;
-	}
+    @Override
+    @Nonnull
+    @SuppressWarnings("deprecation")
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
 	/*@Override
 	public boolean onBlockActivatedC(World world, BlockPos pos, EntityPlayer player, EnumHand hand, IBlockState state, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -50,78 +51,78 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
 		return false;
 	}*/
 
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!player.isSneaking()) {
-			if (!world.isRemote && !player.isSneaking()) {
-				player.openGui(MagicBees.instance, ContainerId.EFFECT_JAR, world, pos.getX(), pos.getY(), pos.getZ());
-			}
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking()) {
+            if (!world.isRemote && !player.isSneaking()) {
+                player.openGui(MagicBees.instance, ContainerId.EFFECT_JAR, world, pos.getX(), pos.getY(), pos.getZ());
+            }
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(@Nonnull World world, int metadata) {
-		return new TileEntityEffectJar();
-	}
+    @Override
+    public TileEntity createNewTileEntity(@Nonnull World world, int metadata) {
+        return new TileEntityEffectJar();
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean isFullBlock(IBlockState state) {
-		return false;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isFullBlock(IBlockState state) {
+        return false;
+    }
 
-	@Override
+    @Override
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
         return layer == BlockRenderLayer.SOLID || layer == BlockRenderLayer.TRANSLUCENT;
     }
 
-	@Override
-	public BlockRenderLayer getBlockLayer() {
-		return super.getBlockLayer();
-	}
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return super.getBlockLayer();
+    }
 
-	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileEntity tile = world.getTileEntity(pos);
+    @Override
+    public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        TileEntity tile = world.getTileEntity(pos);
 
-		if (tile != null && tile instanceof TileEntityEffectJar) {
-			TileEntityEffectJar jar = (TileEntityEffectJar) tile;
+        if (tile != null && tile instanceof TileEntityEffectJar) {
+            TileEntityEffectJar jar = (TileEntityEffectJar) tile;
 
-			// 0 is the only droppable stack.
-			ItemStack stack = jar.getDropStack();
+            // 0 is the only droppable stack.
+            ItemStack stack = jar.getDropStack();
 
-			if (stack != null && stack.getCount() > 0) {
-				float pX = world.rand.nextFloat() * 0.8f + 0.1f;
-				float pY = world.rand.nextFloat() * 0.8f + 0.1f;
-				float pZ = world.rand.nextFloat() * 0.8f + 0.1f;
+            if (stack != null && stack.getCount() > 0) {
+                float pX = world.rand.nextFloat() * 0.8f + 0.1f;
+                float pY = world.rand.nextFloat() * 0.8f + 0.1f;
+                float pZ = world.rand.nextFloat() * 0.8f + 0.1f;
 
-				EntityItem entityItem = new EntityItem(world, pos.getX() + pX, pos.getY() + pY, pos.getZ() + pZ, stack.copy());
+                EntityItem entityItem = new EntityItem(world, pos.getX() + pX, pos.getY() + pY, pos.getZ() + pZ, stack.copy());
 
-				entityItem.motionX = world.rand.nextGaussian() * 0.05f;
-				entityItem.motionY = world.rand.nextGaussian() * 0.05f + 0.2f;
-				entityItem.motionZ = world.rand.nextGaussian() * 0.05f;
+                entityItem.motionX = world.rand.nextGaussian() * 0.05f;
+                entityItem.motionY = world.rand.nextGaussian() * 0.05f + 0.2f;
+                entityItem.motionZ = world.rand.nextGaussian() * 0.05f;
 
-				world.spawnEntity(entityItem);
-				stack.setCount(0);;
-			}
+                world.spawnEntity(entityItem);
+                stack.setCount(0);
+            }
 
-		}
+        }
 
-		super.breakBlock(world, pos, state);
-	}
+        super.breakBlock(world, pos, state);
+    }
 
 }
