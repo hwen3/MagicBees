@@ -14,7 +14,8 @@ import magicbees.elec332.corerepack.compat.forestry.allele.AlleleEffectSpawnMob;
 import magicbees.elec332.corerepack.compat.forestry.allele.AlleleFlowerProvider;
 import magicbees.init.ItemRegister;
 import magicbees.integration.thaumcraft.effects.*;
-import magicbees.item.types.EnumResourceType;
+import magicbees.integration.thaumcraft.util.AuraFlowerProvider;
+import magicbees.integration.thaumcraft.util.ThaumcraftFlowerProvider;
 import magicbees.util.MagicBeesResourceLocation;
 import magicbees.util.ModNames;
 import net.minecraft.block.Block;
@@ -22,7 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aura.AuraHelper;
 import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.items.ItemsTC;
@@ -38,6 +39,7 @@ import java.util.function.IntFunction;
 public class IntegrationThaumcraft implements IMagicBeesModule {
 
     public static int MAX_AURA = AuraHandler.AURA_CEILING;
+    public static Aspect ASPECT_TIME = new Aspect("tempus", 0xB68CFF, new Aspect[]{Aspect.VOID, Aspect.ORDER}, new MagicBeesResourceLocation("textures/aspects/tempus.png"), 1);
 
     @Override
     public void init(IMagicBeesInitialisationEvent event) {
@@ -73,7 +75,7 @@ public class IntegrationThaumcraft implements IMagicBeesModule {
 
             @Nonnull
             @Override
-            public IMutationCondition apply(@Nonnull final int input) {
+            public IMutationCondition apply(final int input) {
 
                 return new IMutationCondition() {
 
@@ -97,9 +99,10 @@ public class IntegrationThaumcraft implements IMagicBeesModule {
 
         };
 
-        ItemStack lf = ItemRegister.resourceItem.getStackFromType(EnumResourceType.LORE_FRAGMENT);
-        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("lore_fragment"), null, new ItemStack(ItemsTC.amber), "lll", "lll", "lll", 'l', lf);
+        ItemRegister.tcBackpackFilter = stack -> stack.getItem() == ItemsTC.celestialNotes || stack.getItem() == ItemsTC.curio;
 
+        ThaumcraftRecipes.addRecipes();
+        ThaumcraftResearch.setupResearch();
     }
 
 }

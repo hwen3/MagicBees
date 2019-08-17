@@ -543,8 +543,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    BRAINY("cerebrum", EnumBeeBranches.SKULKING, true, new Color(0x83FF70)) { //TODO: Fix the TODO fest
-
+    BRAINY("cerebrum", EnumBeeBranches.SKULKING, true, new Color(0x83FF70)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_LOW);
@@ -566,19 +565,13 @@ public enum EnumBeeSpecies implements IBeeTemplate {
             EnumBeeSpecies second;
             int chance;
             if (EnumBeeBranches.THAUMIC.enabled()) {
-                //todo
-                second = MUTABLE;
+                second = PUPIL;
                 chance = 9;
             } else {
                 second = MUTABLE;
                 chance = 14;
             }
             registerMutation(SKULKING, second, chance);
-        }
-
-        @Override //TODO: spawn zombies?
-        public boolean isActive() {
-            return false;
         }
 
     },
@@ -805,7 +798,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         @Override
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.TEMPORAL), 0.24f);
-            //todo speciesBuilder.addSpecialty(new ItemStack(jellybaby), 0.078f);
+            speciesBuilder.addSpecialty(new ItemStack(ItemRegister.jellyBaby), 0.078f);
         }
 
         @Override
@@ -1682,7 +1675,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         @Override
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.addProduct(EnumBeeSpecies.getForestryComb(EnumHoneyComb.HONEY), 0.10f);
-            speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.TE_CARBON), 0.05f);
+            speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.TE_CARBON), 0.5f);
             speciesBuilder.addSpecialty(new ItemStack(Items.COAL), 0.05f);
         }
 
@@ -2090,7 +2083,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    TC_CHAOS("tenebrarum", EnumBeeBranches.THAUMIC, false, new Color(0xCCCCCC)) {
+    TC_ENTROPY("tenebrarum", EnumBeeBranches.THAUMIC, false, new Color(0xCCCCCC)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setFertility(FERTILITY_NORMAL);
@@ -2100,7 +2093,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void setSpeciesProperties(IAlleleBeeSpeciesBuilder speciesBuilder) {
             speciesBuilder.setHasEffect();
             speciesBuilder.addProduct(EnumBeeSpecies.getComb(EnumCombType.TC_ENTROPY), 0.2f);
-            speciesBuilder.addSpecialty(ItemRegister.propolisItem.getStackFromType(EnumPropolisType.CHAOS), 0.18f);
+            speciesBuilder.addSpecialty(ItemRegister.propolisItem.getStackFromType(EnumPropolisType.ENTROPY), 0.18f);
         }
 
         @Override

@@ -1,15 +1,11 @@
 package magicbees.init;
 
-import com.google.common.collect.Maps;
 import forestry.api.recipes.RecipeManagers;
 import forestry.apiculture.items.EnumPropolis;
 import forestry.apiculture.items.ItemRegistryApiculture;
 import forestry.core.fluids.Fluids;
 import magicbees.item.types.*;
-import magicbees.util.Config;
-import magicbees.util.EnumOreResourceType;
-import magicbees.util.MagicBeesResourceLocation;
-import magicbees.util.Utils;
+import magicbees.util.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -27,7 +23,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
 
 import static magicbees.init.ItemRegister.*;
 
@@ -205,6 +200,14 @@ public final class RecipeRegister {
                 'g', Blocks.GLOWSTONE
         );
 
+        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_scob"), null, getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION),
+                "gst", "sEs", "tsg",
+                'g', getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
+                't', getResource(EnumResourceType.ESSENCE_LOST_TIME),
+                's', new ItemStack(Items.SKULL, 1, 1),
+                'E', Blocks.DRAGON_EGG
+        );
+
         GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("magicframe"), null, new ItemStack(magicFrame),
                 "www", "wfw", "www",
                 'w', magicWax,
@@ -249,7 +252,6 @@ public final class RecipeRegister {
                 Ingredient.fromStacks(Utils.getApicultureItems().frameProven.getItemStack())
         );
 
-
         GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("effectjar"), null, new ItemStack(BlockRegister.effectJar),
                 "GSG", "QPQ", "GGG",
                 'G', Blocks.GLASS,
@@ -257,6 +259,7 @@ public final class RecipeRegister {
                 'P', getPollen(EnumPollenType.UNUSUAL),
                 'Q', Items.QUARTZ
         );
+
 /* todo
         output = new ItemStack(Config.magicApiary);
         GameRegistry.addShapelessRecipe(output,
@@ -304,13 +307,6 @@ public final class RecipeRegister {
         );
 */
 
-        GameRegistry.addShapedRecipe(new MagicBeesResourceLocation("essence_scob"), null, getResource(EnumResourceType.ESSENCE_SCORNFUL_OBLIVION),
-                "gst", "sEs", "tsg",
-                'g', getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
-                't', getResource(EnumResourceType.ESSENCE_LOST_TIME),
-                's', new ItemStack(Items.SKULL, 1, 1),
-                'E', Blocks.DRAGON_EGG
-        );
         CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("gst", "sEs", "tsg",
                 'g', getResource(EnumResourceType.ESSENCE_SHALLOW_GRAVE),
                 't', getResource(EnumResourceType.ESSENCE_LOST_TIME),
@@ -357,109 +353,89 @@ public final class RecipeRegister {
     }
 
     private static void registerCentrifugeRecipes() {
-        CombCentrifugeRecipe recipe;
+        CentrifugeRecipe recipe;
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.MUNDANE);
+        recipe = new CentrifugeRecipe(EnumCombType.MUNDANE);
         recipe.addProduct(beesWax, 0.90f);
         recipe.addProduct(honeyDrop, 0.60f);
         recipe.addProduct(magicWax, 0.10f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.MOLTEN);
+        recipe = new CentrifugeRecipe(EnumCombType.MOLTEN);
         recipe.addProduct(refractoryWax, 0.86f);
         recipe.addProduct(honeyDrop, 0.087f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.FORGOTTEN);
+        recipe = new CentrifugeRecipe(EnumCombType.FORGOTTEN);
         recipe.addProduct(getWax(EnumWaxType.AMNESIC), 0.50f);
         recipe.addProduct(getPropolis(EnumPropolis.PULSATING), 0.50f);
         recipe.addProduct(honeyDrop, 0.40f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.OCCULT);
+        recipe = new CentrifugeRecipe(EnumCombType.OCCULT);
         recipe.addProduct(magicWax, 1.0f);
         recipe.addProduct(honeyDrop, 0.60f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.OTHERWORLDLY);
+        recipe = new CentrifugeRecipe(EnumCombType.OTHERWORLDLY);
         recipe.addProduct(beesWax, 0.50f);
         recipe.addProduct(magicWax, 0.22f);
         recipe.addProduct(honeyDrop, 1);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.PAPERY);
+        recipe = new CentrifugeRecipe(EnumCombType.PAPERY);
         recipe.addProduct(beesWax, 0.80f);
         recipe.addProduct(magicWax, 0.20f);
         recipe.addProduct(new ItemStack(Items.PAPER), 0.057f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.INTELLECT);
+        recipe = new CentrifugeRecipe(EnumCombType.INTELLECT);
         recipe.addProduct(magicWax, 0.90f);
         recipe.addProduct(honeyDew, 0.40f);
         recipe.addProduct(getDrop(EnumDropType.INTELLECT), 0.10f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.FURTIVE);
+        recipe = new CentrifugeRecipe(EnumCombType.FURTIVE);
         recipe.addProduct(beesWax, 0.90f);
         recipe.addProduct(getPropolis(EnumPropolis.NORMAL), 0.20f);
         recipe.addProduct(honeyDew, 0.35f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.SOUL);
+        recipe = new CentrifugeRecipe(EnumCombType.SOUL);
         recipe.addProduct(getWax(EnumWaxType.SOUL), 0.95f);
         recipe.addProduct(honeyDew, 0.26f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.TEMPORAL);
+        recipe = new CentrifugeRecipe(EnumCombType.TEMPORAL);
         recipe.addProduct(magicWax, 1);
         recipe.addProduct(getPollen(EnumPollenType.PHASED), 0.055f);
         recipe.addProduct(honeyDew, 0.60f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.TRANSMUTED);
+        recipe = new CentrifugeRecipe(EnumCombType.TRANSMUTED);
         recipe.addProduct(beesWax, 0.80f);
         recipe.addProduct(magicWax, 0.80f);
         recipe.addProduct(getPropolis(EnumPropolisType.UNSTABLE), 0.15f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.AIRY);
+        recipe = new CentrifugeRecipe(EnumCombType.AIRY);
         recipe.addProduct(magicWax, 1);
         recipe.addProduct(new ItemStack(Items.FEATHER), 0.60f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.FIREY);
+        recipe = new CentrifugeRecipe(EnumCombType.FIREY);
         recipe.addProduct(magicWax, 1);
         recipe.addProduct(new ItemStack(Items.BLAZE_POWDER), 0.60f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.WATERY);
+        recipe = new CentrifugeRecipe(EnumCombType.WATERY);
         recipe.addProduct(magicWax, 1);
         recipe.addProduct(new ItemStack(Items.DYE), 0.60f);
         recipe.register(20);
 
-        recipe = new CombCentrifugeRecipe(EnumCombType.EARTHY);
+        recipe = new CentrifugeRecipe(EnumCombType.EARTHY);
         recipe.addProduct(magicWax, 1);
         recipe.addProduct(new ItemStack(Items.CLAY_BALL), 0.60f);
-        recipe.register(20);
-
-        recipe = new CombCentrifugeRecipe(EnumCombType.TE_DESTABILIZED);
-        recipe.addProduct(getWax(EnumWaxType.MAGIC), 0.55f);
-        recipe.addProduct(getDrop(EnumDropType.DESTABILIZED), 0.22f);
-        recipe.register(20);
-
-        recipe = new CombCentrifugeRecipe(EnumCombType.TE_CARBON);
-        recipe.addProduct(getWax(EnumWaxType.MAGIC), 0.55f);
-        recipe.addProduct(getDrop(EnumDropType.CARBON), 0.22f);
-        recipe.register(20);
-
-        recipe = new CombCentrifugeRecipe(EnumCombType.TE_LUX);
-        recipe.addProduct(getWax(EnumWaxType.MAGIC), 0.55f);
-        recipe.addProduct(getDrop(EnumDropType.LUX), 0.22f);
-        recipe.register(20);
-
-        recipe = new CombCentrifugeRecipe(EnumCombType.TE_ENDEARING);
-        recipe.addProduct(getWax(EnumWaxType.MAGIC), 0.55f);
-        recipe.addProduct(getDrop(EnumDropType.ENDEARING), 0.22f);
         recipe.register(20);
     }
 
@@ -520,26 +496,6 @@ public final class RecipeRegister {
 
     private static ItemStack getPropolis(EnumPropolis propolis) {
         return Utils.getApicultureItems().propolis.get(propolis, 1);
-    }
-
-    private static class CombCentrifugeRecipe {
-
-        private CombCentrifugeRecipe(EnumCombType comb) {
-            this.comb = comb;
-            this.products = Maps.newHashMap();
-        }
-
-        private EnumCombType comb;
-        private final Map<ItemStack, Float> products;
-
-        protected void addProduct(ItemStack stack, float chance) {
-            products.put(stack.copy(), chance);
-        }
-
-        protected void register(int time) {
-            RecipeManagers.centrifugeManager.addRecipe(time, combItem.getStackFromType(comb), products);
-        }
-
     }
 
 }

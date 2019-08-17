@@ -23,6 +23,8 @@ magicbees.jei.description.hive.resonant=These bees can be found on the ground, i
 magicbees.jei.description.hive.deep=Deep hives can be hard to find, but if you look where their name suggests, and do so in Hill, Mountain or Magical biomes, you might just get lucky near some redstone...
 magicbees.jei.description.hive.infernal=As their name suggests, these bees only live in extremely hot environments, and can be found protecting valuable ores in the nether. They do seem to like their privacy though, so you are unlikely to find them on the surface...
 magicbees.jei.description.hive.oblivion=These bees can only be found in extremely cold, almost inhabitable environments, and The End seems to check these boxes. This species likes to hang around near obsidian pikes and seem to hate windows, as they only wish to live being surrounded by 6 end blocks...
+# Todo: Funnify
+magicbees.jei.description.aromatic_lump=Can be used in the Swarmer, 9 times as effective as Royal Jelly.
 
 # -- Mysterious Magnet levels
 misc.level=Level %s
@@ -30,7 +32,7 @@ misc.magnetActive=%s - Active
 misc.magnetInactive=%s - Inactive
 
 #item.magicbees.
-item.magicbees.jellyBabies.name=Handful of Jelly Babies
+item.magicbees.jelly_babies.name=Handful of Jelly Babies
 item.magicbees.manasteelscoop.name=Manasteel Scoop
 item.magicbees.thaumiumscoop.name=Thaumium Scoop
 item.magicbees.manasteelgrafter.name=Manasteel Grafter
@@ -70,12 +72,12 @@ item.magicbees.beecomb.airy.name=Windy Comb
 item.magicbees.beecomb.firey.name=Firey Comb
 item.magicbees.beecomb.watery.name=Watery Comb
 item.magicbees.beecomb.earthy.name=Earthy Comb
-item.magicbees.beecomb.TCair.name=Glittering Windy Comb
-item.magicbees.beecomb.TCfire.name=Glittering Firey Comb
-item.magicbees.beecomb.TCwater.name=Glittering Watery Comb
-item.magicbees.beecomb.TCearth.name=Glittering Earthy Comb
-item.magicbees.beecomb.TCorder.name=Glittering Ordered Comb
-item.magicbees.beecomb.TCchaos.name=Glittering Entropic Comb
+item.magicbees.beecomb.tc_air.name=Glittering Windy Comb
+item.magicbees.beecomb.tc_fire.name=Glittering Firey Comb
+item.magicbees.beecomb.tc_water.name=Glittering Watery Comb
+item.magicbees.beecomb.tc_earth.name=Glittering Earthy Comb
+item.magicbees.beecomb.tc_order.name=Glittering Ordered Comb
+item.magicbees.beecomb.tc_entropy.name=Glittering Entropic Comb
 item.magicbees.beecomb.essence.name=Essence Comb
 item.magicbees.beecomb.potent.name=Potent Comb
 item.magicbees.beecomb.te_carbon.name=Carbon Comb
@@ -115,7 +117,7 @@ item.magicbees.propolis.air.name=Breezey Propolis
 item.magicbees.propolis.fire.name=Burning Propolis
 item.magicbees.propolis.water.name=Flowing Propolis
 item.magicbees.propolis.earth.name=Stony Propolis
-item.magicbees.propolis.chaos.name=Chaotic Propolis
+item.magicbees.propolis.entropy.name=Entropic Propolis
 item.magicbees.propolis.unstable.name=Unstable Propolis
 
 #Misc Resources
@@ -201,7 +203,8 @@ moon.crescentWaxing=Waxing Crescent
 moon.new=New Moon
 
 #Backpack
-backpack.thaumaturge=Thaumaturge's Backpack
+item.backpack.thaumaturgeT1.name=Thaumaturge's Backpack
+item.backpack.thaumaturgeT2.name=Woven Thaumaturge's Backpack
 
 #CTab
 itemGroup.magicbees=Magic Bees
@@ -392,8 +395,8 @@ magicbees.speciesTCEarth=Solum
 magicbees.speciesTCEarth.description="You're really gonna dig these bees, but watch out - they bore quite easily."|MysteriousAges, Apprentice Comedian
 magicbees.speciesTCOrder=Ordered
 magicbees.speciesTCOrder.description=Their combs are nearly perfect, each part mirroring the pattern of the whole.|Apinomicon
-magicbees.speciesTCChaos=Chaotic
-magicbees.speciesTCChaos.description=The social structure of their hives seems to vary day by day, making it more flexible and resillient than others, but significantly more unpredictable.|Apinomicon
+magicbees.speciesTCEntropy=Chaotic
+magicbees.speciesTCEntropy.description=The social structure of their hives seems to vary day by day, making it more flexible and resillient than others, but significantly more unpredictable.|Apinomicon
 magicbees.speciesTCVis=Vis
 magicbees.speciesTCVis.description="They can feel changes in the aura, but are not yet able to affect it."|Azanor, research notes
 magicbees.speciesTCRejuvenating=Rejuvenating

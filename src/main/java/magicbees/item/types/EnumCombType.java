@@ -64,7 +64,7 @@ public enum EnumCombType implements IEnumItem {
 
     @Override
     public boolean shouldShow() {
-        return shouldShow;
+        return shouldShow || MagicBees.debug;
     }
 
     @Override

@@ -5,8 +5,8 @@ import forestry.api.apiculture.IBeeHousing;
 import forestry.api.genetics.IEffectData;
 import magicbees.elec332.corerepack.compat.forestry.EffectData;
 import magicbees.elec332.corerepack.compat.forestry.allele.AlleleEffectThrottled;
-import magicbees.integration.thaumcraft.AuraHelper;
 import magicbees.integration.thaumcraft.IntegrationThaumcraft;
+import magicbees.integration.thaumcraft.util.AuraHelper;
 import net.minecraft.util.ResourceLocation;
 
 /**

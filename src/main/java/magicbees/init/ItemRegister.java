@@ -2,19 +2,30 @@ package magicbees.init;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
+import forestry.api.storage.BackpackManager;
+import forestry.api.storage.EnumBackpackType;
+import forestry.storage.BackpackDefinition;
+import magicbees.MagicBees;
 import magicbees.bees.EnumBeeModifiers;
 import magicbees.elec332.corerepack.item.ItemEnumBased;
 import magicbees.item.*;
 import magicbees.item.types.*;
 import magicbees.util.MagicBeesResourceLocation;
+import magicbees.util.Utils;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Created by Elec332 on 4-3-2017.
@@ -33,6 +44,11 @@ public final class ItemRegister {
     public static Item moonDial, ironNugget;
     public static Item manasteelgrafter, manasteelScoop;
     public static ItemMysteriousMagnet mysteriousMagnet;
+
+    public static ItemFood jellyBaby;
+
+    public static Item thaumaturgeBackpackT1, thaumaturgeBackpackT2;
+    public static Predicate<ItemStack> tcBackpackFilter = s -> true;
 
     private static Map<EnumBeeModifiers, ItemMagicBeesFrame> frames;
 
@@ -61,6 +77,23 @@ public final class ItemRegister {
         manasteelgrafter = new ItemManaSteelGrafter();
         manasteelScoop = new ItemManaSteelScoop();
 
+        String backpackUid = "backpack.thaumaturge";
+        BackpackDefinition def = new BackpackDefinition(new Color(0x8700C6), new Color(0xFFFFFF), tcBackpackFilter);
+        BackpackManager.backpackInterface.registerBackpackDefinition(backpackUid, def);
+        thaumaturgeBackpackT1 = BackpackManager.backpackInterface.createBackpack(backpackUid, EnumBackpackType.NORMAL);
+        thaumaturgeBackpackT1.setRegistryName(new MagicBeesResourceLocation("backpack_thaumaturge_t1"));
+        thaumaturgeBackpackT1.setUnlocalizedName("backpack.thaumaturgeT1");
+        thaumaturgeBackpackT1.setCreativeTab(MagicBees.creativeTab);
+        thaumaturgeBackpackT2 = BackpackManager.backpackInterface.createBackpack(backpackUid, EnumBackpackType.WOVEN);
+        thaumaturgeBackpackT2.setRegistryName(new MagicBeesResourceLocation("backpack_thaumaturge_t2"));
+        thaumaturgeBackpackT2.setUnlocalizedName("backpack.thaumaturgeT2");
+        thaumaturgeBackpackT2.setCreativeTab(MagicBees.creativeTab);
+
+        jellyBaby = new ItemFood(1, false).setAlwaysEdible().setPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 1), 1f);
+        jellyBaby.setCreativeTab(MagicBees.creativeTab);
+        jellyBaby.setRegistryName(new MagicBeesResourceLocation("jelly_babies"));
+        Utils.setUnlocalizedName(jellyBaby);
+
         fixIronNuggetStuff();
 
     }
@@ -76,6 +109,8 @@ public final class ItemRegister {
         event.getRegistry().registerAll(combItem, dropItem, pollenItem, propolisItem, waxItem, resourceItem, orePartItem);
         event.getRegistry().registerAll(mysteriousMagnet, moonDial);
         event.getRegistry().registerAll(manasteelgrafter, manasteelScoop);
+        event.getRegistry().registerAll(thaumaturgeBackpackT1, thaumaturgeBackpackT2);
+        event.getRegistry().registerAll(jellyBaby);
         for (Item item : getBeeFrames().values()) {
             event.getRegistry().register(item);
         }

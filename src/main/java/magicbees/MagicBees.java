@@ -1,5 +1,6 @@
 package magicbees;
 
+import forestry.api.apiculture.BeeManager;
 import magicbees.api.ICrumblingHandler;
 import magicbees.api.ITransmutationController;
 import magicbees.bees.EnumBeeBranches;
@@ -14,8 +15,10 @@ import magicbees.init.BlockRegister;
 import magicbees.init.ItemRegister;
 import magicbees.init.RecipeRegister;
 import magicbees.inventory.GuiHandler;
+import magicbees.item.types.EnumResourceType;
 import magicbees.util.*;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -43,6 +46,7 @@ public class MagicBees {
     private static LoadTimer loadTimer;
     public static CreativeTabs creativeTab;
     private static ConfigHandler config;
+    public static boolean debug;
     private ForestryCompatHandler forestryCompatHandler;
 
     public static ICrumblingHandler crumblingHandler;
@@ -60,6 +64,7 @@ public class MagicBees {
         transmutationController = new DefaultTransmutationController();
         creativeTab = new MagicBeesCreativeTab();
         config = new ConfigHandler(new Configuration(event.getSuggestedConfigurationFile()));
+        debug = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
         MinecraftForge.EVENT_BUS.register(new ItemRegister());
         MinecraftForge.EVENT_BUS.register(new BlockRegister());
@@ -81,7 +86,7 @@ public class MagicBees {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) throws Exception {
+    public void init(FMLInitializationEvent event) {
         loadTimer.startPhase(event);
         forestryCompatHandler.init(event);
 
@@ -112,6 +117,8 @@ public class MagicBees {
         }
 
         WorldGenBeeSpeciesCache.populateSpeciesListRarity();
+
+        BeeManager.inducers.put(ItemRegister.resourceItem.getStackFromType(EnumResourceType.AROMATIC_LUMP).copy(), 95);
 
         ModuleHandler.INSTANCE.postInit();
 

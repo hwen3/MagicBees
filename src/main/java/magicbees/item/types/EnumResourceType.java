@@ -26,6 +26,13 @@ public enum EnumResourceType implements IEnumItem {
     ESSENCE_SCORNFUL_OBLIVION("essenceOblivion", true),
     ESSENCE_FICKLE_PERMANENCE("essenceMutable", true),
     DIMENSIONAL_SINGULARITY("dimensionalSingularity", true),
+
+    TC_DUST_AIR("TCairDust", false),
+    TC_DUST_FIRE("TCfireDust", false),
+    TC_DUST_WATER("TCwaterDust", false),
+    TC_DUST_EARTH("TCearthDust", false),
+    TC_DUST_ORDER("TCorderDust", false),
+    TC_DUST_ENTROPY("TCchaosDust", false),
     ;
 
     EnumResourceType(String name, boolean show) {
@@ -43,7 +50,7 @@ public enum EnumResourceType implements IEnumItem {
 
     @Override
     public boolean shouldShow() {
-        return show;
+        return show || MagicBees.debug;
     }
 
     @Override

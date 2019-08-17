@@ -1,4 +1,4 @@
-package magicbees.integration.thaumcraft;
+package magicbees.integration.thaumcraft.util;
 
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.IBeeGenome;

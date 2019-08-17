@@ -115,6 +115,8 @@ public class ModelHandler {
         setItemModelLocation(manasteelgrafter, createMRL("manasteel_grafter"));
         setItemModelLocation(manasteelScoop, createMRL("manasteel_scoop"));
 
+        setItemModelLocation(jellyBaby, createMRL("jelly_babies"));
+
         linkItemTextureToBlock(BlockRegister.hiveBlock);
         linkItemTextureToBlock(BlockRegister.enchantedEarth);
 

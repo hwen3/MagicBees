@@ -2,6 +2,8 @@ package magicbees.integration.jei;
 
 import magicbees.bees.EnumBeeHives;
 import magicbees.init.BlockRegister;
+import magicbees.init.ItemRegister;
+import magicbees.item.types.EnumResourceType;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
@@ -18,6 +20,7 @@ public class MagicBeesJEIPlugin implements IModPlugin {
         for (EnumBeeHives hiveType : EnumBeeHives.values()) {
             addDescription(registry, new ItemStack(BlockRegister.hiveBlock, 1, hiveType.ordinal()), "hive." + hiveType.toString().toLowerCase());
         }
+        addDescription(registry, ItemRegister.resourceItem.getStackFromType(EnumResourceType.AROMATIC_LUMP), "aromatic_lump");
     }
 
     public static void addDescription(IModRegistry registry, ItemStack stack, String descUnlName) {

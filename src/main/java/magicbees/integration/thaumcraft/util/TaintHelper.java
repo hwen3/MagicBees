@@ -1,4 +1,4 @@
-package magicbees.integration.thaumcraft;
+package magicbees.integration.thaumcraft.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;

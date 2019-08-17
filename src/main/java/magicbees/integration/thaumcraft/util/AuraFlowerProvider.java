@@ -1,10 +1,9 @@
-package magicbees.integration.thaumcraft;
+package magicbees.integration.thaumcraft.util;
 
 import forestry.api.apiculture.FlowerManager;
 import forestry.api.genetics.IFlowerGrowthHelper;
 import forestry.api.genetics.IFlowerGrowthRule;
 import magicbees.elec332.corerepack.compat.forestry.bee.FlowerProvider;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import thaumcraft.api.blocks.BlocksTC;

@@ -3,15 +3,11 @@ package magicbees.elec332.corerepack.item;
 import forestry.core.items.IColoredItem;
 import forestry.core.proxy.Proxies;
 import magicbees.util.Utils;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
@@ -34,10 +30,6 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
     @SuppressWarnings("all")
     protected final Class<E> clazz;
     protected final E[] values;
-    @SideOnly(Side.CLIENT)
-    private TextureAtlasSprite[][] textures;
-    @SideOnly(Side.CLIENT)
-    private IBakedModel[] models;
 
     public ItemStack getStackFromType(E type) {
         return getStackFromType(type, 1);
