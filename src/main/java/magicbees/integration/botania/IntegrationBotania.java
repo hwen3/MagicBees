@@ -47,6 +47,9 @@ import vazkii.botania.common.lib.LibItemNames;
 @MagicBeesModule(owner = MagicBees.modid, name = "Botania Integration", modDependencies = ModNames.BOTANIA)
 public class IntegrationBotania implements IMagicBeesModule {
 
+    private final ResourceLocation manaSteelScoopRecipe = new MagicBeesResourceLocation("manasteelscoop");
+    private final ResourceLocation manaSteelGrafterRecipe = new MagicBeesResourceLocation("manasteelgrafter");
+
     private Block livingRock, dreamWood;
     private Item itemPetal;
 
@@ -117,20 +120,15 @@ public class IntegrationBotania implements IMagicBeesModule {
         BeeIntegrationInterface.itemPastureSeed = event.getItem("grassSeeds");
         BeeIntegrationInterface.seedTypes = 9;
 
-    }
-
-    @Override
-    public void postInit() {
-
-        ResourceLocation manaSteelScoopRecipe = new MagicBeesResourceLocation("manasteelscoop");
-        ResourceLocation manaSteelGrafterRecipe = new MagicBeesResourceLocation("manasteelgrafter");
-
         CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("twt", "tmt", " t ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 'w', Blocks.WOOL, 't', Items.STICK);
         ForgeRegistries.RECIPES.register(new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelScoop)).setRegistryName(manaSteelScoopRecipe));
 
         primer = CraftingHelper.parseShaped("  m", " t ", "t  ", 'm', new ItemStack(ModItems.manaResource, 1, 0), 't', Items.STICK);
         ForgeRegistries.RECIPES.register(new ShapedRecipes("", primer.width, primer.height, primer.input, new ItemStack(ItemRegister.manasteelgrafter)).setRegistryName(manaSteelGrafterRecipe));
+    }
 
+    @Override
+    public void postInit() {
         RecipeManaInfusion infusionBeeBotanical = new RecipeManaInfusionBeeSpecies(EnumBeeSpecies.BOT_BOTANIC, EnumBeeSpecies.BOT_ROOTED, 55000, EnumBeeType.DRONE);
         BotaniaAPI.manaInfusionRecipes.add(infusionBeeBotanical);
 
