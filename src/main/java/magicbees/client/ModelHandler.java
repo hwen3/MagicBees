@@ -202,60 +202,62 @@ public class ModelHandler {
             }
 
         });
-        IBakedModel originalModel = event.getModelRegistry().getObject(effectJarModel);
-        if (originalModel != null  && Config.oldJarModel) {
-            IBakedModel replacement;
-            try {
-                IModel model = OBJLoader.INSTANCE.loadModel(new MagicBeesResourceLocation("models/block/obj/effectjar.obj"));
-                IBakedModel oldModelBase = model.bake(ModelRotation.X0_Y0, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
-                IBakedModel lidModel = getOBJParts(model, "jarLid");
-                IBakedModel baseModel = getOBJParts(model, "jarBase");
-                IBakedModel oldJarModel = new BlankModel() {
+        if (Config.oldJarModel) {
+            IBakedModel originalModel = event.getModelRegistry().getObject(effectJarModel);
+            if (originalModel != null) {
+                IBakedModel replacement;
+                try {
+                    IModel model = OBJLoader.INSTANCE.loadModel(new MagicBeesResourceLocation("models/block/obj/effectjar.obj"));
+                    IBakedModel oldModelBase = model.bake(ModelRotation.X0_Y0, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+                    IBakedModel lidModel = getOBJParts(model, "jarLid");
+                    IBakedModel baseModel = getOBJParts(model, "jarBase");
+                    IBakedModel oldJarModel = new BlankModel() {
 
-                    @Override
-                    @Nonnull
-                    protected ItemOverrideList createOverrides() {
-                        return new ItemOverrideList(Collections.emptyList()) {
+                        @Override
+                        @Nonnull
+                        protected ItemOverrideList createOverrides() {
+                            return new ItemOverrideList(Collections.emptyList()) {
 
-                            @Override
-                            @Nonnull
-                            public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
-                                return oldModelBase;
-                            }
-                        };
-                    }
-
-                    @Override
-                    @Nonnull
-                    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-                        BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
-                        if (layer == null) {
-                            return oldModelBase.getQuads(state, side, rand);
-                        } else if (layer == BlockRenderLayer.TRANSLUCENT) {
-                            return baseModel.getQuads(state, side, rand);
-                        } else if (layer == BlockRenderLayer.SOLID) {
-                            return lidModel.getQuads(state, side, rand);
+                                @Override
+                                @Nonnull
+                                public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
+                                    return oldModelBase;
+                                }
+                            };
                         }
-                        return Collections.emptyList();
-                    }
 
-                };
-                replacement = new BlankModel() {
+                        @Override
+                        @Nonnull
+                        public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+                            BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
+                            if (layer == null) {
+                                return oldModelBase.getQuads(state, side, rand);
+                            } else if (layer == BlockRenderLayer.TRANSLUCENT) {
+                                return baseModel.getQuads(state, side, rand);
+                            } else if (layer == BlockRenderLayer.SOLID) {
+                                return lidModel.getQuads(state, side, rand);
+                            }
+                            return Collections.emptyList();
+                        }
 
-                    @Override
-                    @Nonnull
-                    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-                        return (Config.oldJarModel ? oldJarModel : originalModel).getQuads(state, side, rand);
-                    }
+                    };
+                    replacement = new BlankModel() {
 
-                };
-            } catch (Exception e) {
-                replacement = originalModel;
-                MagicBees.logger.error("Error loading models for Bee Collector's Jar, using backup...", e);
+                        @Override
+                        @Nonnull
+                        public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+                            return (Config.oldJarModel ? oldJarModel : originalModel).getQuads(state, side, rand);
+                        }
+
+                    };
+                } catch (Exception e) {
+                    replacement = originalModel;
+                    MagicBees.logger.error("Error loading models for Bee Collector's Jar, using backup...", e);
+                }
+                event.getModelRegistry().putObject(effectJarModel, replacement);
+            } else {
+                throw new RuntimeException("Error creating model for Bee Collector's Jar");
             }
-            event.getModelRegistry().putObject(effectJarModel, replacement);
-        } else {
-            throw new RuntimeException("Error creating model for Bee Collector's Jar");
         }
     }
 

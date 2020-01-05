@@ -3,7 +3,10 @@ package magicbees.util;
 import com.google.common.base.Preconditions;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumNuggetType;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -50,6 +53,11 @@ public enum EnumOreResourceType {
             return "gem";
         }
 
+        @Override
+        public String getBlockName() {
+            return "oreApatite";
+        }
+
     },
     SILICON("itemSilicon"),
     CERTUS("crystalCertusQuartz"),
@@ -75,13 +83,36 @@ public enum EnumOreResourceType {
         }
         setStack(stack);
         this.oreDictA = oreDictA;
+        if (oreDictA.length > 0) {
+            this.blockName = oreDictA[0].replace("nugget", "block");
+        } else {
+            blockName = "";
+        }
     }
 
     private String[] oreDictA;
+    private String blockName;
     private ItemStack finalStack;
 
     public String getType() {
         return "ingot";
+    }
+
+    public String getBlockName() {
+        return blockName;
+    }
+
+    public boolean blockExists() {
+        for (ItemStack ore : OreDictionary.getOres(getBlockName())) {
+            if (!ore.isEmpty()) {
+                Item oreItem = ore.getItem();
+                Block oreBlock = Block.getBlockFromItem(oreItem);
+                if (oreBlock != Blocks.AIR) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void setStack(ItemStack stack) {

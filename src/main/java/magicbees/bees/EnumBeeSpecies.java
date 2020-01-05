@@ -23,10 +23,7 @@ import magicbees.elec332.corerepack.util.MoonPhase;
 import magicbees.init.AlleleRegister;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.*;
-import magicbees.util.EnumOreResourceType;
-import magicbees.util.IMagicBeesBranch;
-import magicbees.util.ModNames;
-import magicbees.util.Utils;
+import magicbees.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -1082,7 +1079,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Common"), EnumBeeSpecies.getForestrySpecies("Industrious"), 12).requireResource(Blocks.IRON_BLOCK.getDefaultState());
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Common"), EnumBeeSpecies.getForestrySpecies("Industrious"), 12).requireResource(EnumOreResourceType.IRON);
         }
 
     },
@@ -1101,7 +1098,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void registerMutations() {
             EnumBeeSpecies bee1 = LEAD.isActive() ? LEAD : IRON;
             IAlleleBeeSpecies bee2 = EnumBeeSpecies.getForestrySpecies("Imperial"); //todo: EE_minium
-            registerMutation(bee2, bee1, 8).requireResource(Blocks.GOLD_BLOCK.getDefaultState());
+            registerMutation(bee2, bee1, 8).requireResource(EnumOreResourceType.GOLD);
         }
 
     },
@@ -1117,7 +1114,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), EnumBeeSpecies.getForestrySpecies("Meadows"), 12).requireResource("blockCopper");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), EnumBeeSpecies.getForestrySpecies("Meadows"), 12).requireResource(EnumOreResourceType.COPPER);
         }
 
     },
@@ -1133,7 +1130,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), EnumBeeSpecies.getForestrySpecies("Forest"), 12).requireResource("blockTin");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), EnumBeeSpecies.getForestrySpecies("Forest"), 12).requireResource(EnumOreResourceType.TIN);
         }
 
     },
@@ -1149,7 +1146,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Imperial"), EnumBeeSpecies.getForestrySpecies("Modest"), 8).requireResource("blockSilver");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Imperial"), EnumBeeSpecies.getForestrySpecies("Modest"), 8).requireResource(EnumOreResourceType.SILVER);
         }
 
     },
@@ -1166,7 +1163,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         @Override
         public void registerMutations() {
             EnumBeeSpecies bee2 = TIN.isActive() ? TIN : (COPPER.isActive() ? COPPER : IRON);
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Common"), bee2, 10).requireResource("blockLead");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Common"), bee2, 10).requireResource(EnumOreResourceType.LEAD);
         }
 
     },
@@ -1212,7 +1209,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), INFERNAL, 9).requireResource("blockArdite");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), INFERNAL, 9).requireResource(EnumOreResourceType.ARDITE);
         }
 
     },
@@ -1230,7 +1227,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Imperial"), INFERNAL, 11).requireResource("blockCobalt");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Imperial"), INFERNAL, 11).requireResource(EnumOreResourceType.COBALT);
         }
 
     },
@@ -1249,7 +1246,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(ARDITE, COBALT, 9).requireResource("blockManyullyn");
+            registerMutation(ARDITE, COBALT, 9).requireResource(EnumOreResourceType.MANYULLYN);
         }
 
     },
@@ -1268,7 +1265,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         public void registerMutations() {
             IAlleleBeeSpecies bee1 = SILVER.isActive() ? SILVER.getSpecies() : EnumBeeSpecies.getForestrySpecies("Imperial");
             EnumBeeSpecies bee2 = COBALT.isActive() ? COBALT : INFERNAL;
-            registerMutation(bee1, bee2, 11).requireResource("blockOsmium");
+            registerMutation(bee1, bee2, 11).requireResource(EnumOreResourceType.OSMIUM);
         }
 
     },
@@ -1286,7 +1283,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(SILVER, GOLD, 10).requireResource("blockElectrum");
+            registerMutation(SILVER, GOLD, 10).requireResource(EnumOreResourceType.ELECTRUM);
         }
 
     },
@@ -1303,7 +1300,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(NICKEL, INVAR, 10).requireResource("blockPlatinum");
+            registerMutation(NICKEL, INVAR, 10).requireResource(EnumOreResourceType.PLATINUM);
         }
 
     },
@@ -1319,7 +1316,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(IRON, ESOTERIC, 14).requireResource("blockNickel");
+            registerMutation(IRON, ESOTERIC, 14).requireResource(EnumOreResourceType.NICKEL);
         }
 
     },
@@ -1338,7 +1335,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(IRON, NICKEL, 14).requireResource("blockInvar");
+            registerMutation(IRON, NICKEL, 14).requireResource(EnumOreResourceType.INVAR);
         }
 
     },
@@ -1354,7 +1351,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(TIN, COPPER, 12).requireResource("blockBronze");
+            registerMutation(TIN, COPPER, 12).requireResource(EnumOreResourceType.BRONZE);
         }
 
     },
@@ -1370,7 +1367,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Austere"), GOLD, 7).requireResource("blockDiamond");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Austere"), GOLD, 7).requireResource(EnumOreResourceType.DIAMOND);
         }
 
     },
@@ -1386,7 +1383,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Austere"), SILVER.isActive() ? SILVER.getSpecies() : EnumBeeSpecies.getForestrySpecies("Imperial"), 6).requireResource("blockEmerald");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Austere"), SILVER.isActive() ? SILVER.getSpecies() : EnumBeeSpecies.getForestrySpecies("Imperial"), 6).requireResource(EnumOreResourceType.EMERALD);
         }
 
     },
@@ -1404,7 +1401,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Rural"), COPPER, 12).requireResource("oreApatite");
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Rural"), COPPER, 12).requireResource(EnumOreResourceType.APATITE);
         }
 
     },
@@ -1456,7 +1453,6 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
         @Override
-        @SuppressWarnings("all") //localVar
         public void registerMutations() {
             EnumBeeSpecies beeA = CERTUS.isActive() ? CERTUS : (SILICON.isActive() ? SILICON : IRON);
             EnumBeeSpecies beeB = AE_SKYSTONE.isActive() ? AE_SKYSTONE : EARTHY;
@@ -2468,24 +2464,37 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
     }
 
-    protected final IBeeMutationBuilder registerMutation(EnumBeeSpecies bee1, EnumBeeSpecies bee2, int chance) {
+    protected final MagicBeesMutationBuilder registerMutation(EnumBeeSpecies bee1, EnumBeeSpecies bee2, int chance) {
         if (!bee1.isActive()) {
             MagicBees.logger.info("Species " + bee1 + " is not active, not registering mutation for bee: " + this);
         }
         return registerMutation(bee1.getSpecies(), bee2, chance);
     }
 
-    protected final IBeeMutationBuilder registerMutation(IAlleleBeeSpecies bee1, EnumBeeSpecies bee2, int chance) {
+    protected final MagicBeesMutationBuilder registerMutation(IAlleleBeeSpecies bee1, EnumBeeSpecies bee2, int chance) {
         if (!bee2.isActive()) {
             MagicBees.logger.info("Species " + bee2 + " is not active, not registering mutation for bee: " + this);
         }
         return registerMutation(bee1, bee2.getSpecies(), chance);
     }
 
-    protected final IBeeMutationBuilder registerMutation(IAlleleBeeSpecies bee1, IAlleleBeeSpecies bee2, int chance) {
+    protected final MagicBeesMutationBuilder registerMutation(IAlleleBeeSpecies bee1, IAlleleBeeSpecies bee2, int chance) {
         Preconditions.checkNotNull(bee1);
         Preconditions.checkNotNull(bee2);
-        return forestry.api.apiculture.BeeManager.beeMutationFactory.createMutation(bee1, bee2, this.getIndividualDefinition().getAlleles(), chance);
+        MagicBeesMutationBuilder beeMutation = new MagicBeesMutationBuilder(bee1, bee2, this.getIndividualDefinition().getAlleles(), chance) {
+
+            @Override
+            public MagicBeesMutationBuilder requireResource(EnumOreResourceType ore) {
+                if (!ore.blockExists()) {
+                    enabledOverride = false;
+                }
+                return super.requireResource(ore);
+            }
+
+        };
+        Preconditions.checkNotNull(BeeManager.beeRoot).registerMutation(beeMutation);
+        return beeMutation;
+        //return Preconditions.checkNotNull(forestry.api.apiculture.BeeManager.beeMutationFactory).createMutation(bee1, bee2, this.getIndividualDefinition().getAlleles(), chance);
     }
 
     public IAlleleBeeSpecies getSpecies() {
