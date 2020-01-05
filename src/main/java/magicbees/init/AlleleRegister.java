@@ -44,11 +44,11 @@ public final class AlleleRegister {
         flowersBookshelf = new AlleleFlowerProvider(new MagicBeesResourceLocation("flowersBookshelf"), new FlowerProvider("flowersBookshelf"));
         flowersBookshelf.registerAcceptableFlower(Blocks.BOOKSHELF);
 
-        effectSlowSpeed = new AlleleEffectPotion(new MagicBeesResourceLocation("effectSlowSpeed"), new PotionEffect(MobEffects.SLOWNESS, 3));
-        effectWithering = new AlleleEffectPotion(new MagicBeesResourceLocation("effectWithering"), new PotionEffect(MobEffects.WITHER, 15));
-        effectInvisibility = new AlleleEffectPotion(new MagicBeesResourceLocation("effectInvisibility"), new PotionEffect(MobEffects.INVISIBILITY, 10)).setBypassesArmour();
-        effectMoveSpeed = new AlleleEffectPotion(new MagicBeesResourceLocation("moveSpeed"), new PotionEffect(MobEffects.SPEED, 15)).setBypassesArmour();
-        effectDigSpeed = new AlleleEffectPotion(new MagicBeesResourceLocation("digSpeed"), new PotionEffect(MobEffects.HASTE, 15)).setBypassesArmour();
+        effectSlowSpeed = new AlleleEffectPotion(new MagicBeesResourceLocation("effectSlowSpeed"), new PotionEffect(MobEffects.SLOWNESS, 3 * 20));
+        effectWithering = new AlleleEffectPotion(new MagicBeesResourceLocation("effectWithering"), new PotionEffect(MobEffects.WITHER, 15 * 20));
+        effectInvisibility = new AlleleEffectPotion(new MagicBeesResourceLocation("effectInvisibility"), new PotionEffect(MobEffects.INVISIBILITY, 10 * 20)).setBypassesArmour();
+        effectMoveSpeed = new AlleleEffectPotion(new MagicBeesResourceLocation("moveSpeed"), new PotionEffect(MobEffects.SPEED, 15 * 20)).setBypassesArmour();
+        effectDigSpeed = new AlleleEffectPotion(new MagicBeesResourceLocation("digSpeed"), new PotionEffect(MobEffects.HASTE, 15 * 20)).setBypassesArmour();
 
         effectCrumbling = new AlleleEffectCrumbling(new MagicBeesResourceLocation("crumbling"), MagicBees.crumblingHandler);
         effectTransmuting = new AlleleEffectTransmuting(new MagicBeesResourceLocation("effectTransmuting"), MagicBees.transmutationController);

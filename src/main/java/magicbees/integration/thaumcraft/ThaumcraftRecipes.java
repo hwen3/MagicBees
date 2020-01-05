@@ -38,6 +38,7 @@ public class ThaumcraftRecipes {
         registerNormalRecipes();
         registerCentrifugeRecipes();
         registerCarpenterRecipes();
+        registerThaumcraftRecipes();
     }
 
     private static void registerNormalRecipes() {
@@ -138,6 +139,9 @@ public class ThaumcraftRecipes {
                 'W', Utils.getCoreItems().craftingMaterial.getWovenSilk(),
                 'T', new ItemStack(thaumaturgeBackpackT1)
         );
+    }
+
+    private static void registerThaumcraftRecipes() {
     }
 
     private static ItemStack getPropolis(EnumPropolisType propolis) {

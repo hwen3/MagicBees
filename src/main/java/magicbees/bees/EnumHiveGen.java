@@ -28,7 +28,7 @@ public enum EnumHiveGen {
     CURIOUS(3.0f, HiveManager.genHelper.tree(), BiomeDictionary.Type.FOREST, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HILLS),
     UNUSUAL(1.0f, HiveManager.genHelper.ground(Blocks.DIRT, Blocks.GRASS), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.RIVER),
     RESONANT(0.9f, HiveManager.genHelper.ground(Blocks.SAND, Blocks.SANDSTONE), BiomeDictionary.Type.SANDY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.HOT, BiomeDictionary.Type.MAGICAL),
-    DEEP(5.0f, new HiveGenUnderground(10, 15, 5), BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.MAGICAL) {
+    DEEP(3.8f, new HiveGenUnderground(10, 15, 5), BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.MAGICAL) {
         @Override
         void postGen(World world, Random random, BlockPos blockPos) {
             if (!postGenRedstone) {
@@ -111,10 +111,11 @@ public enum EnumHiveGen {
     }
 
     private static void spawnVein(World world, BlockPos pos, int maxSpawnCount, IBlockState replacement, Block toReplace) {
+        maxSpawnCount = world.rand.nextInt(maxSpawnCount + 1);
         int spawnAttempts = 0;
         int spawnCount = 0;
 
-        while (spawnCount < maxSpawnCount && spawnAttempts < maxSpawnCount * 2) {
+        while (spawnCount < maxSpawnCount && spawnAttempts < maxSpawnCount * 1.2) {
             ++spawnAttempts;
             if (world.isBlockLoaded(pos) && !world.isAirBlock(pos) && HiveGenUnderground.isReplaceableOreGen(world.getBlockState(pos), world, pos, toReplace)) {
                 world.setBlockState(pos, replacement, 2);

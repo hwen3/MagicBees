@@ -46,7 +46,7 @@ public class TaintHelper {
 
         for (EnumFacing facing : EnumFacing.HORIZONTALS) {
             for (int i = 1; i <= 2; i++) {
-                AuraHandler.addFlux(world, new BlockPos((x + facing.getFrontOffsetX() * i) * 16, 10, (z + facing.getFrontOffsetZ() * i) * 16), flux / 3);
+                AuraHandler.addFlux(world, new BlockPos((x + facing.getXOffset() * i) * 16, 10, (z + facing.getZOffset() * i) * 16), flux / 3);
             }
         }
 

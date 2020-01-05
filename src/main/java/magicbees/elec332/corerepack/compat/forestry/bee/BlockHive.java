@@ -71,9 +71,9 @@ public abstract class BlockHive<T extends Enum<T> & IHiveEnum> extends Block {
                 return damage;
             }
 
-            @Override
             @Nonnull
-            public String getUnlocalizedName(ItemStack stack) {
+            @Override
+            public String getTranslationKey(ItemStack stack) {
                 return unlName + metaToObject.get(getMetadata(stack.getItemDamage())).getName();
             }
 

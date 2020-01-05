@@ -82,11 +82,11 @@ public final class ItemRegister {
         BackpackManager.backpackInterface.registerBackpackDefinition(backpackUid, def);
         thaumaturgeBackpackT1 = BackpackManager.backpackInterface.createBackpack(backpackUid, EnumBackpackType.NORMAL);
         thaumaturgeBackpackT1.setRegistryName(new MagicBeesResourceLocation("backpack_thaumaturge_t1"));
-        thaumaturgeBackpackT1.setUnlocalizedName("backpack.thaumaturgeT1");
+        thaumaturgeBackpackT1.setTranslationKey("backpack.thaumaturgeT1");
         thaumaturgeBackpackT1.setCreativeTab(MagicBees.creativeTab);
         thaumaturgeBackpackT2 = BackpackManager.backpackInterface.createBackpack(backpackUid, EnumBackpackType.WOVEN);
         thaumaturgeBackpackT2.setRegistryName(new MagicBeesResourceLocation("backpack_thaumaturge_t2"));
-        thaumaturgeBackpackT2.setUnlocalizedName("backpack.thaumaturgeT2");
+        thaumaturgeBackpackT2.setTranslationKey("backpack.thaumaturgeT2");
         thaumaturgeBackpackT2.setCreativeTab(MagicBees.creativeTab);
 
         jellyBaby = new ItemFood(1, false).setAlwaysEdible().setPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 1), 1f);

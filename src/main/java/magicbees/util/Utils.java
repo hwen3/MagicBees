@@ -34,6 +34,7 @@ public class Utils {
         return itemsC;
     }
 
+    @SuppressWarnings("unused")
     public static BlockRegistryCore getCoreBlocks() {
         return blocksC;
     }
@@ -60,11 +61,11 @@ public class Utils {
     }
 
     public static void setUnlocalizedName(Item item) {
-        item.setUnlocalizedName(getUnlocalizedName(item));
+        item.setTranslationKey(getUnlocalizedName(item));
     }
 
     public static void setUnlocalizedName(Block block) {
-        block.setUnlocalizedName(getUnlocalizedName(block));
+        block.setTranslationKey(getUnlocalizedName(block));
     }
 
     @SuppressWarnings("all")

@@ -46,7 +46,7 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
     }
 
     @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
         if (!isInCreativeTab(tab)) {
             return;
         }
@@ -57,12 +57,12 @@ public class ItemEnumBased<E extends Enum<E> & IEnumItem> extends Item implement
         }
     }
 
-    @Override
     @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
+    @Override
+    public String getTranslationKey(ItemStack stack) {
         E e = stack == null ? null : get(stack.getItemDamage());
         if (e == null) {
-            return super.getUnlocalizedName(stack);
+            return super.getTranslationKey(stack);
         }
         return e.getUnlocalizedName(stack);
     }

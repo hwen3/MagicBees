@@ -16,6 +16,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Elec332 on 4-3-2017.
  */
@@ -54,8 +56,9 @@ public final class BlockRegister {
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(new ItemBlock(hiveBlock) {
 
+            @Nonnull
             @Override
-            public String getUnlocalizedName(ItemStack stack) {
+            public String getTranslationKey(ItemStack stack) {
                 return hiveBlock.getUnlocalizedName(stack);
             }
 

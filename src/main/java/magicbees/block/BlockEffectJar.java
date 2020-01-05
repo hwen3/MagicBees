@@ -90,16 +90,17 @@ public class BlockEffectJar extends Block implements ITileEntityProvider {
         return layer == BlockRenderLayer.SOLID || layer == BlockRenderLayer.TRANSLUCENT;
     }
 
+    @Nonnull
     @Override
-    public BlockRenderLayer getBlockLayer() {
-        return super.getBlockLayer();
+    public BlockRenderLayer getRenderLayer() {
+        return super.getRenderLayer();
     }
 
     @Override
     public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         TileEntity tile = world.getTileEntity(pos);
 
-        if (tile != null && tile instanceof TileEntityEffectJar) {
+        if (tile instanceof TileEntityEffectJar) {
             TileEntityEffectJar jar = (TileEntityEffectJar) tile;
 
             // 0 is the only droppable stack.

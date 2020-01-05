@@ -1,5 +1,6 @@
 package magicbees.util;
 
+import com.google.common.base.Preconditions;
 import forestry.api.apiculture.BeeManager;
 import forestry.api.apiculture.EnumBeeType;
 import forestry.api.apiculture.IBee;
@@ -21,9 +22,9 @@ public class MagicBeesCreativeTab extends CreativeTabs {
         super(MagicBees.modid);
     }
 
-    @Override
     @Nonnull
-    public ItemStack getTabIconItem() {
+    @Override
+    public ItemStack createIcon() {
         return new ItemStack(ItemRegister.magicFrame);
     }
 
@@ -43,7 +44,7 @@ public class MagicBeesCreativeTab extends CreativeTabs {
                     continue;
                 }
 
-                ItemStack beeStack = BeeManager.beeRoot.getMemberStack(bee, type);
+                ItemStack beeStack = Preconditions.checkNotNull(BeeManager.beeRoot).getMemberStack(bee, type);
                 if (!beeStack.isEmpty()) {
                     items.add(beeStack);
                 }

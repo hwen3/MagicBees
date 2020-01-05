@@ -155,7 +155,6 @@ public class ModelHandler {
     }
 
     @SubscribeEvent
-    @SuppressWarnings("deprecation")
     public void loadSpecialModels(ModelBakeEvent event) {
         itemTransform = item;//event.getModelRegistry().getObject(new ModelResourceLocation(new ResourceLocation("stick"), "inventory")).getItemCameraTransforms();
         event.getModelRegistry().putObject(moonDialModelLocation, new BlankModel() {
@@ -204,7 +203,7 @@ public class ModelHandler {
 
         });
         IBakedModel originalModel = event.getModelRegistry().getObject(effectJarModel);
-        if (originalModel != null) {
+        if (originalModel != null  && Config.oldJarModel) {
             IBakedModel replacement;
             try {
                 IModel model = OBJLoader.INSTANCE.loadModel(new MagicBeesResourceLocation("models/block/obj/effectjar.obj"));

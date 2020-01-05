@@ -89,18 +89,50 @@ minecraft {
 }
 
 dependencies {
+	//JEI
     deobfProvided "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}:api"
     runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
-    deobfCompile("net.sengir.forestry:forestry_${config.forestry_version}") {
+    runtime "jei-bees:jeibees:${config.jeibees_version}:mc${config.minecraft_version}"
+	
+	//Forestry
+	deobfCompile("net.sengir.forestry:forestry_${config.forestry_version}") {
         transitive = false
     }
-    runtime "jei-bees:jeibees:${config.jeibees_version}:mc${config.minecraft_version}"
-    deobfCompile "com.azanor.baubles:Baubles:1.12-${config.baubles_version}"
+    
+	//AE2
+	runtime "applied-energistics-2:appliedenergistics2-${config.ae2_version}"
+	
+	//Railcraft
+	runtime "railcraft:railcraft:${config.railcraft_version}"
+	
+	//Thaumcraft
+	deobfCompile "thaumcraft:Thaumcraft:${config.minecraft_version}:${config.thaumcraft_version}"
+	runtime "com.azanor.baubles:Baubles:1.12-${config.baubles_version}"
+	
+	//Botania
     deobfCompile "vazkii.botania:Botania:${config.botania_version}"
-    deobfCompile ("cofh:ThermalFoundation:${config.minecraft_version}-${config.thermal_foundation_version}:universal") {
-        exclude group: 'mezz.jei', module: 'jei_1.12.2'
+	
+	//Thermal Expansion & Redstone Arsenal
+	runtime ("cofh:ThermalExpansion:${config.minecraft_version}-${config.thermal_expansion_version}:universal") {
+        exclude group: 'mezz.jei'
     }
-    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA17"
+	runtime ("cofh:RedstoneArsenal:${config.minecraft_version}-${config.rsa_version}:universal") {
+        exclude group: 'mezz.jei'
+    }
+	//All TE & RSA deps below, thx...
+	runtime ("cofh:RedstoneFlux:1.12-${config.rf_version}:universal") { //MC 1.12 instead of 1.12.2....
+        exclude group: 'mezz.jei'
+    }
+	runtime ("cofh:CoFHCore:${config.minecraft_version}-${config.cofh_version}:universal") {
+        exclude group: 'mezz.jei'
+    }
+	runtime ("cofh:CoFHWorld:${config.minecraft_version}-${config.cofh_world_version}:universal") {
+        exclude group: 'mezz.jei'
+    }
+    runtime ("cofh:ThermalFoundation:${config.minecraft_version}-${config.thermal_foundation_version}:universal") {
+        exclude group: 'mezz.jei'
+    }
+	runtime "codechicken:CodeChickenLib:${config.minecraft_version}-${config.ccl_version}:universal"
 }
 
 processResources {

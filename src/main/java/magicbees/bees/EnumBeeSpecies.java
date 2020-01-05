@@ -27,9 +27,11 @@ import magicbees.util.EnumOreResourceType;
 import magicbees.util.IMagicBeesBranch;
 import magicbees.util.ModNames;
 import magicbees.util.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.Loader;
@@ -38,8 +40,10 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import static magicbees.elec332.corerepack.compat.forestry.ForestryAlleles.*;
 
@@ -659,7 +663,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Common"), SKULKING, 12).restrictBiomeType(BiomeDictionary.Type.MOUNTAIN);
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Common"), SKULKING, 12).restrictBiomeType(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS);
         }
 
     },
@@ -1001,7 +1005,7 @@ public enum EnumBeeSpecies implements IBeeTemplate {
         }
 
     },
-    TRANSMUTING("effectTransmuting", EnumBeeBranches.TRANSMUTING, false, new Color(0xDBB24C), new Color(0xA2D2D8)) {
+    TRANSMUTING("transmuting", EnumBeeBranches.TRANSMUTING, false, new Color(0xDBB24C), new Color(0xA2D2D8)) {
         @Override
         public void modifyGenomeTemplate(BeeGenomeTemplate template) {
             template.setEffect(AlleleRegister.effectTransmuting);
@@ -1178,7 +1182,19 @@ public enum EnumBeeSpecies implements IBeeTemplate {
 
         @Override
         public void registerMutations() {
-            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), EnumBeeSpecies.getForestrySpecies("Cultivated"), 10).requireResource("blockAluminium");
+            Set<IBlockState> acceptedBlockStates = new HashSet<>();
+            for (String oreDictName : new String[]{"blockAluminium", "blockAluminum"}) {
+                for (ItemStack ore : OreDictionary.getOres(oreDictName)) {
+                    if (!ore.isEmpty()) {
+                        Item oreItem = ore.getItem();
+                        Block oreBlock = Block.getBlockFromItem(oreItem);
+                        if (oreBlock != Blocks.AIR) {
+                            acceptedBlockStates.addAll(oreBlock.getBlockState().getValidStates());
+                        }
+                    }
+                }
+            }
+            registerMutation(EnumBeeSpecies.getForestrySpecies("Industrious"), EnumBeeSpecies.getForestrySpecies("Cultivated"), 10).requireResource(acceptedBlockStates.toArray(new IBlockState[0]));
         }
 
     },

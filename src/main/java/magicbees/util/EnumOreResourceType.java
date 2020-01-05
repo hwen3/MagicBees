@@ -1,5 +1,6 @@
 package magicbees.util;
 
+import com.google.common.base.Preconditions;
 import magicbees.init.ItemRegister;
 import magicbees.item.types.EnumNuggetType;
 import net.minecraft.init.Items;
@@ -19,7 +20,7 @@ import java.util.List;
 public enum EnumOreResourceType {
 
     IRON(new ItemStack(ItemRegister.ironNugget), "nuggetIron"),
-    GOLD(new ItemStack(Items.GOLD_NUGGET)),
+    GOLD(new ItemStack(Items.GOLD_NUGGET), "nuggetGold"),
     COPPER(EnumNuggetType.COPPER, "nuggetCopper"),
     TIN(EnumNuggetType.TIN, "nuggetTin"),
     SILVER("nuggetSilver", "dustTinySilver"),
@@ -50,9 +51,9 @@ public enum EnumOreResourceType {
         }
 
     },
-    SILICON,
-    CERTUS,
-    FLUIX,
+    SILICON("itemSilicon"),
+    CERTUS("crystalCertusQuartz"),
+    FLUIX("crystalFluix"),
     PLATINUM("nuggetPlatinum"),
     NICKEL("nuggetNickel", "nuggetFerrous"),
     BRONZE(EnumNuggetType.BRONZE, "nuggetBronze"),
@@ -68,7 +69,6 @@ public enum EnumOreResourceType {
         this((ItemStack) null, oreDictA);
     }
 
-    @SuppressWarnings("all")
     EnumOreResourceType(@Nullable ItemStack stack, String... oreDictA) {
         if (oreDictA == null) {
             oreDictA = new String[0];
@@ -119,7 +119,7 @@ public enum EnumOreResourceType {
         for (EnumOreResourceType type : EnumOreResourceType.values()) {
             if (type.oreDictA.length > 0) {
                 if (type.finalStack != null && !type.finalStack.isEmpty()) {
-                    if (!(type.finalStack.getItem() == ItemRegister.ironNugget && ItemRegister.ironNugget.getRegistryName().getResourceDomain().equals("minecraft"))) {
+                    if (!(type.finalStack.getItem() == ItemRegister.ironNugget && Preconditions.checkNotNull(ItemRegister.ironNugget.getRegistryName()).getNamespace().equals("minecraft"))) {
                         for (String s : type.oreDictA) {
                             if (s.startsWith("nugget")) {
                                 OreDictionary.registerOre(s, type.finalStack);
